@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e966bad306b49034d941c4a894d9b7fb, type: 3}
+  m_Name: DefaultSettings
+  m_EditorClassIdentifier: 
+  <Settings>k__BackingField:
+    soundsVolume: 1
+    musicVolume: 0.8
+    ambientVolume: 0.8
+    fullscreenMode: 1
+    shadowsEnabled: 1
+    shadowsResolution: 1
+    shadersQuality: 3
+    antiAliasing: 0
+    antiAliasingMsaa: 2
+    fogType: 1
+    renderDistance: 2
+    debugCode: 

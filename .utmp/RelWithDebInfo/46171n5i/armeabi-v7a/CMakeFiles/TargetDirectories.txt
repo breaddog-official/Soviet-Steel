@@ -1,0 +1,5 @@
+D:/unity/projects/Kamaz/.utmp/RelWithDebInfo/46171n5i/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/unity/projects/Kamaz/.utmp/RelWithDebInfo/46171n5i/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+D:/unity/projects/Kamaz/.utmp/RelWithDebInfo/46171n5i/armeabi-v7a/GameActivity/CMakeFiles/game.dir
+D:/unity/projects/Kamaz/.utmp/RelWithDebInfo/46171n5i/armeabi-v7a/GameActivity/CMakeFiles/edit_cache.dir
+D:/unity/projects/Kamaz/.utmp/RelWithDebInfo/46171n5i/armeabi-v7a/GameActivity/CMakeFiles/rebuild_cache.dir
