@@ -1,3 +1,3 @@
 Build path: D:/unity/projects/Kamaz/Builds/Build_Android/Need for Buhanka.apk
-Build number: 15
+Build number: 16
 PluginYG version: 2.0031

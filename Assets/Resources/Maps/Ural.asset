@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Ural
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Ural
-  <Description>k__BackingField: 
+  <Description>k__BackingField: 5.298 kilometrs
   <Scene>k__BackingField: Game_Ural
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 2800000, guid: 449dd6dc765c2aa43a88b18a18c44f35, type: 3}

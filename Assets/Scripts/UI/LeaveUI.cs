@@ -1,10 +1,13 @@
 using Mirror;
 using UnityEngine;
 
-public class LeaveUI : MonoBehaviour
+namespace Scripts.UI
 {
-    public void Leave()
+    public class LeaveUI : MonoBehaviour
     {
-        NetworkManager.singleton.StopHost();
+        public void Leave()
+        {
+            NetworkManager.singleton.StopHost();
+        }
     }
 }
