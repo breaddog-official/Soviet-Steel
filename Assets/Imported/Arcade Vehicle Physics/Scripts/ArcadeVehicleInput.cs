@@ -34,8 +34,6 @@ namespace ArcadeVP
 
             if (!string.IsNullOrWhiteSpace(breakControl))
                 breakAction = inputMap.FindAction(breakControl);
-
-            playerInput.enabled = false;
         }
 
         private void Update()
@@ -52,18 +50,6 @@ namespace ArcadeVP
             bool? breakInput = breakAction?.IsPressed();
 
             arcadeVehicleController.ProvideInputs(moveInput ?? default, breakInput ?? default);
-        }
-
-
-
-        public override void OnStartAuthority()
-        {
-            playerInput.enabled = true;
-        }
-
-        public override void OnStopAuthority()
-        {
-            playerInput.enabled = false;
         }
     }
 }

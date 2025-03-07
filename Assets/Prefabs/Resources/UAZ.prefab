@@ -620,7 +620,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  vehicleController: {fileID: 6190232540197196972}
   vehicleCinemachine: {fileID: 5579852667695232331}
+  vehicleInput: {fileID: 2404331634369452856}
+  autoStart: 0
 --- !u!114 &2860274651375638740
 MonoBehaviour:
   m_ObjectHideFlags: 0

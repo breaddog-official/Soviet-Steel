@@ -13,12 +13,12 @@
     },
     "refreshRate": -2147483648
   },
-  "shadowsEnabled": true,
+  "shadowsEnabled": false,
   "shadowsResolution": 3,
   "shadersQuality": 3,
   "antiAliasing": 0,
   "antiAliasingMsaa": 0,
-  "fogType": 1,
+  "fogType": 0,
   "renderDistance": 3,
   "debugCode": ""
 }

@@ -61,6 +61,7 @@ namespace ArcadeVP
 
         private SphereCollider sphereCollider;
 
+        private bool handbrake;
 
         private float radius;
         private Vector3 origin;
@@ -72,6 +73,7 @@ namespace ArcadeVP
 
         private float AccelerationInput => smoothedMoveInput.y;
         private float SteeringInput => smoothedMoveInput.x;
+        private bool BrakeInput => handbrake || brakeInput;
 
 
         private void Start()
@@ -124,6 +126,14 @@ namespace ArcadeVP
             }
         }
 
+        public void Handbrake(bool state)
+        {
+            handbrake = state;
+        }
+
+
+
+
 
         void FixedUpdate()
         {
@@ -144,7 +154,7 @@ namespace ArcadeVP
                 //turnlogic
                 float sign = Mathf.Sign(carVelocity.z);
                 float TurnMultiplyer = turnCurve.Evaluate(carVelocity.magnitude / MaxSpeed);
-                if (kartLike && brakeInput) { TurnMultiplyer *= driftMultiplier; } //turn more if drifting
+                if (kartLike && BrakeInput) { TurnMultiplyer *= driftMultiplier; } //turn more if drifting
 
 
                 if (AccelerationInput > 0.1f || carVelocity.z > 1)
@@ -161,7 +171,7 @@ namespace ArcadeVP
                 // mormal brakelogic
                 if (!kartLike)
                 {
-                    if (brakeInput)
+                    if (BrakeInput)
                     {
                         rb.constraints = RigidbodyConstraints.FreezeRotationX;
                     }
@@ -175,7 +185,7 @@ namespace ArcadeVP
 
                 if (movementMode == MovementMode.AngularVelocity)
                 {
-                    if (Mathf.Abs(AccelerationInput) > 0.1f && !brakeInput && !kartLike)
+                    if (Mathf.Abs(AccelerationInput) > 0.1f && !BrakeInput && !kartLike)
                     {
                         rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, carBody.transform.right * AccelerationInput * MaxSpeed / radius, accelaration * Time.deltaTime);
                     }
@@ -186,7 +196,7 @@ namespace ArcadeVP
                 }
                 else if (movementMode == MovementMode.Velocity)
                 {
-                    if (Mathf.Abs(AccelerationInput) > 0.1f && !brakeInput && !kartLike)
+                    if (Mathf.Abs(AccelerationInput) > 0.1f && !BrakeInput && !kartLike)
                     {
                         rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, carBody.transform.forward * AccelerationInput * MaxSpeed, accelaration / 10 * Time.deltaTime);
                     }
@@ -243,7 +253,7 @@ namespace ArcadeVP
 
             if (kartLike)
             {
-                if (brakeInput)
+                if (BrakeInput)
                 {
                     BodyMesh.parent.localRotation = Quaternion.Slerp(BodyMesh.parent.localRotation,
                     Quaternion.Euler(0, 45 * SteeringInput * Mathf.Sign(carVelocity.z), 0),

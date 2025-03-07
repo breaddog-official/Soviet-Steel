@@ -2,36 +2,43 @@
 using Unity.Burst;
 using Mirror;
 using Unity.Cinemachine;
+using UnityEngine.InputSystem;
 
 namespace ArcadeVP
 {
     [BurstCompile] 
     public class ArcadeVehicleNetwork : NetworkBehaviour
     {
+        [SerializeField] private ArcadeVehicleController vehicleController;
         [SerializeField] private CinemachineCamera vehicleCinemachine;
+        [SerializeField] private PlayerInput vehicleInput;
+        [SerializeField] private bool autoStart;
 
 
 
         private void Awake()
         {
-            SetCameraState(false);
+            SetState(false);
         }
 
         public override void OnStartAuthority()
         {
-            SetCameraState(true);
+            if (autoStart)
+                SetState(true);
         }
 
         public override void OnStopAuthority()
         {
-            SetCameraState(false);
+            SetState(false);
         }
 
 
 
-        public void SetCameraState(bool state)
+        public void SetState(bool state)
         {
-            vehicleCinemachine.gameObject.SetActive(state);
+            vehicleController.Handbrake(!state);
+            vehicleCinemachine.enabled = state;
+            vehicleInput.enabled = state;
         }
     }
 }

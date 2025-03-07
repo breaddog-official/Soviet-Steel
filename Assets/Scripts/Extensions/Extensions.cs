@@ -61,6 +61,43 @@ namespace Scripts.Extensions
             if (index > bounds - (dontCollideBounds ? 1 : 0))
                 index = 0;
         }
+
+
+        /// <summary>
+        /// Safely increments index within array length
+        /// </summary>
+        public static int IncreaseInBoundsReturn(this int index, Array array) => index.IncreaseInBoundsReturn(array.Length);
+
+        /// <summary>
+        /// Safely increments index within array length
+        /// </summary>
+        public static uint IncreaseInBoundsReturn(this uint index, Array array) => index.IncreaseInBoundsReturn((uint)array.Length);
+
+        /// <summary>
+        /// Safely increments index within array length
+        /// </summary>
+        public static int IncreaseInBoundsReturn(this int index, int bounds, bool dontCollideBounds = true)
+        {
+            index++;
+
+            if (index > bounds - (dontCollideBounds ? 1 : 0))
+                index = 0;
+
+            return index;
+        }
+
+        /// <summary>
+        /// Safely increments index within array length
+        /// </summary>
+        public static uint IncreaseInBoundsReturn(this uint index, uint bounds, bool dontCollideBounds = true)
+        {
+            index++;
+
+            if (index > bounds - (dontCollideBounds ? 1 : 0))
+                index = 0;
+
+            return index;
+        }
         #endregion
 
         #region DecreaseInBounds
