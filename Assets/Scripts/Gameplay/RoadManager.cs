@@ -4,19 +4,21 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using Scripts.Extensions;
 using System;
+using Mirror;
 
-public class RoadManager : MonoBehaviour
+public class RoadManager : NetworkBehaviour
 {
     [SerializeField] private ERModularRoad road;
     [MinValue(0)]
     [SerializeField] private int firstMarker;
 
-    private readonly Dictionary<Transform, PlayerScore> players = new();
+    private readonly SyncDictionary<Transform, PlayerScore> players = new();
 
+    public event Action<Transform, int> OnPlayerReachedMarker;
     public event Action<Transform, int> OnPlayerReachedRound;
 
 
-
+    [Server]
     public void AddPlayer(GameObject player)
     {
         players.Add(player.transform, new PlayerScore
@@ -25,6 +27,7 @@ public class RoadManager : MonoBehaviour
         });
     }
 
+    [Server]
     public void RemovePlayer(GameObject player)
     {
         players.Remove(player.transform);
@@ -41,14 +44,13 @@ public class RoadManager : MonoBehaviour
 
             if (Vector3.Distance(player.Key.position, GetPoint(nextPoint)) < GetRadius())
             {
-                players[player.Key].marker = nextPoint;
+                player.Value.SetMarker(nextPoint);
+                OnPlayerReachedMarker?.Invoke(player.Key, player.Value.marker);
 
                 if (nextPoint == firstMarker)
                 {
-                    ref int round = ref players[player.Key].round;
-
-                    round++;
-                    OnPlayerReachedRound?.Invoke(player.Key, round);
+                    player.Value.SetRound(player.Value.round + 1);
+                    OnPlayerReachedRound?.Invoke(player.Key, player.Value.round);
                 }
 
                 print($"Marker: {players[player.Key].marker}    Round: {players[player.Key].round}");
@@ -83,9 +85,12 @@ public class RoadManager : MonoBehaviour
 #endif
     #endregion
 
-    public class PlayerScore
+    public struct PlayerScore
     {
         public int marker;
         public int round;
+
+        public void SetMarker(int marker) => this.marker = marker;
+        public void SetRound(int round) => this.round = round;
     }
 }

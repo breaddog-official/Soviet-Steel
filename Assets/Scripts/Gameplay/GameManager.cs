@@ -2,11 +2,12 @@ using ArcadeVP;
 using Mirror;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     [SerializeField] private RoadManager roadManager;
     [SerializeField] private bool autoStartMatch = true;
 
+    [field: SyncVar(hook = nameof(IsMatchUpdate))]
     public bool IsMatch { get; private set; }
 
 
@@ -40,13 +41,15 @@ public class GameManager : MonoBehaviour
 
 
 
-    public void StartMatch()
-    {
-        IsMatch = true;
+    public void StartMatch() => IsMatch = true;
+    public void StopMatch() => IsMatch = false;
 
-        if (NetworkClient.active && NetworkClient.localPlayer.TryGetComponent<ArcadeVehicleNetwork>(out var vehicle))
+
+    private void IsMatchUpdate(bool oldIsMatch, bool isMatch)
+    {
+        if (NetworkClient.localPlayer != null && NetworkClient.localPlayer.TryGetComponent<ArcadeVehicleNetwork>(out var vehicle))
         {
-            vehicle.SetState(true);
+            vehicle.SetState(isMatch);
         }
     }
 

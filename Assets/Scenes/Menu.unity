@@ -52519,7 +52519,7 @@ MonoBehaviour:
   lowShader: {fileID: 10505, guid: 0000000000000000f000000000000000, type: 0}
   mediumShader: {fileID: 0}
   highShader: {fileID: 0}
-  extremeShader: {fileID: 4800000, guid: 716597d0fb71e7f4abfe66501f169921, type: 3}
+  extremeShader: {fileID: 0}
 --- !u!114 &1491322448
 MonoBehaviour:
   m_ObjectHideFlags: 0
