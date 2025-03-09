@@ -52,6 +52,28 @@ namespace Scripts.Settings
             Maximum
         }
 
+        public enum ShadowsType
+        {
+            None,
+
+            [Tooltip("SSAO")]
+            Simple,
+
+            [Tooltip("Shadows")]
+            Standart,
+
+            [Tooltip("Shadows + SSAO")]
+            Advanced
+        }
+
+        public enum ShadowsQuality
+        {
+            Low,
+            Medium,
+            High,
+            Ultra
+        }
+
         /*public enum ParticlesMode
         {
             Disabled,
@@ -90,9 +112,8 @@ namespace Scripts.Settings
         public Resolution resolution;
 
         [Header("Graphics")]
-        public bool shadowsEnabled;
-        [ShowIf(nameof(shadowsEnabled))]
-        public ShadowResolution shadowsResolution = ShadowResolution.Medium;
+        public ShadowsType shadows;
+        public ShadowsQuality shadowsQuality = ShadowsQuality.Medium;
         public ShadersQuality shadersQuality = ShadersQuality.Medium;
         public AntiAliasing antiAliasing;
         public AntiAliasingMSAA antiAliasingMsaa;

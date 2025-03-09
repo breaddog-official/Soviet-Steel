@@ -6,73 +6,85 @@ using static Scripts.Settings.Settings;
 
 namespace Scripts.Settings
 {
+    [ExecuteInEditMode]
     public class SObserverFog : SettingHandler<FogType>
     {
         [Space]
         [SerializeField] protected AuraCamera auraCamera;
         [Space]
-        [SerializeField] protected bool useExponentialFog;
-        [ShowIf(nameof(useExponentialFog))]
-        [SerializeField] protected bool useExponentialSquaredFog;
-        [ShowIf(nameof(useExponentialFog))]
-        [SerializeField] protected float exponentialFogDensity = 0.03f;
-        [ShowIf(EConditionOperator.And, nameof(smoothRenderDistanceByFog), nameof(useExponentialFog))]
-        [SerializeField] protected float smoothRenderDistanceExpMultiplier = 1f;
         [Space]
         [SerializeField] protected bool smoothRenderDistanceByFog;
-        [ShowIf(EConditionOperator.And, nameof(smoothRenderDistanceByFog), nameof(NonExponential))]
-        [SerializeField] protected float linearFogSize = 5f;
+        [Range(0, 100)]
+        [ShowIf(EConditionOperator.And, nameof(smoothRenderDistanceByFog), nameof(IsLinear))]
+        [SerializeField] protected float linearPercentage = 5f;
+        [ShowIf(EConditionOperator.And, nameof(smoothRenderDistanceByFog), nameof(IsExponential))]
+        [SerializeField] protected float dencityMultiplier = 1f;
+        [ShowIf(nameof(smoothRenderDistanceByFog))]
+        [SerializeField] protected float distanceThreshold = 1000f;
         [ShowIf(nameof(smoothRenderDistanceByFog))]
         [SerializeField] protected Camera renderDistanceCamera;
 
-        public bool NonExponential => !useExponentialFog;
+        protected bool IsLinear => RenderSettings.fogMode is FogMode.Linear;
+        protected bool IsExponential => RenderSettings.fogMode is FogMode.Exponential or FogMode.ExponentialSquared;
 
         protected static event Action OnRenderDistanceChangeEvent;
+
+        protected float cachedDencity;
+        protected float cachedStartDistance;
+        protected float cachedEndDistance;
+
+
+
+        protected virtual void Start()
+        {
+            Cache();
+        }
 
 
         protected override void OnEnable()
         {
+            OnRenderDistanceChangeEvent += UpdateValue;
+
             base.OnEnable();
 
-            OnRenderDistanceChangeEvent += UpdateValue;
         }
 
         protected override void OnDisable()
         {
-            base.OnDisable();
-
             OnRenderDistanceChangeEvent -= UpdateValue;
+
+            base.OnDisable();
         }
 
-
+        [Button]
         public override void UpdateValue()
         {
-            // Cache setting for not use reflections
-            var setting = Setting;
-
-            auraCamera.enabled = setting == FogType.VolumetricFog;
-            RenderSettings.fog = setting != FogType.None;
-
-
-            if (useExponentialFog)
+            if (Application.isPlaying)
             {
-                RenderSettings.fogMode = useExponentialSquaredFog ? FogMode.ExponentialSquared : FogMode.Exponential;
+                auraCamera.enabled = Setting == FogType.VolumetricFog;
+                RenderSettings.fog = Setting != FogType.None;
+            }
 
-                if (smoothRenderDistanceByFog)
+            if (smoothRenderDistanceByFog && renderDistanceCamera.farClipPlane < distanceThreshold)
+            {
+                if (IsLinear)
                 {
-                    var neededDensity = GetDensity(renderDistanceCamera.farClipPlane, RenderSettings.fogMode);
-                    RenderSettings.fogDensity = neededDensity > exponentialFogDensity ? neededDensity : exponentialFogDensity;
+                    var targetStart = renderDistanceCamera.farClipPlane / 100f * (100f - linearPercentage);
+                    var targetEnd = renderDistanceCamera.farClipPlane;
+
+                    RenderSettings.fogStartDistance = targetStart < cachedStartDistance ? targetStart : cachedStartDistance;
+                    RenderSettings.fogEndDistance = targetEnd < cachedEndDistance ? targetEnd : cachedEndDistance;
                 }
-                else
+                else if (IsExponential)
                 {
-                    RenderSettings.fogDensity = exponentialFogDensity;
+                    var targetDensity = GetDensity(renderDistanceCamera.farClipPlane, RenderSettings.fogMode);
+
+                    RenderSettings.fogDensity = targetDensity > cachedDencity ? targetDensity : cachedDencity;
                 }
             }
-            else if (smoothRenderDistanceByFog)
+            else if (Application.isPlaying)
             {
-                RenderSettings.fogMode = FogMode.Linear;
-                RenderSettings.fogStartDistance = renderDistanceCamera.farClipPlane - linearFogSize;
-                RenderSettings.fogEndDistance = renderDistanceCamera.farClipPlane;
+                ResetToCache();
             }
         }
 
@@ -80,8 +92,8 @@ namespace Scripts.Settings
         {
             return mode switch
             {
-                FogMode.Exponential => Mathf.Log(1f / 0.0019f) / renderDistance * smoothRenderDistanceExpMultiplier,
-                FogMode.ExponentialSquared => Mathf.Sqrt(Mathf.Log(1f / 0.0019f)) / renderDistance * smoothRenderDistanceExpMultiplier,
+                FogMode.Exponential => Mathf.Log(1f / 0.0019f) / renderDistance * dencityMultiplier,
+                FogMode.ExponentialSquared => Mathf.Sqrt(Mathf.Log(1f / 0.0019f)) / renderDistance * dencityMultiplier,
                 _ => 0f
             };
         }
@@ -89,6 +101,23 @@ namespace Scripts.Settings
         public static void OnRenderDistanceChange()
         {
             OnRenderDistanceChangeEvent?.Invoke();
+        }
+
+
+        [Button]
+        public void Cache()
+        {
+            cachedDencity = RenderSettings.fogDensity;
+            cachedStartDistance = RenderSettings.fogStartDistance;
+            cachedEndDistance = RenderSettings.fogEndDistance;
+        }
+
+        [Button]
+        public void ResetToCache()
+        {
+            RenderSettings.fogStartDistance = cachedStartDistance;
+            RenderSettings.fogEndDistance = cachedEndDistance;
+            RenderSettings.fogDensity = cachedDencity;
         }
     }
 }

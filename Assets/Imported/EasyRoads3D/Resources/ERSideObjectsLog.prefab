@@ -542,7 +542,7 @@ MonoBehaviour:
   - version: 2.0.0
     name: Barier
     id: 1740059045.471082
-    timestamp: 1740864312.2504892
+    timestamp: 1741549830.801214
     objectType: 2
     gameobjectGUID: 
     textureGUID: 
@@ -610,7 +610,7 @@ MonoBehaviour:
     material: {fileID: 0}
     physicMaterial: {fileID: 0}
     meshObjects: []
-    boxSize: {x: 0.2870509, y: 2.12}
+    boxSize: {x: 0.34206712, y: 2.12}
     boxOffset: {x: 0, y: 0.3166667}
     includeStartSegment: 0
     startSegmentOffset: 0
@@ -625,14 +625,14 @@ MonoBehaviour:
     defaultStartOffset: 0
     defaultEndOffset: 0
     segmentOffset: 0
-    totalZDistance: 8.000001
-    middleZDistance: 8.000001
+    totalZDistance: 8.034393
+    middleZDistance: 8.034393
     startZDistance: -2000
     endZDistance: -2000
     minStartZ: 1000
     maxStartZ: -1000
     minMiddleZ: 0
-    maxMiddleZ: 8.000001
+    maxMiddleZ: 8.034393
     minEndZ: 1000
     maxEndZ: -1000
     smoothStart: 0
@@ -769,7 +769,7 @@ MonoBehaviour:
     doubleSidedBendFlag: 0
     recalculateNormals: 0
     x1: -0.24000017
-    x2: 0.047049854
+    x2: 0.10206608
     xf1: 0
     xf2: 0
     xf1Total: 0

@@ -17,9 +17,9 @@ MonoBehaviour:
     musicVolume: 0.8
     ambientVolume: 0.8
     fullscreenMode: 1
-    shadowsEnabled: 1
-    shadowsResolution: 1
-    shadersQuality: 3
+    shadows: 2
+    shadowsQuality: 1
+    shadersQuality: 1
     antiAliasing: 0
     antiAliasingMsaa: 2
     fogType: 1

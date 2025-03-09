@@ -1,21 +1,60 @@
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
+using static Scripts.Settings.Settings;
 
 namespace Scripts.Settings
 {
-    public class SObserverShadowsEnabled : SettingHandler<bool>
+    public class SObserverShadowsEnabled : SettingHandler<ShadowsType>
     {
         [Space]
-        [SerializeField] protected bool setCameraRenderPath;
-        [ShowIf(nameof(setCameraRenderPath))]
-        [SerializeField] protected Camera renderCamera;
+        [SerializeField] protected bool isGlobal;
+        [ShowIf(nameof(isGlobal))]
+        [SerializeField] protected PostProcessProfile profile;
+        [HideIf(nameof(isGlobal))]
+        [SerializeField] protected PostProcessVolume volume;
+
+        protected PostProcessProfile Profile => isGlobal ? profile : volume.profile;
+
 
         public override void UpdateValue()
         {
-            QualitySettings.shadows = Setting ? ShadowQuality.HardOnly : ShadowQuality.Disable;
+            switch (Setting)
+            {
+                case ShadowsType.None:
 
-            if (setCameraRenderPath)
-                renderCamera.renderingPath = Setting ? RenderingPath.DeferredShading : RenderingPath.Forward;
+                    SetAmbientOcclusion(false);
+                    SetShadows(false);
+                    break;
+
+                case ShadowsType.Simple:
+
+                    SetAmbientOcclusion(true);
+                    SetShadows(false);
+                    break;
+
+                case ShadowsType.Standart:
+
+                    SetAmbientOcclusion(false);
+                    SetShadows(true);
+                    break;
+
+                case ShadowsType.Advanced:
+
+                    SetAmbientOcclusion(true);
+                    SetShadows(true);
+                    break;
+            }
+        }
+
+        protected virtual void SetAmbientOcclusion(bool state)
+        {
+            Profile.GetSetting<AmbientOcclusion>().enabled.Override(state);
+        }
+
+        protected virtual void SetShadows(bool state)
+        {
+            QualitySettings.shadows = state ? ShadowQuality.HardOnly : ShadowQuality.Disable;
         }
     }
 }

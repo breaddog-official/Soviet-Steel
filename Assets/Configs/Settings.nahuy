@@ -13,9 +13,9 @@
     },
     "refreshRate": -2147483648
   },
-  "shadowsEnabled": false,
-  "shadowsResolution": 3,
-  "shadersQuality": 3,
+  "shadows": 1,
+  "shadowsQuality": 3,
+  "shadersQuality": 2,
   "antiAliasing": 0,
   "antiAliasingMsaa": 0,
   "fogType": 0,

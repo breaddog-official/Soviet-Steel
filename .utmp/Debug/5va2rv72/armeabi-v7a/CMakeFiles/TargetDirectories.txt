@@ -1,0 +1,5 @@
+D:/unity/projects/Kamaz/.utmp/Debug/5va2rv72/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/unity/projects/Kamaz/.utmp/Debug/5va2rv72/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+D:/unity/projects/Kamaz/.utmp/Debug/5va2rv72/armeabi-v7a/GameActivity/CMakeFiles/game.dir
+D:/unity/projects/Kamaz/.utmp/Debug/5va2rv72/armeabi-v7a/GameActivity/CMakeFiles/edit_cache.dir
+D:/unity/projects/Kamaz/.utmp/Debug/5va2rv72/armeabi-v7a/GameActivity/CMakeFiles/rebuild_cache.dir
