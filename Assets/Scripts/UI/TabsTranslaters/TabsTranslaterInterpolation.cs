@@ -8,9 +8,9 @@ using UnityEngine;
 
 namespace Scripts.UI.Tabs
 {
-    public class TabsTranslaterDOTween : TabsTranslater
+    public class TabsTranslaterInterpolation : TabsTranslater
     {
-        [SerializeField] private TabDOTween[] tabs;
+        [SerializeField] private TabInterpolate[] tabs;
         [SerializeField] private bool fadeTogether;
 
         public override async UniTask VisualizeSwitchTabs(Tab oldTab, Tab newTab, CancellationToken token = default)
@@ -18,7 +18,7 @@ namespace Scripts.UI.Tabs
             UniTask oldTabFade = UniTask.CompletedTask;
             UniTask newTabFade = UniTask.CompletedTask;
 
-            if (oldTab != null && oldTab is TabDOTween doOldTab)
+            if (oldTab != null && oldTab is TabInterpolate doOldTab)
             {
                 oldTabFade = oldTab.canvasGroup.DOFade(0.0f, doOldTab.fadeDuration)
                                     .SetEase(doOldTab.ease)
@@ -32,7 +32,7 @@ namespace Scripts.UI.Tabs
                 }
             }
 
-            if (newTab != null && newTab is TabDOTween doNewTab)
+            if (newTab != null && newTab is TabInterpolate doNewTab)
             {
                 doNewTab.canvasGroup.gameObject.SetActive(true);
 
@@ -55,7 +55,7 @@ namespace Scripts.UI.Tabs
         protected override IReadOnlyCollection<Tab> GetTabs() => tabs;
 
         [Serializable]
-        public class TabDOTween : Tab
+        public class TabInterpolate : Tab
         {
             public float fadeDuration = 1.0f;
             public float showDuration = 1.0f;

@@ -3,6 +3,7 @@ using Unity.Burst;
 using Mirror;
 using Unity.Cinemachine;
 using UnityEngine.InputSystem;
+using Scripts.Gameplay;
 
 namespace ArcadeVP
 {
@@ -16,10 +17,17 @@ namespace ArcadeVP
 
 
 
-        private void Awake()
+        private void Start()
         {
-            SetState(false);
+            SetState(GameManager.Instance.IsMatch);
         }
+
+
+
+        private void OnEnable() => GameManager.Instance.MatchStateChanged += SetState;
+        private void OnDisable() => GameManager.Instance.MatchStateChanged -= SetState;
+
+
 
         public override void OnStartAuthority()
         {

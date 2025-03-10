@@ -27,11 +27,11 @@ namespace Scripts.Settings
                     SetShadows(false);
                     break;
 
-                case ShadowsType.Simple:
-
-                    SetAmbientOcclusion(true);
-                    SetShadows(false);
-                    break;
+                //case ShadowsType.Simple:
+                //
+                //    SetAmbientOcclusion(true);
+                //    SetShadows(false);
+                //    break;
 
                 case ShadowsType.Standart:
 

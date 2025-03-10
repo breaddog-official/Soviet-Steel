@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using Scripts.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,8 @@ namespace Scripts.Settings
             Toggle,
             Slider,
             Dropdown,
-            InputField
+            InputField,
+            Horizonter
         }
 
         [Space]
@@ -29,6 +31,9 @@ namespace Scripts.Settings
 
         [ShowIf(nameof(settingType), SettingType.InputField)]
         [SerializeField] private TMP_InputField inputField;
+
+        [ShowIf(nameof(settingType), SettingType.Horizonter)]
+        [SerializeField] private Horizonter horizonter;
 
 
         public override void UpdateValue()
@@ -49,6 +54,10 @@ namespace Scripts.Settings
 
                 case SettingType.InputField:
                     inputField.text = (string)Setting;
+                    break;
+
+                case SettingType.Horizonter:
+                    horizonter.SetValue((int)Setting);
                     break;
             }
         }

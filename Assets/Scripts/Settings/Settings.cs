@@ -56,9 +56,6 @@ namespace Scripts.Settings
         {
             None,
 
-            [Tooltip("SSAO")]
-            Simple,
-
             [Tooltip("Shadows")]
             Standart,
 
