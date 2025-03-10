@@ -1,42 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6068528259350584617
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a34fa72bd4185749832024e9c8010bf, type: 3}
-  m_Name: ScreenSpaceReflections
-  m_EditorClassIdentifier: 
-  active: 0
-  enabled:
-    overrideState: 1
-    value: 1
-  preset:
-    overrideState: 1
-    value: 4
-  maximumIterationCount:
-    overrideState: 1
-    value: 32
-  resolution:
-    overrideState: 1
-    value: 2
-  thickness:
-    overrideState: 1
-    value: 64
-  maximumMarchDistance:
-    overrideState: 1
-    value: 100
-  distanceFade:
-    overrideState: 1
-    value: 0
-  vignette:
-    overrideState: 0
-    value: 0.5
 --- !u!114 &-615735921477047508
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -93,7 +56,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings:
   - {fileID: 2871436639680670730}
-  - {fileID: -6068528259350584617}
 --- !u!114 &2871436639680670730
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -106,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1cb7e9e120078f43bce4f0b1be547a7, type: 3}
   m_Name: AmbientOcclusion
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -142,7 +104,7 @@ MonoBehaviour:
     value: 0
   radius:
     overrideState: 1
-    value: 1.5
+    value: 1.25
   quality:
     overrideState: 1
-    value: 2
+    value: 1

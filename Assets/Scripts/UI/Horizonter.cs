@@ -52,6 +52,7 @@ namespace Scripts.UI
             var shownPresets = presets.Where(p => p.IsShow).ToArray();
             var shownPresetsCount = shownPresets.Count();
 
+            // Remove trash (like elements spawned in editor)
             foreach (Transform child in spawnParent.GetComponentsInChildren<Transform>())
             {
                 if (child == spawnParent)
