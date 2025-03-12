@@ -13,12 +13,13 @@
     },
     "refreshRate": -2147483648
   },
-  "shadows": 2,
+  "shadows": 1,
   "shadowsQuality": 3,
   "shadersQuality": 3,
-  "antiAliasing": 2,
+  "antiAliasing": 0,
   "antiAliasingMsaa": 0,
   "fogType": 0,
-  "renderDistance": 1,
+  "renderDistance": 3,
+  "fastMode": true,
   "debugCode": ""
 }

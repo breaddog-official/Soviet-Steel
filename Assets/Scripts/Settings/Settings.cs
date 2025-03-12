@@ -116,6 +116,7 @@ namespace Scripts.Settings
         public AntiAliasingMSAA antiAliasingMsaa;
         public FogType fogType;
         public RenderDistance renderDistance = RenderDistance.Maximum;
+        public bool fastMode;
 
         [HideInInspector]
         public string debugCode;
