@@ -84,7 +84,8 @@ namespace Scripts.UI
 
         public virtual void SetVisualSelect(bool state)
         {
-            selector.SetActive(state);
+            if (selector != null)
+                selector.SetActive(state);
         }
     }
 }

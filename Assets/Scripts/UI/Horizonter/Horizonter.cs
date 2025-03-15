@@ -13,10 +13,10 @@ namespace Scripts.UI
         [SerializeField] protected Transform spawnParent;
         [Space]
         [SerializeField] protected bool disableIfNotShown;
-        [ShowIf(nameof(disableIfNotShown))]
+        [ShowIf(nameof(disableIfNotShown)), MinValue(1)]
         [SerializeField] protected int notShownCount = 1;
         [ShowIf(nameof(disableIfNotShown))]
-        [SerializeField] protected GameObject notShownObject;
+        [SerializeField] protected GameObject disableObject;
         [Space]
         [SerializeField] protected List<HorizonterPreset> presets;
         [SerializeField] protected UnityEvent<int> OnValueChanged;
@@ -28,13 +28,18 @@ namespace Scripts.UI
 
         private void Start()
         {
-            // Remove trash
-            elements.Clear();
-            foreach (Transform child in spawnParent)
+            // Auto set variables in editor
+            if (Application.isEditor)
             {
-                DestroyImmediate(child.gameObject);
+                if (disableObject == null)
+                    disableObject = gameObject;
+
+                if (spawnParent == null)
+                    spawnParent = transform;
             }
 
+            // Remove trash
+            ClearElements();
             UpdateElements();
         }
 
@@ -42,16 +47,30 @@ namespace Scripts.UI
         {
             if (!Application.isPlaying)
             {
-                UpdateElements();
+                try
+                {
+                    UpdateElements();
+                }
+                catch (System.Exception exp)
+                {
+                    Debug.LogException(exp);
+                    ClearElements();
+                }
+            }
+        }
+
+        protected virtual void ClearElements()
+        {
+            elements.Clear();
+
+            foreach (Transform child in spawnParent)
+            {
+                DestroyImmediate(child.gameObject);
             }
         }
 
         protected virtual void UpdateElements()
         {
-            // Get only presets who shown (supports shader levels, compute etc.)
-            //var shownPresets = presets.Where(p => p.IsShow).ToArray();
-            //var shownPresetsCount = shownPresets.Count();
-
             // Remove trash (like elements spawned in editor)
             foreach (Transform child in spawnParent.GetComponentsInChildren<Transform>())
             {
@@ -69,12 +88,14 @@ namespace Scripts.UI
                 DestroyImmediate(child.gameObject);
             }
 
-            if (disableIfNotShown && presets.Count <= notShownCount && Application.isPlaying)
+            if (disableIfNotShown && presets.Where(p => p.IsShow).Count() <= notShownCount && Application.isPlaying)
             {
-                notShownObject.SetActive(false);
+                disableObject.SetActive(false);
                 return;
             }
             
+            Fallback();
+
             // If spawned more then needed, reduce spawned
             if (elements.Count > presets.Count)
             {
@@ -132,6 +153,21 @@ namespace Scripts.UI
         }
 
 
+
+        protected void Fallback()
+        {
+            if (!presets[Value].IsShow)
+            {
+                for (int i = Value; i >= 0; i--)
+                {
+                    if (presets[i].IsShow)
+                    {
+                        Select(i);
+                        return;
+                    }
+                }
+            }
+        }
 
         protected void UpdateVisuals()
         {

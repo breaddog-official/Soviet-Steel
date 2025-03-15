@@ -6,7 +6,6 @@ using static Scripts.Settings.Settings;
 
 namespace Scripts.Settings
 {
-    [ExecuteInEditMode]
     public class SObserverFog : SettingHandler<FogType>
     {
         [Space]
@@ -19,8 +18,8 @@ namespace Scripts.Settings
         [SerializeField] protected float linearPercentage = 5f;
         [ShowIf(EConditionOperator.And, nameof(smoothRenderDistanceByFog), nameof(IsExponential))]
         [SerializeField] protected float dencityMultiplier = 1f;
-        [ShowIf(nameof(smoothRenderDistanceByFog))]
-        [SerializeField] protected float distanceThreshold = 1000f;
+        //[ShowIf(nameof(smoothRenderDistanceByFog))]
+        //[SerializeField] protected float distanceThreshold = 1000f;
         [ShowIf(nameof(smoothRenderDistanceByFog))]
         [SerializeField] protected Camera renderDistanceCamera;
 
@@ -29,15 +28,17 @@ namespace Scripts.Settings
 
         protected static event Action OnRenderDistanceChangeEvent;
 
-        protected float cachedDencity;
-        protected float cachedStartDistance;
-        protected float cachedEndDistance;
+        [SerializeField, HideInInspector] protected float cachedDencity;
+        [SerializeField, HideInInspector] protected float cachedStartDistance;
+        [SerializeField, HideInInspector] protected float cachedEndDistance;
 
 
 
-        protected virtual void Start()
+        protected override void Awake()
         {
             Cache();
+
+            base.Awake();
         }
 
 
@@ -56,7 +57,7 @@ namespace Scripts.Settings
             base.OnDisable();
         }
 
-        [Button]
+
         public override void UpdateValue()
         {
             if (Application.isPlaying)
@@ -65,7 +66,7 @@ namespace Scripts.Settings
                 RenderSettings.fog = Setting != FogType.None;
             }
 
-            if (smoothRenderDistanceByFog && renderDistanceCamera.farClipPlane < distanceThreshold)
+            if (smoothRenderDistanceByFog /*&& renderDistanceCamera.farClipPlane < distanceThreshold*/)
             {
                 if (IsLinear)
                 {
@@ -112,7 +113,7 @@ namespace Scripts.Settings
             cachedEndDistance = RenderSettings.fogEndDistance;
         }
 
-        [Button]
+
         public void ResetToCache()
         {
             RenderSettings.fogStartDistance = cachedStartDistance;

@@ -14,6 +14,10 @@ namespace Scripts.Settings
         [SerializeField] protected PostProcessProfile profile;
         [HideIf(nameof(isGlobal))]
         [SerializeField] protected PostProcessVolume volume;
+        [Space]
+        [SerializeField] protected bool switchToMultiScale;
+        [ShowIf(nameof(switchToMultiScale))]
+        [SerializeField] protected ShadowsQuality switchToMultiScaleQuality = ShadowsQuality.High;
 
         protected PostProcessProfile Profile => isGlobal ? profile : volume.profile;
 
@@ -31,13 +35,16 @@ namespace Scripts.Settings
 
             QualitySettings.shadowCascades = Setting switch
             {
+                ShadowsQuality.Low => 1,
                 ShadowsQuality.Medium => 2,
                 ShadowsQuality.High => 3,
                 ShadowsQuality.Ultra => 4,
                 _ => 1
             };
 
-            Profile.GetSetting<AmbientOcclusion>().quality.Override(Setting switch
+            var ambientOcclusion = Profile.GetSetting<AmbientOcclusion>();
+
+            ambientOcclusion.quality.Override(Setting switch
             {
                 ShadowsQuality.Low => AmbientOcclusionQuality.Low,
                 ShadowsQuality.Medium => AmbientOcclusionQuality.Medium,
@@ -45,6 +52,11 @@ namespace Scripts.Settings
                 ShadowsQuality.Ultra => AmbientOcclusionQuality.Ultra,
                 _ => throw new NotImplementedException()
             });
+
+            if (switchToMultiScale && Setting == switchToMultiScaleQuality)
+                ambientOcclusion.mode.Override(AmbientOcclusionMode.MultiScaleVolumetricObscurance);
+            else
+                ambientOcclusion.mode.Override(AmbientOcclusionMode.ScalableAmbientObscurance);
         }
     }
 }

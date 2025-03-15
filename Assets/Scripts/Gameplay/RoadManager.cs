@@ -53,7 +53,7 @@ public class RoadManager : NetworkBehaviour
                     OnPlayerReachedRound?.Invoke(player.Key, player.Value.round);
                 }
 
-                print($"Marker: {players[player.Key].marker}    Round: {players[player.Key].round}");
+                print($"Marker: {player.Value.marker}    Round: {player.Value.round}");
             }
 
         }
@@ -85,7 +85,7 @@ public class RoadManager : NetworkBehaviour
 #endif
     #endregion
 
-    public struct PlayerScore
+    public class PlayerScore
     {
         public int marker;
         public int round;

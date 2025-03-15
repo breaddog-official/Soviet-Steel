@@ -17,11 +17,12 @@ MonoBehaviour:
     musicVolume: 0.8
     ambientVolume: 0.8
     fullscreenMode: 1
-    shadows: 2
+    shadows: 1
     shadowsQuality: 1
-    shadersQuality: 1
+    shadersQuality: 2
     antiAliasing: 0
     antiAliasingMsaa: 2
     fogType: 1
     renderDistance: 2
+    fastMode: 0
     debugCode: 

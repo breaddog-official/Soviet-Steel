@@ -1,6 +1,8 @@
 using UnityEngine;
 using Unity.Burst;
 using Mirror;
+using Unity.Cinemachine;
+using NaughtyAttributes;
 
 namespace ArcadeVP
 {
@@ -55,6 +57,31 @@ namespace ArcadeVP
         public float MaxPitch;
         public AudioSource SkidSound;
 
+
+        [Header("Camera Fov")]
+        public CinemachineCamera cinemachineCamera;
+        [Range(20f, 180f)]
+        public float minFov = 60;
+        [Range(20f, 180f)]
+        public float maxFov = 75;
+        [Range(0f, 1f)]
+        public float smoothFov = 0.7f;
+        [CurveRange(EColor.White)]
+        public AnimationCurve fovCurve;
+
+        [Header("Camera Noise")]
+        [Range(0f, 1f)]
+        public float minNoise = 0.7f;
+        [Range(0f, 3f)]
+        public float maxNoise = 3f;
+        [Range(0f, 1f)]
+        public float smoothNoise = 0.7f;
+        [CurveRange(EColor.White)]
+        public AnimationCurve amplitudeCurve;
+
+        private CinemachineBasicMultiChannelPerlin noise;
+
+
         [HideInInspector]
         public float skidWidth;
 
@@ -92,6 +119,7 @@ namespace ArcadeVP
         {
             Visuals();
             AudioManager();
+            CameraManager();
             SmoothInput();
         }
 
@@ -124,6 +152,22 @@ namespace ArcadeVP
             {
                 SkidSound.mute = true;
             }
+        }
+
+        public void CameraManager()
+        {
+            float t = Mathf.Abs(carVelocity.z) / MaxSpeed;
+
+            float fov = Mathf.Lerp(minFov, maxFov, fovCurve.Evaluate(t));
+            float amplitude = Mathf.Lerp(minNoise, maxNoise, amplitudeCurve.Evaluate(t));
+
+            cinemachineCamera.Lens.FieldOfView = Mathf.Lerp(cinemachineCamera.Lens.FieldOfView, fov, (1f - smoothFov) * Time.deltaTime);
+
+            if (noise == null && !cinemachineCamera.TryGetComponent<CinemachineBasicMultiChannelPerlin>(out noise))
+                return;
+
+            noise.AmplitudeGain = Mathf.Lerp(noise.AmplitudeGain, amplitude, (1f - smoothNoise) * Time.deltaTime);
+            noise.FrequencyGain = Mathf.Lerp(noise.AmplitudeGain, amplitude, (1f - smoothNoise) * Time.deltaTime);
         }
 
         public void Handbrake(bool state)

@@ -1,17 +1,47 @@
 #if PLATFORM_STANDALONE
 using Discord;
-using Scripts.TranslateManagement;
+using Scripts.Extensions;
+using Scripts.Gameplay;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public static class DiscordController
+public class DiscordController : MonoBehaviour
 {
-    public const long APPLICATION_ID = 1260536542363914423;
+    public const long APPLICATION_ID = 1349843959899361310;
 
     private static Discord.Discord discord;
 
     private static bool isError;
+
+
+
+    private void Awake()
+    {
+        gameObject.DontDestroyOnLoad();
+
+        Initialize();
+    }
+
+    private void Update()
+    {
+        RunCallbacks();
+    }
+
+    private void LateUpdate()
+    {
+        UpdateStatus();
+    }
+
+    private void OnApplicationQuit()
+    {
+        Dispose();
+    }
+
+
+
+
+
 
     public static void Initialize()
     {
@@ -58,68 +88,27 @@ public static class DiscordController
 
         try
         {
-            string map = "Menu";
-            string operationName = "Menu";
-            if (SceneManager.GetActiveScene().buildIndex != 0)
-            {
-                map = MapsSheet.MapsSheetInstance[LevelsFabric.GetCurrentLevel().MapIndex].Name;
-                operationName = SingleTranslater.GetFieldInformation(LevelsFabric.GetCurrentLevel().NameField);
-            }
-
-            string command = "";
-            if (Player.Instance != null)
-            {
-                command = Player.Instance.Team switch
-                {
-                    TeamManager.Team.Terrorists => "Terrorists",
-                    TeamManager.Team.CounterTerrorists => "Counter Terrorists",
-                    _ => "",
-                };
-            }
-
-            string score = "";
-#if !UNITY_EDITOR
-            if (GameManager.Instance != null)
-            {
-                score = $"Score: {GameManager.Instance.CT_Rounds} : {GameManager.Instance.T_Rounds}";
-            }
-#endif
+            var scene = SceneManager.GetActiveScene().name;
 
             var activityManager = discord.GetActivityManager();
             var activity = new Activity
             {
-                Details = score,
+                //Details = score,
 #if UNITY_EDITOR
                 State = "Разрабатывает",
 #else
-                State = operationName,
+                //State = operationName,
 #endif
                 Assets =
                 {
-                    LargeImage = map switch
+                    LargeImage = scene switch
                     {
-#if UNITY_EDITOR
-                        _ => "developing_miniature"
-#else
-                        "Menu" => "ct_avatar",
-                        "Dust2" => "dust2_miniature",
-                        "Italy" => "italy_miniature",
-                        "Office" => "office_miniature",
-                        "Assault" => "assault_miniature",
-                        _ => "",
-#endif
-                    },
-                    SmallImage = command switch
-                    {
-#if !UNITY_EDITOR
-                        "Terrorists" => "t_avatar",
-                        "Counter Terrorists" => "ct_avatar",
-#endif
-                        _ => "",
+                        "Ural" => "ural_icon",
+                        "Saratov" => "saratov_icon",
+                        _ => "icon"
                     },
 
-                    LargeText = map,
-                    SmallText = command,
+                    LargeText = scene,
                 },
             };
             activityManager.UpdateActivity(activity, (res) =>
