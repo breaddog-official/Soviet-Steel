@@ -11,27 +11,28 @@ namespace Scripts.UI.Tabs
     public abstract class TabsTranslater : MonoBehaviour
     {
         [SerializeField] private bool showInitialOnStart = true;
-        [ShowIf(nameof(CanGetTabsGroups))]
-        [SerializeField, Dropdown(nameof(GetTabsGroups))] private CanvasGroup initialTab;
+        [ShowIf(EConditionOperator.And, nameof(CanGetTabsGroups), nameof(showInitialOnStart))]
+        [SerializeField, Dropdown(nameof(GetTabsRects))] private RectTransform initialTab;
 
         private CancellationTokenSource cancallationToken;
         private bool switchingTab;
         private Tab currentTab;
 
 
-        private void Start()
+        protected virtual void Start()
         {
-            currentTab = FindTab(initialTab);
-
             if (showInitialOnStart)
+            {
+                currentTab = FindTab(initialTab);
                 SwitchTab(initialTab);
+            }
         }
 
-        public virtual void SwitchTab(CanvasGroup tabGroup) => SwitchTab(FindTab(tabGroup));
+        public virtual void SwitchTab(RectTransform tabGroup) => SwitchTab(FindTab(tabGroup));
 
         public virtual void SwitchTab(Tab tab) => SwitchTab(currentTab, tab);
         public virtual void ShowTab() => SwitchTab(null, currentTab);
-        public virtual void HideTab() => SwitchTab(currentTab, null, false);
+        public virtual void HideTab() => SwitchTab(currentTab, null);
 
         public virtual async void SwitchTab(Tab from, Tab to, bool withSetCurrentTab = true)
         {
@@ -52,7 +53,6 @@ namespace Scripts.UI.Tabs
         }
 
         public Tab GetCurrentTab() => currentTab;
-        public CanvasGroup GetCurrentTabGroup() => currentTab.canvasGroup;
 
 
 
@@ -62,9 +62,9 @@ namespace Scripts.UI.Tabs
             cancallationToken?.Cancel();
         }
 
-        public virtual Tab FindTab(CanvasGroup canvasGroup)
+        public virtual Tab FindTab(RectTransform rect)
         {
-            return GetTabs().Where(t => t.canvasGroup == canvasGroup).FirstOrDefault();
+            return GetTabs().Where(t => t.rect == rect).FirstOrDefault();
         }
 
         private void OnDestroy()
@@ -77,9 +77,9 @@ namespace Scripts.UI.Tabs
 
         protected abstract IReadOnlyCollection<Tab> GetTabs();
 
-        protected virtual CanvasGroup[] GetTabsGroups()
+        protected virtual RectTransform[] GetTabsRects()
         {
-            return GetTabs().Select(tab => tab.canvasGroup).ToArray();
+            return GetTabs().Select(tab => tab.rect).ToArray();
         }
 
         protected virtual bool CanGetTabsGroups()

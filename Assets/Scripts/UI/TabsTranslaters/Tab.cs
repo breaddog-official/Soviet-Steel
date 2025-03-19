@@ -6,6 +6,6 @@ namespace Scripts.UI.Tabs
     [Serializable]
     public class Tab
     {
-        public CanvasGroup canvasGroup;
+        public RectTransform rect;
     }
 }

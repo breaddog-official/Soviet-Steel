@@ -20,9 +20,9 @@ namespace Scripts.UI.Tabs
 
             if (oldTab != null && oldTab is TabInterpolate doOldTab)
             {
-                oldTabFade = oldTab.canvasGroup.DOFade(0.0f, doOldTab.fadeDuration)
+                oldTabFade = doOldTab.CanvasGroup.DOFade(0.0f, doOldTab.fadeDuration)
                                     .SetEase(doOldTab.ease)
-                                    .OnComplete(() => doOldTab.canvasGroup.gameObject.SetActive(false))
+                                    .OnComplete(() => doOldTab.CanvasGroup.gameObject.SetActive(false))
                                     .WithCancellation(token);
 
 
@@ -34,9 +34,9 @@ namespace Scripts.UI.Tabs
 
             if (newTab != null && newTab is TabInterpolate doNewTab)
             {
-                doNewTab.canvasGroup.gameObject.SetActive(true);
+                doNewTab.CanvasGroup.gameObject.SetActive(true);
 
-                newTabFade = newTab.canvasGroup.DOFade(1.0f, doNewTab.showDuration)
+                newTabFade = doNewTab.CanvasGroup.DOFade(1.0f, doNewTab.showDuration)
                                     .SetEase(doNewTab.ease)
                                     .WithCancellation(token);
 
@@ -57,6 +57,8 @@ namespace Scripts.UI.Tabs
         [Serializable]
         public class TabInterpolate : Tab
         {
+            public CanvasGroup CanvasGroup => rect.GetComponent<CanvasGroup>();
+
             public float fadeDuration = 1.0f;
             public float showDuration = 1.0f;
             public Ease ease = Ease.Linear;
