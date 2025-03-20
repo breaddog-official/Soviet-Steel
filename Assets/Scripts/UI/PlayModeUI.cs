@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 public class PlayModeUI : TabsTranslater
 {
-    [SerializeField] protected List<Tab> playModes;
+    [SerializeField] protected List<TabPlayMode> playModes;
     [Space]
     [SerializeField] protected Vector2 defaultTabSize;
     [SerializeField] protected float switchDuration = 1f;
@@ -24,23 +24,35 @@ public class PlayModeUI : TabsTranslater
         UniTask oldTask = UniTask.CompletedTask;
         UniTask newTask = UniTask.CompletedTask;
 
+        UniTask oldTaskInstance = UniTask.CompletedTask;
+        UniTask newTaskInstance = UniTask.CompletedTask;
+
         if (oldTab != null)
         {
             oldTask = oldTab.rect.DOSizeDelta(defaultTabSize, switchDuration).WithCancellation(token);
-            //await UniTask.WhenAll(Centralize(newTab, token), oldTask);
+
+            if (oldTab is TabPlayMode oldPlayMode)
+            {
+                oldTaskInstance = oldPlayMode.instance.Hide(token);
+            }
         }
 
         if (newTab != null)
         {
             newTask = newTab.rect.DOSizeDelta(GetResolutionSize(), switchDuration).WithCancellation(token);
+
+            if (newTab is TabPlayMode newPlayMode)
+            {
+                newTaskInstance = newPlayMode.instance.Show(token);
+            }
         }
 
-        await UniTask.WhenAll(Centralize(newTab, token), newTask, oldTask);
+        await UniTask.WhenAll(Centralize(newTab, token), newTask, oldTask, newTaskInstance, oldTaskInstance);
     }
 
     protected virtual async UniTask Centralize(Tab to, CancellationToken token = default)
     {
-        Vector2 moveTo = to != null ? new Vector2(playModesPanelOffset * (((playModes.Count - 1) / 2f) - playModes.IndexOf(to)), 0f) : Vector2.zero;
+        Vector2 moveTo = to != null ? new Vector2(playModesPanelOffset * (((playModes.Count - 1) / 2f) - playModes.IndexOf(to as TabPlayMode)), 0f) : Vector2.zero;
 
         await playModesPanel.DOLocalMove(moveTo, switchDuration).WithCancellation(token);
     }
@@ -60,4 +72,10 @@ public class PlayModeUI : TabsTranslater
     }
 
     protected override IReadOnlyCollection<Tab> GetTabs() => playModes;
+
+
+    public class TabPlayMode : Tab
+    {
+        public PlayModeInstanceUI instance;
+    }
 }

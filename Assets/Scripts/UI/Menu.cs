@@ -39,6 +39,19 @@ namespace Scripts.UI
             Discovery.AdvertiseServer();
         }
 
+
+
+        public void StartSolo()
+        {
+            NetworkManager.StartHost();
+            Discovery.StopDiscovery();
+
+            SetMaxConnections(1);
+        }
+
+
+
+
         public void SetAddress(string address) => NetworkManager.networkAddress = address;
         public void SetPort(string port)
         {
@@ -51,8 +64,13 @@ namespace Scripts.UI
         {
             if (int.TryParse(maxConnections, out int parsedMaxConnections) && parsedMaxConnections >= 0)
             {
-                NetworkManager.maxConnections = parsedMaxConnections;
+                SetMaxConnections(parsedMaxConnections);
             }
+        }
+
+        public void SetMaxConnections(int maxConnections)
+        {
+            NetworkManager.maxConnections = maxConnections;
         }
 
         #endregion
