@@ -10,6 +10,8 @@ namespace Scripts.UI
         [SerializeField] protected TMP_Text nameText;
         [SerializeField] protected TMP_Text descriptionText;
         [SerializeField] protected RawImage iconImage;
+        [Space]
+        [SerializeField] protected GameObject selector;
 
         protected IMap map;
         protected Action<IMap> selectAction;
@@ -30,6 +32,15 @@ namespace Scripts.UI
         public void SelectThis()
         {
             selectAction?.Invoke(map);
+
+            SetSelectState(true);
+        }
+
+
+
+        public void SetSelectState(bool state)
+        {
+            selector.SetActive(state);
         }
     }
 }

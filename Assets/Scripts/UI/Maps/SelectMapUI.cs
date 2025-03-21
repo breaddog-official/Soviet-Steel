@@ -22,18 +22,25 @@ namespace Scripts.UI
             UpdateInstances(true);
         }
 
+        protected virtual void OnEnable()
+        {
+            UpdateInstances();
+        }
+
 
 
         public void UpdateInstances(bool skipSpawnCheck = false)
         {
             foreach (var map in maps)
             {
-                if (!skipSpawnCheck && spawnedMaps.ContainsKey(map))
-                    continue;
+                if (skipSpawnCheck || !spawnedMaps.TryGetValue(map, out SelectMapInstanceUI spawnedMap))
+                {
+                    spawnedMap = Instantiate(mapPrefab, spawnParent);
+                    spawnedMap.Initialize(map, SelectMap);
+                    spawnedMaps.Add(map, spawnedMap);
+                }
 
-                var spawnedMap = Instantiate(mapPrefab, spawnParent);
-                spawnedMap.Initialize(map, SelectMap);
-                spawnedMaps.Add(map, spawnedMap);
+                spawnedMap.SetSelectState(map.Scene == NetworkManager.singleton.onlineScene);
             }
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -73,7 +74,7 @@ public class PlayModeUI : TabsTranslater
 
     protected override IReadOnlyCollection<Tab> GetTabs() => playModes;
 
-
+    [Serializable]
     public class TabPlayMode : Tab
     {
         public PlayModeInstanceUI instance;

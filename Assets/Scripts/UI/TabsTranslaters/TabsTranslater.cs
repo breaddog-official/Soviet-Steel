@@ -19,14 +19,23 @@ namespace Scripts.UI.Tabs
         private Tab currentTab;
 
 
-        protected virtual void Start()
+        protected virtual async void Start()
         {
             if (showInitialOnStart)
             {
                 currentTab = FindTab(initialTab);
-                SwitchTab(initialTab);
+                await SwitchTabAsync(initialTab);
             }
         }
+
+
+        public virtual async UniTask SwitchTabAsync(RectTransform tabGroup, CancellationToken token = default) => await SwitchTabAsync(FindTab(tabGroup), token);
+
+        public virtual async UniTask SwitchTabAsync(Tab tab, CancellationToken token = default) => await SwitchTab(currentTab, tab, token);
+        public virtual async UniTask ShowTabAsync(CancellationToken token = default) => await SwitchTab(null, currentTab, token);
+        public virtual async UniTask HideTabAsync(CancellationToken token = default) => await SwitchTab(currentTab, null, token);
+
+
 
         public virtual void SwitchTab(RectTransform tabGroup) => SwitchTab(FindTab(tabGroup));
 
@@ -34,7 +43,9 @@ namespace Scripts.UI.Tabs
         public virtual void ShowTab() => SwitchTab(null, currentTab);
         public virtual void HideTab() => SwitchTab(currentTab, null);
 
-        public virtual async void SwitchTab(Tab from, Tab to, bool withSetCurrentTab = true)
+
+
+        public virtual async UniTask SwitchTab(Tab from, Tab to, CancellationToken token = default, bool withSetCurrentTab = true)
         {
             if (switchingTab)
                 return;

@@ -1,29 +1,24 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Scripts.UI.Tabs;
 using UnityEngine;
 
 public class PlayModeInstanceUI : MonoBehaviour
 {
-    [SerializeField] protected CanvasGroup group;
+    [SerializeField] protected RectTransform buttonRect;
+    [SerializeField] protected RectTransform interactableRect;
     [Space]
-    [SerializeField] protected float duration = 1f;
-    [SerializeField] protected Ease ease = Ease.Linear;
+    [SerializeField] protected TabsTranslater translater;
 
 
     public async UniTask Show(CancellationToken token = default)
     {
-        group.gameObject.SetActive(true);
-
-        await group.DOFade(1f, duration).SetEase(ease)
-                                        .WithCancellation(token);
+        await translater.SwitchTabAsync(interactableRect, token);
     }
 
     public async UniTask Hide(CancellationToken token = default)
     {
-        await group.DOFade(0f, duration).SetEase(ease)
-                                        .WithCancellation(token);
-
-        group.gameObject.SetActive(false);
+        await translater.SwitchTabAsync(buttonRect, token);
     }
 }
