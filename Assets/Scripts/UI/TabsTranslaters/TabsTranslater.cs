@@ -39,9 +39,9 @@ namespace Scripts.UI.Tabs
 
         public virtual void SwitchTab(RectTransform tabGroup) => SwitchTab(FindTab(tabGroup));
 
-        public virtual void SwitchTab(Tab tab) => SwitchTab(currentTab, tab);
-        public virtual void ShowTab() => SwitchTab(null, currentTab);
-        public virtual void HideTab() => SwitchTab(currentTab, null);
+        public virtual void SwitchTab(Tab tab) => SwitchTab(currentTab, tab).Forget();
+        public virtual void ShowTab() => SwitchTab(null, currentTab).Forget();
+        public virtual void HideTab() => SwitchTab(currentTab, null).Forget();
 
 
 

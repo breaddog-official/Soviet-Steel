@@ -1,5 +1,6 @@
 using Mirror;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace Scripts.UI
@@ -39,8 +40,9 @@ namespace Scripts.UI
                     spawnedMap.Initialize(map, SelectMap);
                     spawnedMaps.Add(map, spawnedMap);
                 }
-
-                spawnedMap.SetSelectState(map.Scene == NetworkManager.singleton.onlineScene);
+                
+                // Mirror stores scenes in paths
+                spawnedMap.SetSelectState(map.Scene == Path.GetFileNameWithoutExtension(NetworkManager.singleton.onlineScene));
             }
         }
 
@@ -64,6 +66,8 @@ namespace Scripts.UI
         public virtual void SelectMap(IMap map)
         {
             NetworkManager.singleton.onlineScene = map.Scene;
+
+            UpdateInstances();
         }
 
 

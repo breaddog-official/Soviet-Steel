@@ -10,8 +10,6 @@ namespace Scripts.UI
     {
         [SerializeField] private ServerDiscoveryInstanceUI instancePrefab;
         [SerializeField] private Transform spawnParent;
-        [Space]
-        [SerializeField] private NetworkManager networkManager;
 
         protected readonly Dictionary<long, ServerDiscoveryInstanceUI> spawnedInstances = new();
 
@@ -42,7 +40,7 @@ namespace Scripts.UI
 
         public void ConnectServer(Uri uri)
         {
-            networkManager.StartClient(uri);
+            NetworkManager.singleton.StartClient(uri);
         }
     }
 }

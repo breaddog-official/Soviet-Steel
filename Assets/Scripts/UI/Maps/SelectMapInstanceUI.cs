@@ -32,8 +32,6 @@ namespace Scripts.UI
         public void SelectThis()
         {
             selectAction?.Invoke(map);
-
-            SetSelectState(true);
         }
 
 

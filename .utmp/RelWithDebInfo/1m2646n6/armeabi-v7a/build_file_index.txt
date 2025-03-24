@@ -1,0 +1,2 @@
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt

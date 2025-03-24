@@ -1,3 +1,3 @@
-Build path: D:/Work Games/Need-for-Buhanka/Builds/Build_Win64/Need for Buhanka.exe
-Build number: 36
+Build path: D:/Work Games/Need-for-Buhanka/Builds/StandaloneWindows64/Need for Buhanka.exe
+Build number: 38
 PluginYG version: 2.0031

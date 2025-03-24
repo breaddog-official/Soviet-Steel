@@ -589,14 +589,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3ba2e708-74ff-4aec-841a-3920fe7b846e
     m_ActionName: 'Player/Move1[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e2ca7a1c-4782-4f7a-9e11-9736b54695d5
-    m_ActionName: 'Player/Move2[/Keyboard/y,/Keyboard/h,/Keyboard/g,/Keyboard/j]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2b69ae2a-766c-4836-99b4-63cc9f3914f1
-    m_ActionName: 'Player/Move3[/Keyboard/p,/Keyboard/semicolon,/Keyboard/l,/Keyboard/quote]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -620,7 +612,7 @@ MonoBehaviour:
   vehicleController: {fileID: 6190232540197196972}
   vehicleCinemachine: {fileID: 5579852667695232331}
   vehicleInput: {fileID: 2404331634369452856}
-  autoStart: 0
+  autoStart: 1
 --- !u!114 &2860274651375638740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,8 +660,7 @@ MonoBehaviour:
   kartLike: 0
   driftMultiplier: 1.5
   smoothInput: 1
-  smoothTime: 0.1
-  smoothDifference: 0.7
+  smoothAmount: 0.2
   rb: {fileID: 412895281298983764}
   carBody: {fileID: 1871890942098664247}
   frictionCurve:
@@ -753,8 +744,8 @@ MonoBehaviour:
   MaxPitch: 2.5
   SkidSound: {fileID: 4537850823717060819}
   cinemachineCamera: {fileID: 5579852667695232331}
-  minFov: 85
-  maxFov: 100
+  minFov: 80
+  maxFov: 110
   smoothFov: 0.3
   fovCurve:
     serializedVersion: 2
@@ -769,22 +760,22 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.7667501
-      value: 0.81288856
-      inSlope: 3.2630162
-      outSlope: 3.2630162
+      time: 0.55009055
+      value: 0.7185511
+      inSlope: 0.9049315
+      outSlope: 0.9049315
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.033641268
-      outWeight: 0.19599606
+      outWeight: 0.22206563
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0.06862619
-      outSlope: 0.06862619
+      inSlope: 1.0407792
+      outSlope: 1.0407792
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.23703712
+      inWeight: 0.2870948
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -804,15 +795,6 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
-    - serializedVersion: 3
-      time: 0.8243807
-      value: 0.63223
-      inSlope: 2.6262941
-      outSlope: 2.6262941
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.03968507
-      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1

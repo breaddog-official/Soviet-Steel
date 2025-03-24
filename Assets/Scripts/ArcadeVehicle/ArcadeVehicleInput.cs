@@ -48,7 +48,7 @@ namespace ArcadeVP
 
             Vector2? moveInput = moveAction?.ReadValue<Vector2>();
             bool? breakInput = breakAction?.IsPressed();
-
+            
             arcadeVehicleController.ProvideInputs(moveInput ?? default, breakInput ?? default);
         }
     }

@@ -27,10 +27,8 @@ namespace ArcadeVP
 
         [Space]
         public bool smoothInput = true;
-        public float smoothTime = 1;
-        public float smoothDifference = 0.7f;
-
-        private float currentSmoothTime = 0;
+        [Range(0f, 1f)]
+        public float smoothAmount = 0.2f;
 
         [Space]
         public Rigidbody rb, carBody;
@@ -72,7 +70,7 @@ namespace ArcadeVP
         [Header("Camera Noise")]
         [Range(0f, 1f)]
         public float minNoise = 0.7f;
-        [Range(0f, 3f)]
+        [Range(0f, 6f)]
         public float maxNoise = 3f;
         [Range(0f, 1f)]
         public float smoothNoise = 0.7f;
@@ -125,9 +123,6 @@ namespace ArcadeVP
 
         public void ProvideInputs(Vector2 _moveInput, bool _brakeInput)
         {
-            if (moveInput != _moveInput && (moveInput - _moveInput).magnitude > smoothDifference)
-                currentSmoothTime = 0f;
-
             moveInput = _moveInput;
             brakeInput = _brakeInput;
         }
@@ -137,8 +132,7 @@ namespace ArcadeVP
             if (NetworkServer.active && !isOwned)
                 return;
 
-            smoothedMoveInput = smoothInput ? Vector2.Lerp(smoothedMoveInput, moveInput, currentSmoothTime / smoothTime) : moveInput;
-            currentSmoothTime += Time.deltaTime;
+            smoothedMoveInput = smoothInput ? Vector2.Lerp(smoothedMoveInput, moveInput, (1f - smoothAmount) * Time.deltaTime * 100f) : moveInput;
         }
 
         public void AudioManager()
