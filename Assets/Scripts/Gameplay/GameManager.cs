@@ -1,18 +1,26 @@
+using Cysharp.Threading.Tasks;
 using Mirror;
 using System;
+using System.Threading;
 using UnityEngine;
+using Scripts.Extensions;
 
 namespace Scripts.Gameplay
 {
     public class GameManager : NetworkBehaviour
     {
-        [SerializeField] private RoadManager roadManager;
+        [field: SerializeField] public RoadManager RoadManager { get; private set; }
         [SerializeField] private bool autoStartMatch = true;
+
 
         [field: SyncVar(hook = nameof(IsMatchUpdate))]
         public bool IsMatch { get; private set; }
+        public static event Action<bool> MatchStateChanged;
 
-        public event Action<bool> MatchStateChanged;
+
+        [field: SyncVar]
+        public double MatchTime { get; private set; }
+        protected CancellationTokenSource timeCancellation;
 
 
         public static GameManager Instance { get; private set; }
@@ -22,6 +30,12 @@ namespace Scripts.Gameplay
         private void Awake()
         {
             Instance = this;
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance == this)
+                Instance = null;
         }
 
         private void Start()
@@ -34,7 +48,7 @@ namespace Scripts.Gameplay
         {
             if (IsMatch)
             {
-                roadManager.UpdatePlayers();
+                RoadManager.UpdatePlayers();
             }
         }
 
@@ -59,21 +73,41 @@ namespace Scripts.Gameplay
         private void IsMatchUpdate(bool oldIsMatch, bool isMatch)
         {
             MatchStateChanged?.Invoke(isMatch);
+
+            timeCancellation?.ResetToken();
+            timeCancellation = new();
+
+            if (isMatch == true && NetworkServer.active)
+            {
+                MatchTime = 0d;
+                MatchTimer(timeCancellation.Token).Forget();
+            }
         }
+
+        private async UniTask MatchTimer(CancellationToken token = default)
+        {
+            while (IsMatch)
+            {
+                MatchTime += Time.deltaTime;
+
+                await UniTask.NextFrame(cancellationToken: token);
+            }
+        }
+
 
 
 
         public void AddPlayer(NetworkConnectionToClient conn) => AddPlayer(conn.identity.gameObject);
         public void AddPlayer(GameObject player)
         {
-            roadManager.AddPlayer(player);
+            RoadManager.AddPlayer(player);
         }
 
 
         public void RemovePlayer(NetworkConnectionToClient conn) => RemovePlayer(conn.identity.gameObject);
         public void RemovePlayer(GameObject player)
         {
-            roadManager.RemovePlayer(player);
+            RoadManager.RemovePlayer(player);
         }    
     }
 }

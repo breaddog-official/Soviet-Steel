@@ -62,12 +62,12 @@ MonoBehaviour:
     ownHost: 0
   platformToggles:
     selectWebGLTemplate: 1
-    runInBackground: 1
+    runInBackground: 0
     enableExceptions: 1
     compressionFormat: 1
     decompressionFallback: 1
     autoGraphicsAPI: 1
-    minimalCodeCompression: 1
+    minimalCodeCompression: 0
     dataCaching: 1
     colorSpace: 0
     archivingBuild: 0

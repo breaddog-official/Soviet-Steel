@@ -1,27 +1,28 @@
 using UnityEngine;
 using EasyRoads3Dv3;
 using NaughtyAttributes;
-using System.Collections.Generic;
 using Scripts.Extensions;
 using System;
 using Mirror;
+using ArcadeVP;
 
 public class RoadManager : NetworkBehaviour
 {
     [SerializeField] private ERModularRoad road;
     [MinValue(0)]
     [SerializeField] private int firstMarker;
+    [SerializeField] private float widthOffset;
 
-    private readonly SyncDictionary<Transform, PlayerScore> players = new();
+    private readonly SyncDictionary<ArcadeVehicleNetwork, PlayerScore> players = new();
 
-    public event Action<Transform, int> OnPlayerReachedMarker;
-    public event Action<Transform, int> OnPlayerReachedRound;
+    public event Action<ArcadeVehicleNetwork, int> OnPlayerReachedMarker;
+    public event Action<ArcadeVehicleNetwork, int> OnPlayerReachedRound;
 
 
     [Server]
     public void AddPlayer(GameObject player)
     {
-        players.Add(player.transform, new PlayerScore
+        players.Add(player.GetComponent<ArcadeVehicleNetwork>(), new PlayerScore
         {
             marker = firstMarker
         });
@@ -30,7 +31,7 @@ public class RoadManager : NetworkBehaviour
     [Server]
     public void RemovePlayer(GameObject player)
     {
-        players.Remove(player.transform);
+        players.Remove(player.GetComponent<ArcadeVehicleNetwork>());
     }
 
 
@@ -42,7 +43,7 @@ public class RoadManager : NetworkBehaviour
         {
             int nextPoint = player.Value.marker.IncreaseInBoundsReturn(road.markersExt.Count);
 
-            if (Vector3.Distance(player.Key.position, GetPoint(nextPoint)) < GetRadius())
+            if (Vector3.Distance(player.Key.transform.position, GetPoint(nextPoint)) < GetRadius())
             {
                 player.Value.SetMarker(nextPoint);
                 OnPlayerReachedMarker?.Invoke(player.Key, player.Value.marker);
@@ -62,7 +63,7 @@ public class RoadManager : NetworkBehaviour
 
 
     public Vector3 GetPoint(int index) => road.markersExt[index].position;
-    public float GetRadius() => road.GetRoadWidth() / 2;
+    public float GetRadius() => (road.GetRoadWidth() / 2f) + widthOffset;
 
     #region Gizmos
 #if UNITY_EDITOR

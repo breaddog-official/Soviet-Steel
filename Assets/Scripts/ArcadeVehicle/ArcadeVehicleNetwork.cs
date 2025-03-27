@@ -13,26 +13,22 @@ namespace ArcadeVP
         [SerializeField] private ArcadeVehicleController vehicleController;
         [SerializeField] private CinemachineCamera vehicleCinemachine;
         [SerializeField] private PlayerInput vehicleInput;
+        [SerializeField] private GameObject ui;
+        [Space]
         [SerializeField] private bool autoStart;
 
 
+        private void OnEnable() => GameManager.MatchStateChanged += SetState;
+        private void OnDisable() => GameManager.MatchStateChanged -= SetState;
 
-        private void Start()
-        {
-            SetState(GameManager.Instance.IsMatch);
-        }
-
-
-
-        private void OnEnable() => GameManager.Instance.MatchStateChanged += SetState;
-        private void OnDisable() => GameManager.Instance.MatchStateChanged -= SetState;
+        public override void OnStartClient() => SetState(GameManager.Instance.IsMatch);
+        public override void OnStopClient() => SetState(GameManager.Instance.IsMatch);
 
 
 
         public override void OnStartAuthority()
         {
-            if (autoStart)
-                SetState(true);
+            SetState(autoStart || GameManager.Instance.IsMatch);
         }
 
         public override void OnStopAuthority()
@@ -45,8 +41,13 @@ namespace ArcadeVP
         public void SetState(bool state)
         {
             vehicleController.Handbrake(!state);
-            vehicleCinemachine.enabled = state;
-            vehicleInput.enabled = state;
+
+            if (isOwned || state == false)
+            {
+                ui.SetActive(state);
+                vehicleCinemachine.enabled = state;
+                vehicleInput.enabled = state;
+            }
         }
     }
 }
