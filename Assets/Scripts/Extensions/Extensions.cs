@@ -8,6 +8,7 @@ using Mirror;
 using System.Threading;
 using Unity.Cinemachine;
 using static Scripts.Extensions.RuntimePlatformConverter;
+using UnityEngine.InputSystem;
 
 namespace Scripts.Extensions
 {
@@ -132,6 +133,40 @@ namespace Scripts.Extensions
                 index--;
             else
                 index = bounds - (dontCollideBounds ? 1u : 0u);
+
+        }
+
+
+        /// <summary>
+        /// Safely decrements index within array length
+        /// </summary>
+        public static int DecreaseInBoundsReturn(this int index, Array array) => index.DecreaseInBoundsReturn(array.Length);
+
+        /// <summary>
+        /// Safely decrements index within array length
+        /// </summary>
+        public static uint DecreaseInBoundsReturn(this uint index, Array array) => index.DecreaseInBoundsReturn((uint)array.Length);
+
+        /// <summary>
+        /// Safely decrements index within array length
+        /// </summary>
+        public static int DecreaseInBoundsReturn(this int index, int bounds, bool dontCollideBounds = true)
+        {
+            if (index > 0)
+                return index - 1;
+            else
+                return bounds - (dontCollideBounds ? 1 : 0);
+        }
+
+        /// <summary>
+        /// Safely decrements index within array length
+        /// </summary>
+        public static uint DecreaseInBoundsReturn(this uint index, uint bounds, bool dontCollideBounds = true)
+        {
+            if (index > 0)
+                return index - 1;
+            else
+                return bounds - (dontCollideBounds ? 1u : 0u);
 
         }
         #endregion
@@ -726,6 +761,12 @@ namespace Scripts.Extensions
             return specifies;
         }
 
-        #endregion
+        public static bool IsSelectableInput()
+        {
+            return InputSystem.devices.Where(d => d is Pointer).Count() <= 0;
+        }
+
     }
+
+    #endregion
 }

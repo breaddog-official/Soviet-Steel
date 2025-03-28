@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 2110113474539190139}
   - component: {fileID: 2110113474539190142}
   - component: {fileID: 4021391895364921256}
+  - component: {fileID: 4817374720762704485}
   m_Layer: 5
   m_Name: HorizonterElement
   m_TagString: Untagged
@@ -310,7 +311,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -381,3 +382,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textName: {fileID: 2110113474047813807}
   selector: {fileID: 2110113474214132696}
+--- !u!114 &4817374720762704485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110113474539190136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6322cb1c8a72744fb24bd0378269dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetGraphics: {fileID: 2110113474539190140}
+  disabledAnimation: 0
+  disabledColor: {r: 0, g: 0, b: 0, a: 0.8392157}
+  disabledPosition: {x: 0, y: 0}
+  disabledScale: {x: 1, y: 1}
+  highlightedAnimation: 4
+  highlightedColor: {r: 0, g: 0, b: 0, a: 0.8392157}
+  highlightedPosition: {x: 0, y: 0}
+  highlightedScale: {x: 1.05, y: 1.05}
+  selectedAnimation: 4
+  selectedColor: {r: 0, g: 0, b: 0, a: 0.8392157}
+  selectedPosition: {x: 0, y: 0}
+  selectedScale: {x: 1.05, y: 1.05}
+  pressedAnimation: 4
+  pressedColor: {r: 0, g: 0, b: 0, a: 0.8392157}
+  pressedPosition: {x: 0, y: 0}
+  pressedScale: {x: 0.9, y: 0.9}
+  autoSetCompleted: 1

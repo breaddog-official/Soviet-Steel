@@ -1,3 +1,4 @@
+using Mirror;
 using Scripts.Gameplay;
 using UnityEngine;
 
@@ -7,16 +8,22 @@ namespace Scripts.UI
     {
         [SerializeField] protected GameObject gameplayUI;
         [SerializeField] protected GameObject networkUI;
+        [SerializeField] protected GameObject networkStartMatchUI;
 
 
-        private void Start()
+        /*private void Start()
         {
             SetState(GameManager.Instance.IsMatch);
         }
 
 
         private void OnEnable() => GameManager.MatchStateChanged += SetState;
-        private void OnDisable() => GameManager.MatchStateChanged -= SetState;
+        private void OnDisable() => GameManager.MatchStateChanged -= SetState;*/
+
+        private void Update()
+        {
+            SetState(GameManager.Instance.IsMatch);
+        }
 
 
         public void SetState(bool state)
@@ -26,6 +33,9 @@ namespace Scripts.UI
 
             if (networkUI != null)
                 networkUI.SetActive(!state);
+
+            if (networkStartMatchUI != null)
+                networkStartMatchUI.SetActive(!state && NetworkServer.active);
         }
     }
 }

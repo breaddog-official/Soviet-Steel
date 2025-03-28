@@ -7,7 +7,7 @@ namespace Scripts.UI
     public class MapSO : ScriptableObject, IMap
     {
         [field: SerializeField] public string Name { get; protected set; }
-        [field: SerializeField] public string Description { get; protected set; }
+        [field: SerializeField, ResizableTextArea] public string Description { get; protected set; }
         [field: Scene]
         [field: SerializeField] public string Scene { get; protected set; }
         [field: Space]

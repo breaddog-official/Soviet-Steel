@@ -1,6 +1,7 @@
-using Mirror;
+﻿using Mirror;
+using Scripts.Extensions;
 using System.Collections.Generic;
-using System.IO;
+using TMPro;
 using UnityEngine;
 
 namespace Scripts.UI
@@ -8,66 +9,70 @@ namespace Scripts.UI
     public class SelectMapUI : MonoBehaviour
     {
         [SerializeField] protected MapSO[] mapsSo;
-        [SerializeField] protected SelectMapInstanceUI mapPrefab;
-        [SerializeField] protected Transform spawnParent;
+        [Space]
+        [SerializeField] protected TMP_Text nameText;
+        [SerializeField] protected TMP_Text descriptionText;
+        [SerializeField] protected Material screenMaterial;
+        [Space]
+        [SerializeField] protected Texture defaultScreenTexture;
 
-        protected Dictionary<IMap, SelectMapInstanceUI> spawnedMaps;
         protected List<IMap> maps;
+
+        protected int currentMapIndex;
+
+
 
 
         protected virtual void Awake()
         {
             maps = new(mapsSo);
-            spawnedMaps = new();
-
-            UpdateInstances(true);
-        }
-
-        protected virtual void OnEnable()
-        {
-            UpdateInstances();
         }
 
 
 
-        public void UpdateInstances(bool skipSpawnCheck = false)
+
+        private void OnEnable()
         {
-            foreach (var map in maps)
-            {
-                if (skipSpawnCheck || !spawnedMaps.TryGetValue(map, out SelectMapInstanceUI spawnedMap))
-                {
-                    spawnedMap = Instantiate(mapPrefab, spawnParent);
-                    spawnedMap.Initialize(map, SelectMap);
-                    spawnedMaps.Add(map, spawnedMap);
-                }
-                
-                // Mirror stores scenes in paths
-                spawnedMap.SetSelectState(map.Scene == Path.GetFileNameWithoutExtension(NetworkManager.singleton.onlineScene));
-            }
+            UpdateCurrentMap();
         }
 
-        public void RespawnInstances()
+        private void OnDisable()
         {
-            RemoveInstances();
-            UpdateInstances(true);
-        }
-
-        public void RemoveInstances()
-        {
-            foreach (var map in spawnedMaps.Values)
-            {
-                Destroy(map.gameObject);
-            }
-
-            spawnedMaps.Clear();
+            screenMaterial.mainTexture = defaultScreenTexture;
         }
 
 
-        public virtual void SelectMap(IMap map)
-        {
-            NetworkManager.singleton.onlineScene = map.Scene;
 
-            UpdateInstances();
+
+        public void UpdateCurrentMap()
+        {
+            var map = maps[currentMapIndex];
+
+            nameText.text = map.Name;
+            descriptionText.text = map.Description;
+            screenMaterial.mainTexture = map.Icon;
+        }
+
+
+        public virtual void SelectMap(int index)
+        {
+            currentMapIndex = index;
+
+            NetworkManager.singleton.onlineScene = maps[currentMapIndex].Scene;
+
+            UpdateCurrentMap();
+        }
+
+
+
+        public void NextMap()
+        {
+            SelectMap(currentMapIndex.IncreaseInBoundsReturn(maps.Count));
+        }
+
+        public void PreviousMap()
+        {
+            SelectMap(currentMapIndex.DecreaseInBoundsReturn(maps.Count));
         }
 
 

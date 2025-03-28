@@ -18,23 +18,22 @@ namespace ArcadeVP
         [SerializeField] private bool autoStart;
 
 
-        private void OnEnable() => GameManager.MatchStateChanged += SetState;
+        /*private void OnEnable() => GameManager.MatchStateChanged += SetState;
         private void OnDisable() => GameManager.MatchStateChanged -= SetState;
 
         public override void OnStartClient() => SetState(GameManager.Instance.IsMatch);
         public override void OnStopClient() => SetState(GameManager.Instance.IsMatch);
 
+        public override void OnStartAuthority() => SetState(autoStart || GameManager.Instance.IsMatch);
+        public override void OnStopAuthority() => SetState(false);*/
 
 
-        public override void OnStartAuthority()
+        private void Update()
         {
             SetState(autoStart || GameManager.Instance.IsMatch);
         }
 
-        public override void OnStopAuthority()
-        {
-            SetState(false);
-        }
+
 
 
 
