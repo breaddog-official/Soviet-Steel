@@ -219,6 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameplayUI: {fileID: 4348855584107754733}
   networkUI: {fileID: 6559624216189894474}
+  networkStartMatchUI: {fileID: 3411477314437694495}
 --- !u!114 &7191102425741744494
 MonoBehaviour:
   m_ObjectHideFlags: 0

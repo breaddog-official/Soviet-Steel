@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Burst;
 using UnityEngine.InputSystem;
 using Mirror;
+using NaughtyAttributes;
 
 namespace ArcadeVP
 {
@@ -16,9 +17,19 @@ namespace ArcadeVP
         [Space(10f)]
         [SerializeField] protected string moveControl = "Move";
         [SerializeField] protected string breakControl = "Break";
+        [Space]
+        [SerializeField] protected bool smoothInput = true;
+        [ShowIf(nameof(smoothInput)), Range(0f, 1f)]
+        [SerializeField] protected float smoothAmount = 0.2f;
+        [Space]
+        [SerializeField] protected bool clampInput = true;
+        [ShowIf(nameof(clampInput)), MinMaxSlider(-1f, 1f)]
+        [SerializeField] protected Vector2 clampBorders;
 
         protected InputAction moveAction;   
-        protected InputAction breakAction;   
+        protected InputAction breakAction;
+
+        protected Vector2 lastMove;
 
 
         protected void Awake()
@@ -48,6 +59,20 @@ namespace ArcadeVP
 
             Vector2? moveInput = moveAction?.ReadValue<Vector2>();
             bool? breakInput = breakAction?.IsPressed();
+
+            if (moveInput.HasValue)
+            {
+                if (smoothInput)
+                {
+                    lastMove = Vector2.Lerp(lastMove, moveInput.Value, (1f - smoothAmount) * Time.deltaTime * 100f);
+                    moveInput = lastMove;
+                }
+                
+                if (clampInput)
+                {
+                    moveInput = new(moveInput.Value.x, Mathf.SmoothStep(-1f, 1f, Mathf.InverseLerp(clampBorders.x, clampBorders.y, moveInput.Value.y)));
+                }
+            }
             
             arcadeVehicleController.ProvideInputs(moveInput ?? default, breakInput ?? default);
         }

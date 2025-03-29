@@ -24,7 +24,7 @@ namespace Scripts.Gameplay
 
 
         public static GameManager Instance { get; private set; }
-        public static GameMode GameMode { get; private set; }
+        public static GameMode GameMode { get; private set; } = new GameMode();
 
 
         private void Awake()

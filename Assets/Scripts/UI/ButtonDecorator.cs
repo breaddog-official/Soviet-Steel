@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Scripts.Extensions;
 using System.Linq;
+using Scripts.Audio;
 
 namespace Scripts.UI
 {
@@ -92,10 +93,7 @@ namespace Scripts.UI
             rect = GetComponent<RectTransform>();
             targetGraphics ??= GetComponent<Image>();
 
-            cachedColor = targetGraphics.color;
-            cachedPosition = rect.localPosition;
-            cachedScale = rect.localScale;
-            cachedInteractable = button.interactable;
+            Cache();
 
             // Editor sets
             if (!Application.isPlaying)
@@ -115,6 +113,14 @@ namespace Scripts.UI
             }
         }
 
+        protected void Cache()
+        {
+            cachedColor = targetGraphics.color;
+            cachedPosition = rect.localPosition;
+            cachedScale = rect.localScale;
+            cachedInteractable = button.interactable;
+        }
+
         #endregion
 
         private void Update()
@@ -129,25 +135,32 @@ namespace Scripts.UI
 
         private void OnDisable()
         {
-            animationToken?.ResetToken();
+            animationToken?.Cancel();
         }
 
 
         public void OnPointerEnter(PointerEventData eventData)
         {
             Animate(AnimationState.Highlighted).Forget();
+            AudioManager.PlayHighlighted();
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             Animate(AnimationState.Normal).Forget();
+            AudioManager.PlayUnHighlighted();
         }
 
 
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (ApplicationInfo.IsSelectableInput())
+            if (eventData.pointerEnter != gameObject)
+            {
+                Animate(AnimationState.Normal).Forget();
+                return;
+            }
+            else if (ApplicationInfo.IsSelectableInput())
             {
                 Animate(AnimationState.Highlighted).Forget();
             }
@@ -155,11 +168,14 @@ namespace Scripts.UI
             {
                 Animate(AnimationState.Selected).Forget();
             }
+
+            AudioManager.PlayButtonUp();
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
             Animate(AnimationState.Pressed).Forget();
+            AudioManager.PlayButtonDown();
         }
 
 
@@ -169,6 +185,7 @@ namespace Scripts.UI
             if (ApplicationInfo.IsSelectableInput())
             {
                 Animate(AnimationState.Selected).Forget();
+                AudioManager.PlaySelected();
             }
             else
             {
@@ -183,6 +200,7 @@ namespace Scripts.UI
             if (ApplicationInfo.IsSelectableInput())
             {
                 Animate(AnimationState.Normal).Forget();
+                AudioManager.PlayDeselected();
             }
         }
 
@@ -249,6 +267,9 @@ namespace Scripts.UI
             }
 
             await UniTask.WhenAll(colorTask, positionTask, scaleTask);
+
+            if (state == AnimationState.Normal)
+                Cache();
         }
 
         protected AnimateType StateToAnimation(AnimationState state)

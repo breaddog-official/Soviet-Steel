@@ -1,5 +1,6 @@
 ﻿using Mirror;
 using Scripts.Extensions;
+using Scripts.Gameplay;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -57,8 +58,9 @@ namespace Scripts.UI
         public virtual void SelectMap(int index)
         {
             currentMapIndex = index;
-
+            
             NetworkManager.singleton.onlineScene = maps[currentMapIndex].Scene;
+            GameManager.GameMode.map = maps[currentMapIndex];
 
             UpdateCurrentMap();
         }

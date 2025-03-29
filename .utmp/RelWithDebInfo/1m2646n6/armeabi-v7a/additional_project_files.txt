@@ -15,4 +15,3 @@ D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrar
 D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UnityToGAConfigurationCallbacks.h
 D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UnityToGAKeyEventCallbacks.h
 D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UnityToGAMotionEventCallbacks.h
-D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\FramePacing\UnitySwappyWrapper.h

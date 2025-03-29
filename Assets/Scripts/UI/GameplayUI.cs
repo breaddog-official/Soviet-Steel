@@ -2,8 +2,9 @@ using System;
 using ArcadeVP;
 using Scripts.Gameplay;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using Scripts.Extensions;
+using Cysharp.Threading.Tasks;
 
 public class GameplayUI : MonoBehaviour
 {
@@ -20,11 +21,16 @@ public class GameplayUI : MonoBehaviour
     [Space]
     [SerializeField] protected TMP_Text timeText;
     [SerializeField] protected string timeFormat = @"mm\:ss";
+    [Space]
+    [SerializeField] protected float disableRecordAfter = 3f;
+    [SerializeField] protected TMP_Text recordText;
+    [SerializeField] protected string recordFormat = @"mm\:ss\.fff";
 
 
     protected void Start()
     {
         ApplyRounds(0);
+        recordText.gameObject.SetActive(false);
     }
 
     protected void OnEnable() => GameManager.Instance.RoadManager.OnPlayerReachedRound += ReachRound;
@@ -33,8 +39,7 @@ public class GameplayUI : MonoBehaviour
 
     private void Update()
     {
-        TimeSpan time = TimeSpan.FromSeconds(GameManager.Instance.MatchTime);
-        timeText.text = time.ToString(timeFormat);
+        timeText.text = FormatCurrentTime(timeFormat);
     }
 
     public void ReachRound(ArcadeVehicleNetwork player, int round)
@@ -42,7 +47,30 @@ public class GameplayUI : MonoBehaviour
         if (player.isOwned)
         {
             ApplyRounds(round);
+            CheckRecord();
         }
+    }
+
+    public void CheckRecord()
+    {
+        string key = $"{GameManager.GameMode.map.Name}_record";
+
+        // 120_000 seconds, ~33 hours
+        if (PlayerPrefs.GetFloat(key, 120_000f) > GameManager.Instance.MatchTime)
+        {
+            recordText.gameObject.SetActive(true);
+            recordText.gameObject.DisableAfter(disableRecordAfter).Forget();
+
+            recordText.text = FormatCurrentTime(recordFormat);
+
+            PlayerPrefs.SetFloat(key, (float)GameManager.Instance.MatchTime);
+        }
+    }
+
+    private string FormatCurrentTime(string format)
+    {
+        TimeSpan time = TimeSpan.FromSeconds(GameManager.Instance.MatchTime);
+        return time.ToString(format);
     }
 
     public void ApplyRounds(int rounds)

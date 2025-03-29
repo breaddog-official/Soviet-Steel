@@ -179,17 +179,6 @@
 		{
 			"isExternal" : true,
 			"path" : "D:/Work Games/Need-for-Buhanka/.utmp/RelWithDebInfo/1m2646n6/prefab/armeabi-v7a/prefab/lib/arm-linux-androideabi/cmake/game-activity/game-activityConfig.cmake"
-		},
-		{
-			"path" : "FramePacing/CMakeLists.txt"
-		},
-		{
-			"isExternal" : true,
-			"path" : "D:/Work Games/Need-for-Buhanka/.utmp/RelWithDebInfo/1m2646n6/prefab/armeabi-v7a/prefab/lib/arm-linux-androideabi/cmake/games-frame-pacing/games-frame-pacingConfigVersion.cmake"
-		},
-		{
-			"isExternal" : true,
-			"path" : "D:/Work Games/Need-for-Buhanka/.utmp/RelWithDebInfo/1m2646n6/prefab/armeabi-v7a/prefab/lib/arm-linux-androideabi/cmake/games-frame-pacing/games-frame-pacingConfig.cmake"
 		}
 	],
 	"kind" : "cmakeFiles",

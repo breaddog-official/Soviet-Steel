@@ -17,7 +17,16 @@ namespace ArcadeVP
         public GroundCheck groundCheck;
         public LayerMask drivableSurface;
 
-        public float MaxSpeed, accelaration, turn, gravity = 7f, downforce = 5f;
+        public float maxSpeed;
+        public float accelaration;
+        public float turn;
+        [Space]
+        public float gravity = 7f;
+        public float downforce = 5f;
+        [Space]
+        public float mass = 1000f;
+
+        [Space]
         [Tooltip("if true : can turn vehicle in air")]
         public bool AirControl = false;
         [Tooltip("if true : vehicle will drift instead of brake while holding space")]
@@ -25,10 +34,7 @@ namespace ArcadeVP
         [Tooltip("turn more while drifting (while holding space) only if kart Like is true")]
         public float driftMultiplier = 1.5f;
 
-        [Space]
-        public bool smoothInput = true;
-        [Range(0f, 1f)]
-        public float smoothAmount = 0.2f;
+        
 
         [Space]
         public Rigidbody rb, carBody;
@@ -49,33 +55,31 @@ namespace ArcadeVP
         public float BodyTilt;
         [Header("Audio settings")]
         public AudioSource engineSound;
-        [Range(0, 1)]
-        public float minPitch;
-        [Range(1, 3)]
-        public float MaxPitch;
-        public AudioSource SkidSound;
+        public AudioSource skidSound;
+
+        [MinMaxSlider(0f, 5f)] public Vector2 pitchRange = new(0.5f, 2.5f);
+
+        public float MinPitch => pitchRange.x;
+        public float MaxPitch => pitchRange.y;
 
 
         [Header("Camera Fov")]
         public CinemachineCamera cinemachineCamera;
-        [Range(20f, 180f)]
-        public float minFov = 60;
-        [Range(20f, 180f)]
-        public float maxFov = 75;
-        [Range(0f, 1f)]
-        public float smoothFov = 0.7f;
-        [CurveRange(EColor.White)]
-        public AnimationCurve fovCurve;
+        [MinMaxSlider(20f, 180f)] public Vector2 fovRange = new(60, 75);
+        [Range(0f, 1f)] public float smoothFov = 0.7f;
+        [CurveRange(EColor.Green)] public AnimationCurve fovCurve;
+
+        public float MinFov => fovRange.x;
+        public float MaxFov => fovRange.y;
+
 
         [Header("Camera Noise")]
-        [Range(0f, 1f)]
-        public float minNoise = 0.7f;
-        [Range(0f, 6f)]
-        public float maxNoise = 3f;
-        [Range(0f, 1f)]
-        public float smoothNoise = 0.7f;
-        [CurveRange(EColor.White)]
-        public AnimationCurve amplitudeCurve;
+        [MinMaxSlider(0f, 5f)] public Vector2 noiseRange = new(0, 5);
+        [Range(0f, 1f)] public float smoothNoise = 0.7f;
+        [CurveRange(EColor.Green)] public AnimationCurve amplitudeCurve;
+
+        public float MinNoise => noiseRange.x;
+        public float MaxNoise => noiseRange.y;
 
         private CinemachineBasicMultiChannelPerlin noise;
 
@@ -92,12 +96,11 @@ namespace ArcadeVP
         private Vector3 origin;
 
         [SyncVar]
-        private Vector2 smoothedMoveInput;
         private Vector2 moveInput;
         private bool brakeInput;
 
-        private float AccelerationInput => smoothedMoveInput.y;
-        private float SteeringInput => smoothedMoveInput.x;
+        private float AccelerationInput => moveInput.y;
+        private float SteeringInput => moveInput.x;
         private bool BrakeInput => handbrake || brakeInput;
 
 
@@ -106,6 +109,9 @@ namespace ArcadeVP
             sphereCollider = rb.GetComponent<SphereCollider>();
 
             radius = sphereCollider.radius;
+
+            rb.mass = mass;
+            carBody.mass = mass;
 
             if (movementMode == MovementMode.AngularVelocity)
             {
@@ -118,7 +124,6 @@ namespace ArcadeVP
             Visuals();
             AudioManager();
             CameraManager();
-            SmoothInput();
         }
 
         public void ProvideInputs(Vector2 _moveInput, bool _brakeInput)
@@ -127,33 +132,25 @@ namespace ArcadeVP
             brakeInput = _brakeInput;
         }
 
-        public void SmoothInput()
-        {
-            if (NetworkServer.active && !isOwned)
-                return;
-
-            smoothedMoveInput = smoothInput ? Vector2.Lerp(smoothedMoveInput, moveInput, (1f - smoothAmount) * Time.deltaTime * 100f) : moveInput;
-        }
-
         public void AudioManager()
         {
-            engineSound.pitch = Mathf.Lerp(minPitch, MaxPitch, Mathf.Abs(carVelocity.z) / MaxSpeed);
+            engineSound.pitch = Mathf.Lerp(MinPitch, MaxPitch, Mathf.Abs(carVelocity.z) / maxSpeed);
             if (Mathf.Abs(carVelocity.x) > 10 && grounded())
             {
-                SkidSound.mute = false;
+                skidSound.mute = false;
             }
             else
             {
-                SkidSound.mute = true;
+                skidSound.mute = true;
             }
         }
 
         public void CameraManager()
         {
-            float t = Mathf.Abs(carVelocity.z) / MaxSpeed;
+            float t = Mathf.Abs(carVelocity.z) / maxSpeed;
 
-            float fov = Mathf.Lerp(minFov, maxFov, fovCurve.Evaluate(t));
-            float amplitude = Mathf.Lerp(minNoise, maxNoise, amplitudeCurve.Evaluate(t));
+            float fov = Mathf.Lerp(MinFov, MaxFov, fovCurve.Evaluate(t));
+            float amplitude = Mathf.Lerp(MinNoise, MaxNoise, amplitudeCurve.Evaluate(t));
 
             cinemachineCamera.Lens.FieldOfView = Mathf.Lerp(cinemachineCamera.Lens.FieldOfView, fov, (1f - smoothFov) * Time.deltaTime);
 
@@ -191,17 +188,17 @@ namespace ArcadeVP
             {
                 //turnlogic
                 float sign = Mathf.Sign(carVelocity.z);
-                float TurnMultiplyer = turnCurve.Evaluate(carVelocity.magnitude / MaxSpeed);
+                float TurnMultiplyer = turnCurve.Evaluate(carVelocity.magnitude / maxSpeed);
                 if (kartLike && BrakeInput) { TurnMultiplyer *= driftMultiplier; } //turn more if drifting
 
 
                 if (AccelerationInput > 0.1f || carVelocity.z > 1)
                 {
-                    carBody.AddTorque(Vector3.up * SteeringInput * sign * turn * 100 * TurnMultiplyer);
+                    carBody.AddTorque(Vector3.up * SteeringInput * sign * turn * mass * 100 * TurnMultiplyer);
                 }
                 else if (AccelerationInput < -0.1f || carVelocity.z < -1)
                 {
-                    carBody.AddTorque(Vector3.up * SteeringInput * sign * turn * 100 * TurnMultiplyer);
+                    carBody.AddTorque(Vector3.up * SteeringInput * sign * turn * mass * 100 * TurnMultiplyer);
                 }
 
 
@@ -225,22 +222,22 @@ namespace ArcadeVP
                 {
                     if (Mathf.Abs(AccelerationInput) > 0.1f && !BrakeInput && !kartLike)
                     {
-                        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, carBody.transform.right * AccelerationInput * MaxSpeed / radius, accelaration * Time.deltaTime);
+                        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, carBody.transform.right * AccelerationInput * maxSpeed / radius, accelaration * Time.deltaTime);
                     }
                     else if (Mathf.Abs(AccelerationInput) > 0.1f && kartLike)
                     {
-                        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, carBody.transform.right * AccelerationInput * MaxSpeed / radius, accelaration * Time.deltaTime);
+                        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, carBody.transform.right * AccelerationInput * maxSpeed / radius, accelaration * Time.deltaTime);
                     }
                 }
                 else if (movementMode == MovementMode.Velocity)
                 {
                     if (Mathf.Abs(AccelerationInput) > 0.1f && !BrakeInput && !kartLike)
                     {
-                        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, carBody.transform.forward * AccelerationInput * MaxSpeed, accelaration / 10 * Time.deltaTime);
+                        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, carBody.transform.forward * AccelerationInput * maxSpeed, accelaration / 10 * Time.deltaTime);
                     }
                     else if (Mathf.Abs(AccelerationInput) > 0.1f && kartLike)
                     {
-                        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, carBody.transform.forward * AccelerationInput * MaxSpeed, accelaration / 10 * Time.deltaTime);
+                        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, carBody.transform.forward * AccelerationInput * maxSpeed, accelaration / 10 * Time.deltaTime);
                     }
                 }
 
@@ -255,9 +252,9 @@ namespace ArcadeVP
                 if (AirControl)
                 {
                     //turnlogic
-                    float TurnMultiplyer = turnCurve.Evaluate(carVelocity.magnitude / MaxSpeed);
+                    float TurnMultiplyer = turnCurve.Evaluate(carVelocity.magnitude / maxSpeed);
 
-                    carBody.AddTorque(Vector3.up * SteeringInput * turn * 100 * TurnMultiplyer);
+                    carBody.AddTorque(Vector3.up * SteeringInput * turn * mass * 100 * TurnMultiplyer);
                 }
 
                 carBody.MoveRotation(Quaternion.Slerp(carBody.rotation, Quaternion.FromToRotation(carBody.transform.up, Vector3.up) * carBody.transform.rotation, 0.02f));
@@ -280,7 +277,7 @@ namespace ArcadeVP
             //Body
             if (carVelocity.z > 1)
             {
-                BodyMesh.localRotation = Quaternion.Slerp(BodyMesh.localRotation, Quaternion.Euler(Mathf.Lerp(0, -5, carVelocity.z / MaxSpeed),
+                BodyMesh.localRotation = Quaternion.Slerp(BodyMesh.localRotation, Quaternion.Euler(Mathf.Lerp(0, -5, carVelocity.z / maxSpeed),
                                    BodyMesh.localRotation.eulerAngles.y, BodyTilt * SteeringInput), 0.4f * Time.deltaTime / Time.fixedDeltaTime);
             }
             else

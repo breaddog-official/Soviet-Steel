@@ -1,7 +1,6 @@
 {
   "buildFiles": [
     "D:\\Work Games\\Need-for-Buhanka\\Library\\Bee\\Android\\Prj\\Mono2x\\Gradle\\unityLibrary\\src\\main\\cpp\\CMakeLists.txt",
-    "D:\\Work Games\\Need-for-Buhanka\\Library\\Bee\\Android\\Prj\\Mono2x\\Gradle\\unityLibrary\\src\\main\\cpp\\FramePacing\\CMakeLists.txt",
     "D:\\Work Games\\Need-for-Buhanka\\Library\\Bee\\Android\\Prj\\Mono2x\\Gradle\\unityLibrary\\src\\main\\cpp\\GameActivity\\CMakeLists.txt"
   ],
   "cleanCommandsComponents": [
@@ -24,13 +23,6 @@
       "abi": "armeabi-v7a",
       "artifactName": "game",
       "output": "D:\\Work Games\\Need-for-Buhanka\\Library\\Bee\\Android\\Prj\\Mono2x\\Gradle\\unityLibrary\\build\\intermediates\\cxx\\RelWithDebInfo\\1m2646n6\\obj\\armeabi-v7a\\libgame.so",
-      "runtimeFiles": []
-    },
-    "swappywrapper::@7e25bd1f32ce224db4e9": {
-      "toolchain": "toolchain",
-      "abi": "armeabi-v7a",
-      "artifactName": "swappywrapper",
-      "output": "D:\\Work Games\\Need-for-Buhanka\\Library\\Bee\\Android\\Prj\\Mono2x\\Gradle\\unityLibrary\\build\\intermediates\\cxx\\RelWithDebInfo\\1m2646n6\\obj\\armeabi-v7a\\libswappywrapper.so",
       "runtimeFiles": []
     }
   },

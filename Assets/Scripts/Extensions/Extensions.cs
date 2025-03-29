@@ -578,6 +578,21 @@ namespace Scripts.Extensions
         }
 
         #endregion
+
+        #region DisableAfter
+
+        /// <summary>
+        /// Disables gameObject after duration
+        /// </summary>
+        public static async UniTask DisableAfter(this GameObject gameObject, float duration, CancellationToken token = default)
+        {
+            await UniTask.Delay(duration.ConvertSecondsToMiliseconds(), cancellationToken: token);
+
+            if (gameObject != null)
+                gameObject.SetActive(true);
+        }
+
+        #endregion
     }
 
 
@@ -763,7 +778,7 @@ namespace Scripts.Extensions
 
         public static bool IsSelectableInput()
         {
-            return InputSystem.devices.Where(d => d is Pointer).Count() <= 0;
+            return InputSystem.devices.Where(d => d is Pointer && d is not Touchscreen).Count() <= 0;
         }
 
     }

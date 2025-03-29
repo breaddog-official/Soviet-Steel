@@ -3,6 +3,3 @@ D:/Work Games/Need-for-Buhanka/.utmp/RelWithDebInfo/1m2646n6/armeabi-v7a/CMakeFi
 D:/Work Games/Need-for-Buhanka/.utmp/RelWithDebInfo/1m2646n6/armeabi-v7a/GameActivity/CMakeFiles/game.dir
 D:/Work Games/Need-for-Buhanka/.utmp/RelWithDebInfo/1m2646n6/armeabi-v7a/GameActivity/CMakeFiles/edit_cache.dir
 D:/Work Games/Need-for-Buhanka/.utmp/RelWithDebInfo/1m2646n6/armeabi-v7a/GameActivity/CMakeFiles/rebuild_cache.dir
-D:/Work Games/Need-for-Buhanka/.utmp/RelWithDebInfo/1m2646n6/armeabi-v7a/FramePacing/CMakeFiles/swappywrapper.dir
-D:/Work Games/Need-for-Buhanka/.utmp/RelWithDebInfo/1m2646n6/armeabi-v7a/FramePacing/CMakeFiles/edit_cache.dir
-D:/Work Games/Need-for-Buhanka/.utmp/RelWithDebInfo/1m2646n6/armeabi-v7a/FramePacing/CMakeFiles/rebuild_cache.dir

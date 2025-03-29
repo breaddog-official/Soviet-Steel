@@ -1,4 +1,5 @@
 using Mirror;
+using Scripts.Gameplay;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -66,6 +67,7 @@ namespace Scripts.UI
         public virtual void SelectMap(IMap map)
         {
             NetworkManager.singleton.onlineScene = map.Scene;
+            GameManager.GameMode.map = map;
 
             UpdateInstances();
         }

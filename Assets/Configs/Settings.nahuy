@@ -1,6 +1,6 @@
 {
   "soundsVolume": 1.0,
-  "musicVolume": 0.0,
+  "musicVolume": 0.7958788,
   "ambientVolume": 0.17482613,
   "fullscreenMode": 2,
   "resolution": {
@@ -16,7 +16,7 @@
   "shadows": 2,
   "shadowsQuality": 3,
   "shadersQuality": 3,
-  "antiAliasing": 3,
+  "antiAliasing": 1,
   "antiAliasingMsaa": 0,
   "fogType": 2,
   "renderDistance": 3,
