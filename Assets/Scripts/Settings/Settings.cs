@@ -21,6 +21,14 @@ namespace Scripts.Settings
             Extreme
         }
 
+        public enum ResolutionType
+        {
+            Low,
+            Medium,
+            High,
+            Full
+        }
+
         public enum AntiAliasing
         {
             None,
@@ -116,6 +124,7 @@ namespace Scripts.Settings
         public AntiAliasingMSAA antiAliasingMsaa;
         public FogType fogType;
         public RenderDistance renderDistance = RenderDistance.Maximum;
+        public ResolutionType resolutionType = ResolutionType.Full;
         public bool fastMode;
 
         [HideInInspector]

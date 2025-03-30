@@ -39,7 +39,7 @@ namespace ArcadeVP
 
         public void SetState(bool state)
         {
-            vehicleController.Handbrake(!state);
+            vehicleController.SetHandbrake(!state);
 
             if (isOwned || state == false)
             {

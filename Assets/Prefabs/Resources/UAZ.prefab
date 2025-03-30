@@ -649,18 +649,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d69c44041501f4aab1c355410d67b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 1
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0
   movementMode: 0
-  groundCheck: 0
+  groundCheck: 1
   drivableSurface:
     serializedVersion: 2
     m_Bits: 64
   maxSpeed: 100
   accelaration: 8
   turn: 8
-  gravity: 0
+  drift: 16
+  gravity: 8
   downforce: 5
   mass: 1825
   AirControl: 0
@@ -746,6 +747,7 @@ MonoBehaviour:
   BodyTilt: 10
   engineSound: {fileID: 3449596696580881780}
   skidSound: {fileID: 4537850823717060819}
+  spatialBlend: 0.6
   pitchRange: {x: 0.5, y: 2.5}
   cinemachineCamera: {fileID: 5579852667695232331}
   fovRange: {x: 75, y: 110}
@@ -970,7 +972,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: a0212963d11a06c4caa454df8e2a2a57, type: 3}
   m_Resource: {fileID: 8300000, guid: a0212963d11a06c4caa454df8e2a2a57, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.7
+  m_Volume: 0.57
   m_Pitch: 1
   Loop: 1
   Mute: 0

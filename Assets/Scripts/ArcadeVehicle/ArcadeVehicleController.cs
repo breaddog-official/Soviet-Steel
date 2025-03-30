@@ -3,23 +3,25 @@ using Unity.Burst;
 using Mirror;
 using Unity.Cinemachine;
 using NaughtyAttributes;
+using Scripts.Extensions;
 
 namespace ArcadeVP
 {
     [BurstCompile]
     public class ArcadeVehicleController : NetworkBehaviour
     {
-        public enum GroundCheck { None, RayCast, SphereCaste }
+        public enum GroundCheckType { None, RayCast, SphereCaste }
         public enum MovementMode { Velocity, AngularVelocity }
 
 
         public MovementMode movementMode;
-        public GroundCheck groundCheck;
+        public GroundCheckType groundCheck;
         public LayerMask drivableSurface;
 
-        public float maxSpeed;
-        public float accelaration;
-        public float turn;
+        public float maxSpeed = 80f;
+        public float accelaration = 12f;
+        public float turn = 12f;
+        public float drift = 10f;
         [Space]
         public float gravity = 7f;
         public float downforce = 5f;
@@ -39,6 +41,8 @@ namespace ArcadeVP
         [Space]
         public Rigidbody rb, carBody;
 
+        public bool Grounded { get; private set; }
+
         [HideInInspector]
         public RaycastHit hit;
         public AnimationCurve frictionCurve;
@@ -56,6 +60,8 @@ namespace ArcadeVP
         [Header("Audio settings")]
         public AudioSource engineSound;
         public AudioSource skidSound;
+        [Range(0f, 1f)]
+        public float spatialBlend = 0.6f;
 
         [MinMaxSlider(0f, 5f)] public Vector2 pitchRange = new(0.5f, 2.5f);
 
@@ -126,16 +132,198 @@ namespace ArcadeVP
             CameraManager();
         }
 
-        public void ProvideInputs(Vector2 _moveInput, bool _brakeInput)
+        private void FixedUpdate()
+        {
+            if (isOwned)
+            {
+                carVelocity = carBody.transform.InverseTransformDirection(carBody.linearVelocity);
+
+                if (!NetworkServer.active)
+                    SendVelocity(carVelocity);
+            }
+            
+
+            GroundCheck();
+            BreakLogic();
+
+            if (isOwned)
+            {
+                TurnLogic();
+                GravityLogic();
+                AccelerationLogic();
+            }
+        }
+
+        public void SetInput(Vector2 _moveInput, bool _brakeInput)
         {
             moveInput = _moveInput;
             brakeInput = _brakeInput;
         }
 
+        public void SetHandbrake(bool state)
+        {
+            handbrake = state;
+        }
+
+        [Command]
+        public void SendVelocity(Vector3 velocity)
+        {
+            carVelocity = velocity;
+        }
+
+
+        #region Logic
+
+        public void AccelerationLogic()
+        {
+            if (Grounded)
+            {
+                //accelaration logic
+                if (movementMode == MovementMode.AngularVelocity)
+                {
+                    if (Mathf.Abs(AccelerationInput) > 0.1f && !BrakeInput && !kartLike)
+                    {
+                        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, AccelerationInput * maxSpeed * carBody.transform.right / radius, accelaration * ApplicationInfo.FixedDeltaTime);
+                    }
+                    else if (Mathf.Abs(AccelerationInput) > 0.1f && kartLike)
+                    {
+                        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, AccelerationInput * maxSpeed * carBody.transform.right / radius, accelaration * ApplicationInfo.FixedDeltaTime);
+                    }
+                }
+                else if (movementMode == MovementMode.Velocity)
+                {
+                    if (Mathf.Abs(AccelerationInput) > 0.1f && !BrakeInput && !kartLike)
+                    {
+                        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, AccelerationInput * maxSpeed * carBody.transform.forward, accelaration / 10 * ApplicationInfo.FixedDeltaTime);
+                    }
+                    else if (Mathf.Abs(AccelerationInput) > 0.1f && kartLike)
+                    {
+                        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, AccelerationInput * maxSpeed * carBody.transform.forward, accelaration / 10 * ApplicationInfo.FixedDeltaTime);
+                    }
+                }
+            }
+        }
+
+        public void TurnLogic()
+        {
+            float turnMultiplyer = turnCurve.Evaluate(carVelocity.magnitude / maxSpeed) * (kartLike && BrakeInput ? driftMultiplier : 1f);
+            float calculatedTurn = 5000f * mass * SteeringInput * ApplicationInfo.FixedDeltaTime * turn * turnMultiplyer;
+
+            if (Grounded)
+            {
+                //turnlogic
+                float sign = Mathf.Sign(carVelocity.z);
+
+                if (AccelerationInput > 0.1f || carVelocity.z > 1)
+                {
+                    carBody.AddTorque(calculatedTurn * sign * Vector3.up);
+                }
+                else if (AccelerationInput < -0.1f || carVelocity.z < -1)
+                {
+                    carBody.AddTorque(calculatedTurn * sign * Vector3.up);
+                }
+            }
+            else if (AirControl)
+            {
+                carBody.AddTorque(calculatedTurn * Vector3.up);
+            }
+        }
+
+        public void BreakLogic()
+        {
+            if (Mathf.Abs(carVelocity.x) > 0)
+            {
+                //changes friction according to sideways speed of car
+                frictionMaterial.dynamicFriction = frictionCurve.Evaluate(Mathf.Abs(carVelocity.x / 100));
+            }
+
+            if (Grounded && !kartLike)
+            {
+                if (BrakeInput)
+                {
+                    rb.constraints = RigidbodyConstraints.FreezeRotationX;
+                }
+                else
+                {
+                    rb.constraints = RigidbodyConstraints.None;
+                }
+            }
+        }
+
+        public void GravityLogic()
+        {
+            if (Grounded)
+            {
+                // down force
+                rb.AddForce(downforce * rb.mass * -transform.up);
+            }
+            else
+            {
+                // gravity
+                rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, rb.linearVelocity + Vector3.down * gravity, ApplicationInfo.FixedDeltaTime * gravity);
+            }
+        }
+
+        #endregion
+
+        #region Visuals
+
+        public void Visuals()
+        {
+            //tires
+            foreach (Transform FW in FrontWheels)
+            {
+                FW.localRotation = Quaternion.Slerp(FW.localRotation, Quaternion.Euler(FW.localRotation.eulerAngles.x,
+                                   30 * SteeringInput, FW.localRotation.eulerAngles.z), 0.7f * Time.deltaTime / ApplicationInfo.FixedDeltaTime);
+                FW.GetChild(0).localRotation = rb.transform.localRotation;
+            }
+            RearWheels[0].localRotation = rb.transform.localRotation;
+            RearWheels[1].localRotation = rb.transform.localRotation;
+
+            //Body
+            if (carVelocity.z > 1)
+            {
+                BodyMesh.localRotation = Quaternion.Slerp(BodyMesh.localRotation, Quaternion.Euler(Mathf.Lerp(0, -5, carVelocity.z / maxSpeed),
+                                   BodyMesh.localRotation.eulerAngles.y, BodyTilt * SteeringInput), 0.4f * Time.deltaTime / ApplicationInfo.FixedDeltaTime);
+            }
+            else
+            {
+                BodyMesh.localRotation = Quaternion.Slerp(BodyMesh.localRotation, Quaternion.Euler(0, 0, 0), 0.4f * Time.deltaTime / ApplicationInfo.FixedDeltaTime);
+            }
+
+
+            if (kartLike)
+            {
+                if (BrakeInput)
+                {
+                    BodyMesh.parent.localRotation = Quaternion.Slerp(BodyMesh.parent.localRotation,
+                    Quaternion.Euler(0, 45 * SteeringInput * Mathf.Sign(carVelocity.z), 0),
+                    0.1f * Time.deltaTime / ApplicationInfo.FixedDeltaTime);
+                }
+                else
+                {
+                    BodyMesh.parent.localRotation = Quaternion.Slerp(BodyMesh.parent.localRotation,
+                    Quaternion.Euler(0, 0, 0),
+                    0.1f * Time.deltaTime / ApplicationInfo.FixedDeltaTime);
+                }
+            }
+
+            if (Grounded)
+            {
+                //body tilt
+                carBody.MoveRotation(Quaternion.Slerp(carBody.rotation, Quaternion.FromToRotation(carBody.transform.up, hit.normal) * carBody.transform.rotation, 0.12f));
+            }
+            else
+            {
+                carBody.MoveRotation(Quaternion.Slerp(carBody.rotation, Quaternion.FromToRotation(carBody.transform.up, Vector3.up) * carBody.transform.rotation, 0.02f));
+            }
+        }
+
         public void AudioManager()
         {
             engineSound.pitch = Mathf.Lerp(MinPitch, MaxPitch, Mathf.Abs(carVelocity.z) / maxSpeed);
-            if (Mathf.Abs(carVelocity.x) > 10 && grounded())
+
+            if (Mathf.Abs(carVelocity.x) > drift && Grounded)
             {
                 skidSound.mute = false;
             }
@@ -143,6 +331,9 @@ namespace ArcadeVP
             {
                 skidSound.mute = true;
             }
+
+            engineSound.spatialBlend = isOwned ? spatialBlend : 1f;
+            skidSound.spatialBlend = isOwned ? spatialBlend : 1f;
         }
 
         public void CameraManager()
@@ -161,160 +352,19 @@ namespace ArcadeVP
             noise.FrequencyGain = Mathf.Lerp(noise.AmplitudeGain, amplitude, (1f - smoothNoise) * Time.deltaTime);
         }
 
-        public void Handbrake(bool state)
-        {
-            handbrake = state;
-        }
+        #endregion
 
 
-
-
-
-        void FixedUpdate()
-        {
-            if (NetworkServer.active && !isOwned)
-                return;
-
-            carVelocity = carBody.transform.InverseTransformDirection(carBody.linearVelocity);
-
-            if (Mathf.Abs(carVelocity.x) > 0)
-            {
-                //changes friction according to sideways speed of car
-                frictionMaterial.dynamicFriction = frictionCurve.Evaluate(Mathf.Abs(carVelocity.x / 100));
-            }
-
-
-            if (grounded())
-            {
-                //turnlogic
-                float sign = Mathf.Sign(carVelocity.z);
-                float TurnMultiplyer = turnCurve.Evaluate(carVelocity.magnitude / maxSpeed);
-                if (kartLike && BrakeInput) { TurnMultiplyer *= driftMultiplier; } //turn more if drifting
-
-
-                if (AccelerationInput > 0.1f || carVelocity.z > 1)
-                {
-                    carBody.AddTorque(Vector3.up * SteeringInput * sign * turn * mass * 100 * TurnMultiplyer);
-                }
-                else if (AccelerationInput < -0.1f || carVelocity.z < -1)
-                {
-                    carBody.AddTorque(Vector3.up * SteeringInput * sign * turn * mass * 100 * TurnMultiplyer);
-                }
-
-
-
-                // mormal brakelogic
-                if (!kartLike)
-                {
-                    if (BrakeInput)
-                    {
-                        rb.constraints = RigidbodyConstraints.FreezeRotationX;
-                    }
-                    else
-                    {
-                        rb.constraints = RigidbodyConstraints.None;
-                    }
-                }
-
-                //accelaration logic
-
-                if (movementMode == MovementMode.AngularVelocity)
-                {
-                    if (Mathf.Abs(AccelerationInput) > 0.1f && !BrakeInput && !kartLike)
-                    {
-                        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, carBody.transform.right * AccelerationInput * maxSpeed / radius, accelaration * Time.deltaTime);
-                    }
-                    else if (Mathf.Abs(AccelerationInput) > 0.1f && kartLike)
-                    {
-                        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, carBody.transform.right * AccelerationInput * maxSpeed / radius, accelaration * Time.deltaTime);
-                    }
-                }
-                else if (movementMode == MovementMode.Velocity)
-                {
-                    if (Mathf.Abs(AccelerationInput) > 0.1f && !BrakeInput && !kartLike)
-                    {
-                        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, carBody.transform.forward * AccelerationInput * maxSpeed, accelaration / 10 * Time.deltaTime);
-                    }
-                    else if (Mathf.Abs(AccelerationInput) > 0.1f && kartLike)
-                    {
-                        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, carBody.transform.forward * AccelerationInput * maxSpeed, accelaration / 10 * Time.deltaTime);
-                    }
-                }
-
-                // down froce
-                rb.AddForce(-transform.up * downforce * rb.mass);
-
-                //body tilt
-                carBody.MoveRotation(Quaternion.Slerp(carBody.rotation, Quaternion.FromToRotation(carBody.transform.up, hit.normal) * carBody.transform.rotation, 0.12f));
-            }
-            else
-            {
-                if (AirControl)
-                {
-                    //turnlogic
-                    float TurnMultiplyer = turnCurve.Evaluate(carVelocity.magnitude / maxSpeed);
-
-                    carBody.AddTorque(Vector3.up * SteeringInput * turn * mass * 100 * TurnMultiplyer);
-                }
-
-                carBody.MoveRotation(Quaternion.Slerp(carBody.rotation, Quaternion.FromToRotation(carBody.transform.up, Vector3.up) * carBody.transform.rotation, 0.02f));
-                rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, rb.linearVelocity + Vector3.down * gravity, Time.deltaTime * gravity);
-            }
-
-        }
-        public void Visuals()
-        {
-            //tires
-            foreach (Transform FW in FrontWheels)
-            {
-                FW.localRotation = Quaternion.Slerp(FW.localRotation, Quaternion.Euler(FW.localRotation.eulerAngles.x,
-                                   30 * SteeringInput, FW.localRotation.eulerAngles.z), 0.7f * Time.deltaTime / Time.fixedDeltaTime);
-                FW.GetChild(0).localRotation = rb.transform.localRotation;
-            }
-            RearWheels[0].localRotation = rb.transform.localRotation;
-            RearWheels[1].localRotation = rb.transform.localRotation;
-
-            //Body
-            if (carVelocity.z > 1)
-            {
-                BodyMesh.localRotation = Quaternion.Slerp(BodyMesh.localRotation, Quaternion.Euler(Mathf.Lerp(0, -5, carVelocity.z / maxSpeed),
-                                   BodyMesh.localRotation.eulerAngles.y, BodyTilt * SteeringInput), 0.4f * Time.deltaTime / Time.fixedDeltaTime);
-            }
-            else
-            {
-                BodyMesh.localRotation = Quaternion.Slerp(BodyMesh.localRotation, Quaternion.Euler(0, 0, 0), 0.4f * Time.deltaTime / Time.fixedDeltaTime);
-            }
-
-
-            if (kartLike)
-            {
-                if (BrakeInput)
-                {
-                    BodyMesh.parent.localRotation = Quaternion.Slerp(BodyMesh.parent.localRotation,
-                    Quaternion.Euler(0, 45 * SteeringInput * Mathf.Sign(carVelocity.z), 0),
-                    0.1f * Time.deltaTime / Time.fixedDeltaTime);
-                }
-                else
-                {
-                    BodyMesh.parent.localRotation = Quaternion.Slerp(BodyMesh.parent.localRotation,
-                    Quaternion.Euler(0, 0, 0),
-                    0.1f * Time.deltaTime / Time.fixedDeltaTime);
-                }
-
-            }
-
-        }
-
-        public bool grounded() //checks for if vehicle is grounded or not
+        public void GroundCheck() //checks for if vehicle is grounded or not
         {
             origin = rb.position + sphereCollider.radius * Vector3.up;
             var direction = -transform.up;
             var maxdistance = sphereCollider.radius + 0.2f;
-
-            return groundCheck switch
+            
+            Grounded = groundCheck switch
             {
-                GroundCheck.RayCast => Physics.Raycast(rb.position, Vector3.down, out hit, maxdistance, drivableSurface),
-                GroundCheck.SphereCaste => Physics.SphereCast(origin, radius + 0.1f, direction, out hit, maxdistance, drivableSurface),
+                GroundCheckType.RayCast => Physics.Raycast(rb.position, Vector3.down, out hit, maxdistance, drivableSurface),
+                GroundCheckType.SphereCaste => Physics.SphereCast(origin, radius + 0.1f, direction, out hit, maxdistance, drivableSurface),
                 _ => true
             };
         }
@@ -336,10 +386,7 @@ namespace ArcadeVP
                     Gizmos.color = Color.green;
                     Gizmos.DrawWireCube(transform.position, collider.size);
                 }
-
             }
-
         }
-
     }
 }

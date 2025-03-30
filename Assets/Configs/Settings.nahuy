@@ -20,6 +20,7 @@
   "antiAliasingMsaa": 0,
   "fogType": 2,
   "renderDistance": 3,
+  "resolutionType": 3,
   "fastMode": false,
   "debugCode": ""
 }

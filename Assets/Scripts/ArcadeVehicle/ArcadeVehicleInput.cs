@@ -74,7 +74,7 @@ namespace ArcadeVP
                 }
             }
             
-            arcadeVehicleController.ProvideInputs(moveInput ?? default, breakInput ?? default);
+            arcadeVehicleController.SetInput(moveInput ?? default, breakInput ?? default);
         }
     }
 }

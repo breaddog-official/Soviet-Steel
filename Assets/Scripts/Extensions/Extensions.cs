@@ -741,6 +741,8 @@ namespace Scripts.Extensions
     {
         public static RenderingPath renderPath = RenderingPath.Forward;
 
+        public static float FixedDeltaTime => Physics.simulationMode == SimulationMode.FixedUpdate ? Time.fixedDeltaTime : Time.deltaTime;
+
 
 
         public static PlatformSpecifies GetSpecifies()

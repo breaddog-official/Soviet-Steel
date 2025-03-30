@@ -32,10 +32,9 @@ namespace ArcadeVP
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (carController.grounded())
+            if (carController.Grounded)
             {
-
-                if (Mathf.Abs(carController.carVelocity.x) > 10)
+                if (Mathf.Abs(carController.carVelocity.x) > carController.drift)
                 {
                     fadeOutSpeed = 0f;
                     skidMark.materials[0].color = Color.black;
