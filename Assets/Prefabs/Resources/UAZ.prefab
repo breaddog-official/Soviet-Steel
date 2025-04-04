@@ -114,8 +114,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 743179590986008871}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13870122, y: 0, z: 0, w: 0.99033433}
-  m_LocalPosition: {x: 0, y: 2, z: -6}
+  m_LocalRotation: {x: 0.11992015, y: 0, z: 0, w: 0.99278355}
+  m_LocalPosition: {x: 0, y: 1.7799997, z: -5.200012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -182,7 +182,7 @@ MonoBehaviour:
     AngularDampingMode: 0
     RotationDamping: {x: 2, y: 1.5, z: 2}
     QuaternionDamping: 0
-  FollowOffset: {x: 0, y: 2, z: -6}
+  FollowOffset: {x: 0, y: 1.78, z: -5.2}
 --- !u!114 &3343142301353723295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LookAtOffset: {x: 0, y: 0, z: 1}
+  LookAtOffset: {x: 0, y: 0.26, z: 1}
 --- !u!114 &8151336465714478986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,9 +748,9 @@ MonoBehaviour:
   engineSound: {fileID: 3449596696580881780}
   skidSound: {fileID: 4537850823717060819}
   spatialBlend: 0.6
-  pitchRange: {x: 0.5, y: 2.5}
+  pitchRange: {x: 0.5, y: 2.8}
   cinemachineCamera: {fileID: 5579852667695232331}
-  fovRange: {x: 75, y: 110}
+  fovRange: {x: 85, y: 110}
   smoothFov: 0.3
   fovCurve:
     serializedVersion: 2
@@ -785,7 +785,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  noiseRange: {x: 0.7, y: 2.6}
+  noiseRange: {x: 0.36, y: 2.6}
   smoothNoise: 0.2
   amplitudeCurve:
     serializedVersion: 2
@@ -6084,6 +6084,7 @@ MonoBehaviour:
   timeFormat: mm\:ss
   disableRecordAfter: 3
   recordText: {fileID: 5494258129177724679}
+  recordNetwork: {fileID: 1907090003657255099}
   recordFormat: mm\:ss\.fff
 --- !u!1 &3480908599072013435
 GameObject:

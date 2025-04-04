@@ -589,7 +589,7 @@ namespace Scripts.Extensions
             await UniTask.Delay(duration.ConvertSecondsToMiliseconds(), cancellationToken: token);
 
             if (gameObject != null)
-                gameObject.SetActive(true);
+                gameObject.SetActive(false);
         }
 
         #endregion

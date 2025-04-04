@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine;
 using Scripts.Extensions;
 using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 public class GameplayUI : MonoBehaviour
 {
@@ -24,6 +26,7 @@ public class GameplayUI : MonoBehaviour
     [Space]
     [SerializeField] protected float disableRecordAfter = 3f;
     [SerializeField] protected TMP_Text recordText;
+    [SerializeField] protected ArcadeVehicleNetwork recordNetwork;
     [SerializeField] protected string recordFormat = @"mm\:ss\.fff";
 
 
@@ -44,7 +47,7 @@ public class GameplayUI : MonoBehaviour
 
     public void ReachRound(ArcadeVehicleNetwork player, int round)
     {
-        if (player.isOwned)
+        if (player == recordNetwork)
         {
             ApplyRounds(round);
             CheckRecord();
@@ -54,16 +57,17 @@ public class GameplayUI : MonoBehaviour
     public void CheckRecord()
     {
         string key = $"{GameManager.GameMode.map.Name}_record";
+        double time = GameManager.Instance.RoadManager.GetPlayers().GetValueOrDefault(recordNetwork).LastBetweenTime;
 
         // 120_000 seconds, ~33 hours
-        if (PlayerPrefs.GetFloat(key, 120_000f) > GameManager.Instance.MatchTime)
+        if (PlayerPrefs.GetFloat(key, 120_000f) > time)
         {
             recordText.gameObject.SetActive(true);
             recordText.gameObject.DisableAfter(disableRecordAfter).Forget();
 
             recordText.text = FormatCurrentTime(recordFormat);
 
-            PlayerPrefs.SetFloat(key, (float)GameManager.Instance.MatchTime);
+            PlayerPrefs.SetFloat(key, (float)time);
         }
     }
 

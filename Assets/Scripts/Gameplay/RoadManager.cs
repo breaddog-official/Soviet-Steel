@@ -5,6 +5,8 @@ using Scripts.Extensions;
 using System;
 using Mirror;
 using ArcadeVP;
+using System.Collections.Generic;
+using Scripts.Gameplay;
 
 public class RoadManager : NetworkBehaviour
 {
@@ -50,7 +52,7 @@ public class RoadManager : NetworkBehaviour
 
                 if (nextPoint == firstMarker)
                 {
-                    player.Value.SetRound(player.Value.round + 1);
+                    player.Value.AddRound(GameManager.Instance.MatchTime);
                     OnPlayerReachedRound?.Invoke(player.Key, player.Value.round);
                 }
 
@@ -64,6 +66,8 @@ public class RoadManager : NetworkBehaviour
 
     public Vector3 GetPoint(int index) => road.markersExt[index].position;
     public float GetRadius() => (road.GetRoadWidth() / 2f) + widthOffset;
+
+    public IReadOnlyDictionary<ArcadeVehicleNetwork, PlayerScore> GetPlayers() => players;
 
     #region Gizmos
 #if UNITY_EDITOR
@@ -91,7 +95,26 @@ public class RoadManager : NetworkBehaviour
         public int marker;
         public int round;
 
+        public readonly List<double> roundsTime;
+
+        public double LastTime => roundsTime[round];
+        public double LastBetweenTime => roundsTime.Count > 1 ? roundsTime[round] - roundsTime[round - 1] : roundsTime[round];
+
+
+        public PlayerScore()
+        {
+            roundsTime = new();
+            roundsTime.Add(0d);
+        }
+
+
         public void SetMarker(int marker) => this.marker = marker;
         public void SetRound(int round) => this.round = round;
+
+        public void AddRound(double time)
+        {
+            round++;
+            roundsTime.Add(time);
+        }
     }
 }
