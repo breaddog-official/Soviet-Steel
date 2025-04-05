@@ -1,40 +1,25 @@
 ﻿using Mirror;
-using Scripts.Extensions;
 using Scripts.Gameplay;
-using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
 namespace Scripts.UI
 {
-    public class SelectMapUI : MonoBehaviour
+    public class SelectMapUI : SelectUI<Map>
     {
-        [SerializeField] protected MapSO[] mapsSo;
-        [Space]
         [SerializeField] protected TMP_Text nameText;
         [SerializeField] protected TMP_Text descriptionText;
-        [SerializeField] protected Material screenMaterial;
         [Space]
+        [SerializeField] protected Material screenMaterial;
         [SerializeField] protected Texture defaultScreenTexture;
-
-        protected List<IMap> maps;
-
-        protected int currentMapIndex;
-
-
 
 
         protected virtual void Awake()
         {
-            maps = new(mapsSo);
-        }
+            values.AddRange(NetworkManagerExt.instance.registeredMaps.Select(m => m.map));
 
-
-
-
-        private void OnEnable()
-        {
-            UpdateCurrentMap();
+            Select(values.Where(v => v.Scene == NetworkManager.singleton.onlineScene).FirstOrDefault());
         }
 
         private void OnDisable()
@@ -45,43 +30,16 @@ namespace Scripts.UI
 
 
 
-        public void UpdateCurrentMap()
+        public override void ApplyCurrentValue()
         {
-            var map = maps[currentMapIndex];
+            var map = CurrentValue;
+
+            NetworkManager.singleton.onlineScene = map.Scene;
+            GameManager.GameMode.map = map;
 
             nameText.text = map.Name;
             descriptionText.text = map.Description;
             screenMaterial.mainTexture = map.Icon;
         }
-
-
-        public virtual void SelectMap(int index)
-        {
-            currentMapIndex = index;
-            
-            NetworkManager.singleton.onlineScene = maps[currentMapIndex].Scene;
-            GameManager.GameMode.map = maps[currentMapIndex];
-
-            UpdateCurrentMap();
-        }
-
-
-
-        public void NextMap()
-        {
-            SelectMap(currentMapIndex.IncreaseInBoundsReturn(maps.Count));
-        }
-
-        public void PreviousMap()
-        {
-            SelectMap(currentMapIndex.DecreaseInBoundsReturn(maps.Count));
-        }
-
-
-
-        public void AddMap(IMap map) => maps.Add(map);
-        public bool RemoveMap(IMap map) => maps.Remove(map);
-
-        public IReadOnlyCollection<IMap> GetMaps() => maps;
     }
 }

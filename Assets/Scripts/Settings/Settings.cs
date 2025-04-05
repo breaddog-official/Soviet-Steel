@@ -29,6 +29,13 @@ namespace Scripts.Settings
             Full
         }
 
+        public enum Geometry
+        {
+            Low,
+            Medium,
+            High,
+        }
+
         public enum AntiAliasing
         {
             None,
@@ -125,6 +132,7 @@ namespace Scripts.Settings
         public FogType fogType;
         public RenderDistance renderDistance = RenderDistance.Maximum;
         public ResolutionType resolutionType = ResolutionType.Full;
+        public Geometry geometry = Geometry.Medium;
         public bool fastMode;
 
         [HideInInspector]

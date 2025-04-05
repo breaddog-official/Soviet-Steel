@@ -1,6 +1,8 @@
 using Mirror;
 using Mirror.Discovery;
+using Scripts.Gameplay;
 using System;
+using System.Linq;
 using System.Net;
 using static Scripts.Network.ServerDiscovery;
 
@@ -62,10 +64,14 @@ namespace Scripts.Network
             return new Response
             {
                 name = ServerName,
+                mapHash = GameManager.GameMode.map.MapHash,
+
                 uri = transport.ServerUri(),
 
                 playersCount = NetworkServer.connections.Count,
                 maxPlayers = NetworkServer.maxConnections,
+
+                supportedCarsHashes = NetworkManagerExt.instance.registeredCars.Select(c => c.car.CarHash).ToArray(),
 
                 serverId = ServerId
             };
@@ -116,12 +122,14 @@ namespace Scripts.Network
         public struct Response : NetworkMessage
         {
             public string name;
-            public string map;
+            public string mapHash;
 
             public Uri uri;
 
             public int playersCount;
             public int maxPlayers;
+
+            public string[] supportedCarsHashes;
 
             public long serverId;
         }

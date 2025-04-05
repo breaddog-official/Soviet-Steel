@@ -13,12 +13,12 @@ namespace Scripts.UI
         [Space]
         [SerializeField] protected GameObject selector;
 
-        protected IMap map;
-        protected Action<IMap> selectAction;
+        protected Map map;
+        protected Action<Map> selectAction;
 
 
 
-        public void Initialize(IMap map, Action<IMap> onSelect = null)
+        public void Initialize(Map map, Action<Map> onSelect = null)
         {
             this.map = map;
             this.selectAction = onSelect;

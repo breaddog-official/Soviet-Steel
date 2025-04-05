@@ -42,7 +42,7 @@ public class GameplayUI : MonoBehaviour
 
     private void Update()
     {
-        timeText.text = FormatCurrentTime(timeFormat);
+        timeText.text = FormatTime(GameManager.Instance.MatchTime, timeFormat);
     }
 
     public void ReachRound(ArcadeVehicleNetwork player, int round)
@@ -65,16 +65,16 @@ public class GameplayUI : MonoBehaviour
             recordText.gameObject.SetActive(true);
             recordText.gameObject.DisableAfter(disableRecordAfter).Forget();
 
-            recordText.text = FormatCurrentTime(recordFormat);
+            recordText.text = FormatTime(time, recordFormat);
 
             PlayerPrefs.SetFloat(key, (float)time);
         }
     }
 
-    private string FormatCurrentTime(string format)
+    private string FormatTime(double time, string format)
     {
-        TimeSpan time = TimeSpan.FromSeconds(GameManager.Instance.MatchTime);
-        return time.ToString(format);
+        TimeSpan timeSpan = TimeSpan.FromSeconds(time);
+        return timeSpan.ToString(format);
     }
 
     public void ApplyRounds(int rounds)

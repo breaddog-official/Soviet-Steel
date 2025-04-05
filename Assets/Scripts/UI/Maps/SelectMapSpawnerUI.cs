@@ -2,30 +2,33 @@ using Mirror;
 using Scripts.Gameplay;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Scripts.UI
 {
-    public class SelectMapSpawnerUI : MonoBehaviour
+    public class SelectMapSpawnerUI : SelectUI<Map>
     {
         [SerializeField] protected MapSO[] mapsSo;
         [SerializeField] protected SelectMapInstanceUI mapPrefab;
         [SerializeField] protected Transform spawnParent;
 
-        protected Dictionary<IMap, SelectMapInstanceUI> spawnedMaps;
-        protected List<IMap> maps;
+        protected Dictionary<Map, SelectMapInstanceUI> spawnedMaps;
 
 
         protected virtual void Awake()
         {
-            maps = new(mapsSo);
+            values.AddRange(mapsSo.Select(m => m.map));
             spawnedMaps = new();
 
             UpdateInstances(true);
         }
 
-        protected virtual void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
+
             UpdateInstances();
         }
 
@@ -33,12 +36,12 @@ namespace Scripts.UI
 
         public void UpdateInstances(bool skipSpawnCheck = false)
         {
-            foreach (var map in maps)
+            foreach (var map in values)
             {
                 if (skipSpawnCheck || !spawnedMaps.TryGetValue(map, out SelectMapInstanceUI spawnedMap))
                 {
                     spawnedMap = Instantiate(mapPrefab, spawnParent);
-                    spawnedMap.Initialize(map, SelectMap);
+                    spawnedMap.Initialize(map, Select);
                     spawnedMaps.Add(map, spawnedMap);
                 }
                 
@@ -64,19 +67,12 @@ namespace Scripts.UI
         }
 
 
-        public virtual void SelectMap(IMap map)
+        public override void ApplyCurrentValue()
         {
-            NetworkManager.singleton.onlineScene = map.Scene;
-            GameManager.GameMode.map = map;
+            NetworkManager.singleton.onlineScene = CurrentValue.Scene;
+            GameManager.GameMode.map = CurrentValue;
 
             UpdateInstances();
         }
-
-
-
-        public void AddMap(IMap map) => maps.Add(map);
-        public bool RemoveMap(IMap map) => maps.Remove(map);
-
-        public IReadOnlyCollection<IMap> GetMaps() => maps;
     }
 }

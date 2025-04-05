@@ -35,8 +35,9 @@ namespace ArcadeVP
         public bool kartLike = false;
         [Tooltip("turn more while drifting (while holding space) only if kart Like is true")]
         public float driftMultiplier = 1.5f;
+        public float driftAngle = 25f;
 
-        
+
 
         [Space]
         public Rigidbody rb, carBody;
@@ -108,6 +109,8 @@ namespace ArcadeVP
         private float AccelerationInput => moveInput.y;
         private float SteeringInput => moveInput.x;
         private bool BrakeInput => handbrake || brakeInput;
+
+        private bool KartLikeBrake => kartLike && brakeInput;
 
 
         private void Start()
@@ -206,7 +209,7 @@ namespace ArcadeVP
 
         public void TurnLogic()
         {
-            float turnMultiplyer = turnCurve.Evaluate(carVelocity.magnitude / maxSpeed) * (kartLike && BrakeInput ? driftMultiplier : 1f);
+            float turnMultiplyer = turnCurve.Evaluate(carVelocity.magnitude / maxSpeed) * (KartLikeBrake || IsDrift() ? driftMultiplier : 1f);
             float calculatedTurn = 5000f * mass * SteeringInput * ApplicationInfo.FixedDeltaTime * turn * turnMultiplyer;
 
             if (Grounded)
@@ -292,20 +295,17 @@ namespace ArcadeVP
             }
 
 
-            if (kartLike)
+            if (KartLikeBrake || IsDrift())
             {
-                if (BrakeInput)
-                {
-                    BodyMesh.parent.localRotation = Quaternion.Slerp(BodyMesh.parent.localRotation,
-                    Quaternion.Euler(0, 45 * SteeringInput * Mathf.Sign(carVelocity.z), 0),
-                    0.1f * Time.deltaTime / ApplicationInfo.FixedDeltaTime);
-                }
-                else
-                {
-                    BodyMesh.parent.localRotation = Quaternion.Slerp(BodyMesh.parent.localRotation,
-                    Quaternion.Euler(0, 0, 0),
-                    0.1f * Time.deltaTime / ApplicationInfo.FixedDeltaTime);
-                }
+                BodyMesh.parent.localRotation = Quaternion.Slerp(BodyMesh.parent.localRotation,
+                Quaternion.Euler(0, driftAngle * SteeringInput * Mathf.Sign(carVelocity.z), 0),
+                0.1f * Time.deltaTime / ApplicationInfo.FixedDeltaTime);
+            }
+            else
+            {
+                BodyMesh.parent.localRotation = Quaternion.Slerp(BodyMesh.parent.localRotation,
+                Quaternion.Euler(0, 0, 0),
+                0.1f * Time.deltaTime / ApplicationInfo.FixedDeltaTime);
             }
 
             if (Grounded)
@@ -321,9 +321,10 @@ namespace ArcadeVP
 
         public void AudioManager()
         {
-            engineSound.pitch = Mathf.Lerp(MinPitch, MaxPitch, Mathf.Abs(carVelocity.z) / maxSpeed);
-
-            if (Mathf.Abs(carVelocity.x) > drift && Grounded)
+            //engineSound.pitch = Mathf.Lerp(MinPitch, MaxPitch, Mathf.Abs(carVelocity.z) / maxSpeed);
+            engineSound.pitch = Mathf.Lerp(MinPitch, MaxPitch, carVelocity.magnitude / maxSpeed);
+            //print(carVelocity.magnitude);
+            if (IsDrift() && Grounded)
             {
                 skidSound.mute = false;
             }
@@ -368,6 +369,8 @@ namespace ArcadeVP
                 _ => true
             };
         }
+
+        public bool IsDrift() => Mathf.Abs(carVelocity.x) > drift;
 
         private void OnDrawGizmos()
         {

@@ -11,6 +11,13 @@ namespace Scripts.Settings
         [SerializeField, Range(0, 100)] protected int highResolution = 75;
         [SerializeField, Range(0, 100)] protected int fullResolution = 100;
 
+        private Resolution defaultResolution;
+
+
+        protected override void Awake()
+        {
+            defaultResolution = Screen.currentResolution;
+        }
 
         public override void UpdateValue()
         {
@@ -24,8 +31,7 @@ namespace Scripts.Settings
             };
             var multiplier = percents / 100f;
 
-            QualitySettings.resolutionScalingFixedDPIFactor = multiplier;
-            ScalableBufferManager.ResizeBuffers(multiplier, multiplier);
+            Screen.SetResolution((int)(defaultResolution.width * multiplier), (int)(defaultResolution.height * multiplier), Screen.fullScreenMode);
         }
     }
 }

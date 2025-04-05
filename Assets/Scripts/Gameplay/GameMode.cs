@@ -7,6 +7,6 @@ namespace Scripts.Gameplay
         public int rounds;
         public int spawnBots;
 
-        public IMap map;
+        public Map map;
     }
 }

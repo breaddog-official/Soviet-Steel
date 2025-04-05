@@ -4,6 +4,7 @@ using System;
 using System.Threading;
 using UnityEngine;
 using Scripts.Extensions;
+using Scripts.Cars;
 
 namespace Scripts.Gameplay
 {
@@ -25,6 +26,8 @@ namespace Scripts.Gameplay
 
         public static GameManager Instance { get; private set; }
         public static GameMode GameMode { get; private set; } = new GameMode();
+
+        public static Car Car { get; private set; }
 
 
         private void Awake()
@@ -96,6 +99,10 @@ namespace Scripts.Gameplay
 
 
 
+        public static void SetCar(Car car)
+        {
+            Car = car;
+        }
 
         public void AddPlayer(NetworkConnectionToClient conn) => AddPlayer(conn.identity.gameObject);
         public void AddPlayer(GameObject player)
