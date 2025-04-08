@@ -21,9 +21,6 @@ namespace Scripts.Cars
 
             if (car.CarPrefab != null && car.CarPrefab.TryGetComponent(out ArcadeVehicleController controller))
             {
-                if (car.MaxSpeed == 0)
-                    car.MaxSpeed = controller.maxSpeed;
-
                 if (car.Weight == 0)
                     car.Weight = controller.mass;
             }

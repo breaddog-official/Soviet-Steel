@@ -19,10 +19,17 @@ public class GameplayUI : MonoBehaviour
     }
 
     [SerializeField] protected TMP_Text roundsText;
-    [SerializeField] protected RoundsFormat format = RoundsFormat.RoundsAndMaxRounds;
+    [SerializeField] protected RoundsFormat roundsFormat = RoundsFormat.RoundsAndMaxRounds;
+    [Space]
+    [SerializeField] protected TMP_Text placeText;
+    [SerializeField] protected RoundsFormat placeFormat = RoundsFormat.RoundsAndMaxRounds;
     [Space]
     [SerializeField] protected TMP_Text timeText;
     [SerializeField] protected string timeFormat = @"mm\:ss";
+    [Space]
+    [SerializeField] protected TMP_Text speedText;
+    [SerializeField] protected Gradient speedGradient;
+    [SerializeField] protected float speedMultiplier = 1f;
     [Space]
     [SerializeField] protected float disableRecordAfter = 3f;
     [SerializeField] protected TMP_Text recordText;
@@ -43,6 +50,11 @@ public class GameplayUI : MonoBehaviour
     private void Update()
     {
         timeText.text = FormatTime(GameManager.Instance.MatchTime, timeFormat);
+
+        speedText.text = ((int)(recordNetwork.vehicleController.Speed * speedMultiplier)).ToString();
+        speedText.color = speedGradient.Evaluate(recordNetwork.vehicleController.Speed / recordNetwork.vehicleController.maxSpeed);
+
+        ApplyPlace(GameManager.Instance.RoadManager.GetPlace(recordNetwork) + 1);
     }
 
     public void ReachRound(ArcadeVehicleNetwork player, int round)
@@ -79,11 +91,30 @@ public class GameplayUI : MonoBehaviour
 
     public void ApplyRounds(int rounds)
     {
-        roundsText.text = format switch
+        if (roundsText == null)
+            return;
+
+        int maxRounds = GameManager.GameMode.rounds;
+        roundsText.text = roundsFormat switch
         {
             RoundsFormat.Rounds => rounds.ToString(),
-            RoundsFormat.MaxRounds => GameManager.GameMode.rounds.ToString(),
-            RoundsFormat.RoundsAndMaxRounds => $"{rounds} / {GameManager.GameMode.rounds}",
+            RoundsFormat.MaxRounds => maxRounds.ToString(),
+            RoundsFormat.RoundsAndMaxRounds => $"{rounds} / {maxRounds}",
+            _ => string.Empty
+        };
+    }
+
+    public void ApplyPlace(int place)
+    {
+        if (placeText == null)
+            return;
+
+        int lastPlace = GameManager.Instance.RoadManager.GetPlayers().Count;
+        placeText.text = placeFormat switch
+        {
+            RoundsFormat.Rounds => place.ToString(),
+            RoundsFormat.MaxRounds => lastPlace.ToString(),
+            RoundsFormat.RoundsAndMaxRounds => $"{place} / {lastPlace}",
             _ => string.Empty
         };
     }

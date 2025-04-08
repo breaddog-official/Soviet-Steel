@@ -542,7 +542,7 @@ MonoBehaviour:
   - version: 2.0.0
     name: Barier
     id: 1740059045.471082
-    timestamp: 1741549830.801214
+    timestamp: 1744033859.907886
     objectType: 2
     gameobjectGUID: 
     textureGUID: 
@@ -571,7 +571,7 @@ MonoBehaviour:
     align: 0
     alignPoint: 0
     weld: 1
-    combine: 1
+    combine: 0
     combineInstantiated: 1
     markerActive: 1
     uvType: 0
@@ -608,9 +608,9 @@ MonoBehaviour:
     endObject: {fileID: 0}
     connectionObject: {fileID: 0}
     material: {fileID: 0}
-    physicMaterial: {fileID: 0}
+    physicMaterial: {fileID: 13400000, guid: 66bc9616aa0bf9149a3bfb4ec5589e12, type: 2}
     meshObjects: []
-    boxSize: {x: 0.34206712, y: 2.12}
+    boxSize: {x: 0.34206715, y: 1.6843364}
     boxOffset: {x: 0, y: 0.3166667}
     includeStartSegment: 0
     startSegmentOffset: 0
@@ -769,12 +769,12 @@ MonoBehaviour:
     doubleSidedBendFlag: 0
     recalculateNormals: 0
     x1: -0.24000017
-    x2: 0.10206608
+    x2: 0.10206623
     xf1: 0
     xf2: 0
     xf1Total: 0
     xf2Total: 0
-    y1: 2.1699998
+    y1: 1.7343363
     baseControllerFlag: 0
     connectorEndOffset: {x: 0, y: 0, z: 0}
     minBaseRotation: 0

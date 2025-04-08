@@ -104,14 +104,11 @@ namespace Scripts.Gameplay
             Car = car;
         }
 
-        public void AddPlayer(NetworkConnectionToClient conn) => AddPlayer(conn.identity.gameObject);
         public void AddPlayer(GameObject player)
         {
             RoadManager.AddPlayer(player);
         }
 
-
-        public void RemovePlayer(NetworkConnectionToClient conn) => RemovePlayer(conn.identity.gameObject);
         public void RemovePlayer(GameObject player)
         {
             RoadManager.RemovePlayer(player);

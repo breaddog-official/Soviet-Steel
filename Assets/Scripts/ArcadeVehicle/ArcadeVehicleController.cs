@@ -11,7 +11,7 @@ namespace ArcadeVP
     public class ArcadeVehicleController : NetworkBehaviour
     {
         public enum GroundCheckType { None, RayCast, SphereCaste }
-        public enum MovementMode { Velocity, AngularVelocity }
+        public enum MovementMode { Velocity, AngularVelocity, Force }
 
 
         public MovementMode movementMode;
@@ -38,17 +38,22 @@ namespace ArcadeVP
         public float driftAngle = 25f;
 
 
-
-        [Space]
-        public Rigidbody rb, carBody;
-
         public bool Grounded { get; private set; }
 
-        [HideInInspector]
-        public RaycastHit hit;
-        public AnimationCurve frictionCurve;
-        public AnimationCurve turnCurve;
-        public PhysicsMaterial frictionMaterial;
+        [Header("Physics")]
+        public Rigidbody rb;
+        public Rigidbody carBody;
+        
+        [Space]
+        public float minFriction = 1f;
+        public float maxFriction = 5f;
+        [HideInInspector] public PhysicsMaterial frictionMaterial;
+        [HideInInspector] public RaycastHit hit;
+
+        [Header("Curves")]
+        [CurveRange(0, 0, 1, 1, EColor.Red)] public AnimationCurve accelerationCurve;
+        [CurveRange(0, 0, 1, 1, EColor.Yellow)] public AnimationCurve frictionCurve;
+        [CurveRange(0, 0, 1, 1, EColor.Green)] public AnimationCurve turnCurve;
         [Header("Visuals")]
         public Transform BodyMesh;
         public Transform[] FrontWheels = new Transform[2];
@@ -91,6 +96,24 @@ namespace ArcadeVP
         private CinemachineBasicMultiChannelPerlin noise;
 
 
+        [Header("Camera Rotation")]
+        [Min(0f)] public float cameraRotationMaxVelocity = 15;
+        [Range(0f, 90f)] public float cameraRotationAngle = 15;
+        [Range(0f, 1f)] public float smoothCameraRotation = 0.7f;
+        [CurveRange(EColor.Green)] public AnimationCurve cameraRotationCurve;
+
+        private CinemachineLookAtOffset lookAt;
+
+        [Header("Camera X Move")]
+        [Min(0f)] public float cameraXMoveMaxVelocity = 15;
+        [Range(0f, 5f)] public float cameraXMove = 1;
+        [Range(0f, 1f)] public float smoothCameraXMove = 0.7f;
+        [CurveRange(EColor.Green)] public AnimationCurve cameraXMoveCurve;
+
+        private CinemachineFollow follow;
+
+
+
         [HideInInspector]
         public float skidWidth;
 
@@ -106,26 +129,44 @@ namespace ArcadeVP
         private Vector2 moveInput;
         private bool brakeInput;
 
-        private float AccelerationInput => moveInput.y;
+        private float AccelerationInput => moveInput.y * accelerationCurve.Evaluate(Speed / maxSpeed) * AccelerationMultiplier;
         private float SteeringInput => moveInput.x;
         private bool BrakeInput => handbrake || brakeInput;
 
         private bool KartLikeBrake => kartLike && brakeInput;
+        public float Speed => new Vector3(carVelocity.x, 0f, carVelocity.z).magnitude;
+
+        public float AccelerationMultiplier = 1f;
+
+        private ArcadeVehicleNetwork network;
 
 
         private void Start()
         {
+            frictionMaterial = new PhysicsMaterial();
+            frictionMaterial.staticFriction = 1f;
+            frictionMaterial.bounciness = 0f;
+            frictionMaterial.frictionCombine = PhysicsMaterialCombine.Maximum;
+
             sphereCollider = rb.GetComponent<SphereCollider>();
+            sphereCollider.sharedMaterial = frictionMaterial;
 
             radius = sphereCollider.radius;
 
             rb.mass = mass;
             carBody.mass = mass;
 
+            network = GetComponent<ArcadeVehicleNetwork>();
+
             if (movementMode == MovementMode.AngularVelocity)
             {
                 Physics.defaultMaxAngularSpeed = 100;
             }
+        }
+
+        private void OnDestroy()
+        {
+            DestroyImmediate(frictionMaterial, true);
         }
 
         private void Update()
@@ -157,6 +198,13 @@ namespace ArcadeVP
             }
         }
 
+        [TargetRpc]
+        public void Sync(NetworkConnectionToClient conn, float acceleration)
+        {
+            AccelerationMultiplier = acceleration;
+            print("sync");
+        }
+
         public void SetInput(Vector2 _moveInput, bool _brakeInput)
         {
             moveInput = _moveInput;
@@ -182,26 +230,19 @@ namespace ArcadeVP
             if (Grounded)
             {
                 //accelaration logic
-                if (movementMode == MovementMode.AngularVelocity)
+                if (Mathf.Abs(AccelerationInput) > 0.1f && (!BrakeInput || kartLike))
                 {
-                    if (Mathf.Abs(AccelerationInput) > 0.1f && !BrakeInput && !kartLike)
-                    {
-                        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, AccelerationInput * maxSpeed * carBody.transform.right / radius, accelaration * ApplicationInfo.FixedDeltaTime);
-                    }
-                    else if (Mathf.Abs(AccelerationInput) > 0.1f && kartLike)
-                    {
-                        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, AccelerationInput * maxSpeed * carBody.transform.right / radius, accelaration * ApplicationInfo.FixedDeltaTime);
-                    }
-                }
-                else if (movementMode == MovementMode.Velocity)
-                {
-                    if (Mathf.Abs(AccelerationInput) > 0.1f && !BrakeInput && !kartLike)
+                    if (movementMode == MovementMode.Velocity)
                     {
                         rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, AccelerationInput * maxSpeed * carBody.transform.forward, accelaration / 10 * ApplicationInfo.FixedDeltaTime);
                     }
-                    else if (Mathf.Abs(AccelerationInput) > 0.1f && kartLike)
+                    else if (movementMode == MovementMode.AngularVelocity)
                     {
-                        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, AccelerationInput * maxSpeed * carBody.transform.forward, accelaration / 10 * ApplicationInfo.FixedDeltaTime);
+                        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, AccelerationInput * maxSpeed * carBody.transform.right / radius, accelaration * ApplicationInfo.FixedDeltaTime);
+                    }
+                    else if (movementMode == MovementMode.Force)
+                    {
+                        rb.AddForce(AccelerationInput * accelaration * 5f * ApplicationInfo.FixedDeltaTime * carBody.transform.forward, ForceMode.VelocityChange);
                     }
                 }
             }
@@ -209,7 +250,7 @@ namespace ArcadeVP
 
         public void TurnLogic()
         {
-            float turnMultiplyer = turnCurve.Evaluate(carVelocity.magnitude / maxSpeed) * (KartLikeBrake || IsDrift() ? driftMultiplier : 1f);
+            float turnMultiplyer = turnCurve.Evaluate(Speed / maxSpeed) * (KartLikeBrake || IsDrift() ? driftMultiplier : 1f);
             float calculatedTurn = 5000f * mass * SteeringInput * ApplicationInfo.FixedDeltaTime * turn * turnMultiplyer;
 
             if (Grounded)
@@ -237,7 +278,7 @@ namespace ArcadeVP
             if (Mathf.Abs(carVelocity.x) > 0)
             {
                 //changes friction according to sideways speed of car
-                frictionMaterial.dynamicFriction = frictionCurve.Evaluate(Mathf.Abs(carVelocity.x / 100));
+                frictionMaterial.dynamicFriction = Mathf.Lerp(minFriction, maxFriction, frictionCurve.Evaluate(Mathf.Abs(carVelocity.x / 100)));
             }
 
             if (Grounded && !kartLike)
@@ -322,7 +363,7 @@ namespace ArcadeVP
         public void AudioManager()
         {
             //engineSound.pitch = Mathf.Lerp(MinPitch, MaxPitch, Mathf.Abs(carVelocity.z) / maxSpeed);
-            engineSound.pitch = Mathf.Lerp(MinPitch, MaxPitch, carVelocity.magnitude / maxSpeed);
+            engineSound.pitch = Mathf.Lerp(MinPitch, MaxPitch, Speed / maxSpeed);
             //print(carVelocity.magnitude);
             if (IsDrift() && Grounded)
             {
@@ -333,24 +374,51 @@ namespace ArcadeVP
                 skidSound.mute = true;
             }
 
-            engineSound.spatialBlend = isOwned ? spatialBlend : 1f;
-            skidSound.spatialBlend = isOwned ? spatialBlend : 1f;
+            engineSound.spatialBlend = isOwned && !network.AI ? spatialBlend : 1f;
+            skidSound.spatialBlend = isOwned && !network.AI ? spatialBlend : 1f;
         }
 
         public void CameraManager()
         {
-            float t = Mathf.Abs(carVelocity.z) / maxSpeed;
+            float speedT = Speed / maxSpeed;
 
-            float fov = Mathf.Lerp(MinFov, MaxFov, fovCurve.Evaluate(t));
-            float amplitude = Mathf.Lerp(MinNoise, MaxNoise, amplitudeCurve.Evaluate(t));
+            float fov = Mathf.Lerp(MinFov, MaxFov, fovCurve.Evaluate(speedT));
+            float amplitude = Mathf.Lerp(MinNoise, MaxNoise, amplitudeCurve.Evaluate(speedT));
 
             cinemachineCamera.Lens.FieldOfView = Mathf.Lerp(cinemachineCamera.Lens.FieldOfView, fov, (1f - smoothFov) * Time.deltaTime);
 
+            // Noise
             if (noise == null && !cinemachineCamera.TryGetComponent<CinemachineBasicMultiChannelPerlin>(out noise))
                 return;
 
             noise.AmplitudeGain = Mathf.Lerp(noise.AmplitudeGain, amplitude, (1f - smoothNoise) * Time.deltaTime);
             noise.FrequencyGain = Mathf.Lerp(noise.AmplitudeGain, amplitude, (1f - smoothNoise) * Time.deltaTime);
+
+            // Rotation Z
+            if (lookAt == null && !cinemachineCamera.TryGetComponent<CinemachineLookAtOffset>(out lookAt))
+                return;
+
+            float xVelocityWithDrift = Mathf.Abs(carVelocity.x) - drift;
+
+            float xVelocityRotation = Mathf.Clamp(xVelocityWithDrift, 0f, cameraRotationAngle) / cameraRotationAngle;
+            float rotationZ = Mathf.Lerp(0f, cameraRotationAngle, cameraRotationCurve.Evaluate(xVelocityRotation));
+
+            if (carVelocity.x > 0)
+                rotationZ = -rotationZ;
+
+            lookAt.RotationOffset.z = Mathf.Lerp(lookAt.RotationOffset.z, rotationZ, (1f - smoothCameraRotation) * Time.deltaTime);
+
+            // Move x
+            if (follow == null && !cinemachineCamera.TryGetComponent<CinemachineFollow>(out follow))
+                return;
+
+            float xVelocityMove = Mathf.Clamp(xVelocityWithDrift, 0f, cameraXMoveMaxVelocity) / cameraXMoveMaxVelocity;
+            float moveX = Mathf.Lerp(0f, cameraXMove, cameraXMoveCurve.Evaluate(xVelocityMove));
+
+            if (carVelocity.x > 0)
+                moveX = -moveX;
+
+            follow.FollowOffset.x = Mathf.Lerp(follow.FollowOffset.x, moveX, (1f - smoothCameraXMove) * Time.deltaTime);
         }
 
         #endregion

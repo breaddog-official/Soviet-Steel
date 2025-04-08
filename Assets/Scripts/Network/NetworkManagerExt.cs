@@ -1,8 +1,10 @@
+using ArcadeVP;
 using Mirror;
 using Scripts.Cars;
 using Scripts.Gameplay;
 using Scripts.UI;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -11,8 +13,8 @@ public class NetworkManagerExt : NetworkManager
     public CarSO[] registeredCars;
     public MapSO[] registeredMaps;
 
-    public static event Action<NetworkConnectionToClient> OnServerAddPlayerAction;
-    public static event Action<NetworkConnectionToClient> OnServerDisconnectAction;
+    public static event Action<GameObject> OnServerAddPlayerAction;
+    public static event Action<GameObject> OnServerDisconnectAction;
 
     public static NetworkManagerExt instance;
 
@@ -29,16 +31,10 @@ public class NetworkManagerExt : NetworkManager
     }
 
 
-    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
-    {
-        base.OnServerAddPlayer(conn);
-
-        OnServerAddPlayerAction?.Invoke(conn);
-    }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
-        OnServerDisconnectAction?.Invoke(conn);
+        OnServerDisconnectAction?.Invoke(conn.identity.gameObject);
 
         base.OnServerDisconnect(conn);
     }
@@ -66,9 +62,10 @@ public class NetworkManagerExt : NetworkManager
         // Return if player already spawned
         if (NetworkClient.connection.identity != null)
             return;
-
+        
         ConnectMessage message = new()
         {
+            name = "anonymous",
             carHash = GameManager.Car.CarHash
         };
 
@@ -85,7 +82,15 @@ public class NetworkManagerExt : NetworkManager
         if (conn.identity != null)
             return;
 
+        var player = SpawnPlayer(message);
 
+        // call this to use this gameobject as the primary controller
+        NetworkServer.AddPlayerForConnection(conn, player);
+    }
+
+    [Server]
+    public GameObject SpawnPlayer(ConnectMessage message)
+    {
         // Spawn player
         var car = registeredCars.Where(c => c.car.CarHash == message.carHash).FirstOrDefault();
 
@@ -100,14 +105,25 @@ public class NetworkManagerExt : NetworkManager
         GameObject player = startPos != null
             ? Instantiate(carPrefab, startPos.position, startPos.rotation)
             : Instantiate(carPrefab);
-        player.name = $"{carPrefab.name} [connId={conn.connectionId}]";
+        player.name = $"{carPrefab.name} [name={message.name}]";
 
-        // call this to use this gameobject as the primary controller
-        NetworkServer.AddPlayerForConnection(conn, player);
+        if (player.TryGetComponent(out ArcadeVehicleNetwork network))
+        {
+            network.SetNickname(message.name);
+        }
+
+        print($"{player.name} is connected!");
+
+        // Notify about new player
+        OnServerAddPlayerAction?.Invoke(player);
+
+        return player;
     }
+
 
     public struct ConnectMessage : NetworkMessage
     {
+        public string name;
         public string carHash;
     }
 }

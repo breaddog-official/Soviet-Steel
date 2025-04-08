@@ -5,7 +5,7 @@ namespace Scripts.Gameplay
     public class GameMode
     {
         public int rounds;
-        public int spawnBots;
+        public int bots = 8;
 
         public Map map;
     }

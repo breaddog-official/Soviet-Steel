@@ -16,7 +16,7 @@ namespace ArcadeVP
         [SerializeField] protected string actionMap = "Player";
         [Space(10f)]
         [SerializeField] protected string moveControl = "Move";
-        [SerializeField] protected string breakControl = "Break";
+        //[SerializeField] protected string breakControl = "Break";
         [Space]
         [SerializeField] protected bool smoothInput = true;
         [ShowIf(nameof(smoothInput)), Range(0f, 1f)]
@@ -43,8 +43,8 @@ namespace ArcadeVP
             if (!string.IsNullOrWhiteSpace(moveControl))
                 moveAction = inputMap.FindAction(moveControl);
 
-            if (!string.IsNullOrWhiteSpace(breakControl))
-                breakAction = inputMap.FindAction(breakControl);
+            //if (!string.IsNullOrWhiteSpace(breakControl))
+            //    breakAction = inputMap.FindAction(breakControl);
         }
 
         private void Update()
@@ -58,7 +58,7 @@ namespace ArcadeVP
                 return;
 
             Vector2? moveInput = moveAction?.ReadValue<Vector2>();
-            bool? breakInput = breakAction?.IsPressed();
+            bool? breakInput = false;//breakAction?.IsPressed();
 
             if (moveInput.HasValue)
             {

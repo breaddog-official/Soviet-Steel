@@ -10,6 +10,9 @@ EditorBuildSettings:
     guid: 3f004ca895345324ba195b48a49f5aba
   - enabled: 1
     path: Assets/Scenes/Game_Ural.unity
+    guid: e222b1d9ee0f0ad4bbeb4f56a97b7658
+  - enabled: 1
+    path: Assets/Scenes/Game_Hills.unity
     guid: 2f05ba0fa152c5741ab7662955b351bf
   - enabled: 1
     path: Assets/Scenes/Game_Saratov.unity

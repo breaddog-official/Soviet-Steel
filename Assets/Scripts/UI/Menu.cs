@@ -1,3 +1,4 @@
+using System;
 using Mirror;
 using Scripts.Network;
 using UnityEngine;
@@ -7,48 +8,74 @@ namespace Scripts.UI
     public class Menu : MonoBehaviour
     {
         [SerializeField] protected bool autoStartDiscovery = true;
+        [SerializeField] protected NetworkPlayMode defaultPlayMode;
 
 
         #region Network
 
+        protected enum NetworkPlayMode
+        {
+            Server,
+            Host,
+            Client,
+            Solo
+        }
+
         protected NetworkManager NetworkManager => NetworkManager.singleton;
         protected ServerDiscovery Discovery => ServerDiscovery.Instance;
+
+        protected NetworkPlayMode playMode;
+
+        protected Uri uri;
 
 
         private void Start()
         {
+            playMode = defaultPlayMode;
+
             if (autoStartDiscovery)
                 Discovery.StartDiscovery();
         }
 
-        public void StartClient()
+        public void ClientMode() => playMode = NetworkPlayMode.Client;
+        public void ClientMode(Uri uri)
         {
-            NetworkManager.StartClient();
-            Discovery.StopDiscovery();
+            ClientMode();
+            this.uri = uri;
         }
+        public void HostMode() => playMode = NetworkPlayMode.Host;
+        public void ServerMode() => playMode = NetworkPlayMode.Server;
+        public void SoloMode() => playMode = NetworkPlayMode.Solo;
 
-        public void StartHost()
+
+        public void Play()
         {
-            NetworkManager.StartHost();
-            Discovery.AdvertiseServer();
+            switch (playMode)
+            {
+                case NetworkPlayMode.Server:
+                    NetworkManager.StartServer();
+                    Discovery.AdvertiseServer();
+                    break;
+
+                case NetworkPlayMode.Host:
+                    NetworkManager.StartHost();
+                    Discovery.AdvertiseServer();
+                    break;
+
+                case NetworkPlayMode.Client:
+                    if (uri != null) NetworkManager.StartClient(uri);
+                    else NetworkManager.StartClient();
+                    Discovery.StopDiscovery();
+                    break;
+
+                case NetworkPlayMode.Solo:
+                    NetworkManager.StartHost();
+                    Discovery.StopDiscovery();
+
+                    SetMaxConnections(1);
+                    break;
+            }
         }
-
-        public void StartServer()
-        {
-            NetworkManager.StartServer();
-            Discovery.AdvertiseServer();
-        }
-
-
-
-        public void StartSolo()
-        {
-            NetworkManager.StartHost();
-            Discovery.StopDiscovery();
-
-            SetMaxConnections(1);
-        }
-
 
 
 

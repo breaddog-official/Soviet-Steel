@@ -2,7 +2,9 @@ using Mirror;
 using Scripts.Network;
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Scripts.UI
 {
@@ -10,6 +12,9 @@ namespace Scripts.UI
     {
         [SerializeField] private ServerDiscoveryInstanceUI instancePrefab;
         [SerializeField] private Transform spawnParent;
+        [SerializeField] private Menu menu;
+        [Space]
+        [SerializeField] private UnityEvent onClick;
 
         protected readonly Dictionary<long, ServerDiscoveryInstanceUI> spawnedInstances = new();
 
@@ -40,7 +45,8 @@ namespace Scripts.UI
 
         public void ConnectServer(Uri uri)
         {
-            NetworkManager.singleton.StartClient(uri);
+            menu.ClientMode(uri);
+            onClick?.Invoke();
         }
     }
 }

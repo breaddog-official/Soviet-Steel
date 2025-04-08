@@ -36,9 +36,9 @@ namespace Scripts.Settings
             QualitySettings.shadowCascades = Setting switch
             {
                 ShadowsQuality.Low => 1,
-                ShadowsQuality.Medium => 2,
-                ShadowsQuality.High => 3,
-                ShadowsQuality.Ultra => 4,
+                ShadowsQuality.Medium => 1,
+                ShadowsQuality.High => 2,
+                ShadowsQuality.Ultra => 3,
                 _ => 1
             };
 

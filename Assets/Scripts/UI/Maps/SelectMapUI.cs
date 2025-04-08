@@ -18,8 +18,8 @@ namespace Scripts.UI
         protected virtual void Awake()
         {
             values.AddRange(NetworkManagerExt.instance.registeredMaps.Select(m => m.map));
-
-            Select(values.Where(v => v.Scene == NetworkManager.singleton.onlineScene).FirstOrDefault());
+            
+            Select(values.Where(v => v.Scene == GameManager.GameMode.map?.Scene).FirstOrDefault());
         }
 
         private void OnDisable()
