@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.073
   m_LinearFogStart: 80
   m_LinearFogEnd: 150
-  m_AmbientSkyColor: {r: 0.381132, g: 0.17712161, b: 0.06831607, a: 1}
+  m_AmbientSkyColor: {r: 0.5283019, g: 0.2513172, b: 0.102171585, a: 1}
   m_AmbientEquatorColor: {r: 0.21509439, g: 0.11607567, b: 0.030437855, a: 1}
   m_AmbientGroundColor: {r: 0.4113207, g: 0.1650184, b: 0.08304021, a: 1}
   m_AmbientIntensity: 0
@@ -639,7 +639,7 @@ Terrain:
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
+  m_DetailObjectDistance: 400
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
@@ -39075,8 +39075,8 @@ MonoBehaviour:
   lowError: 150
   mediumError: 25
   highError: 0
-  lowDensity: 0.128
-  mediumDensity: 0.6
+  lowDensity: 0.14
+  mediumDensity: 0.45
   highDensity: 1
 --- !u!1 &56300469
 GameObject:
@@ -44305,8 +44305,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 220305a5df9df734589c95d570517e4f, type: 2}
   - {fileID: 11400000, guid: a388c24766fd1824980e6a33b25fd948, type: 2}
   - {fileID: 11400000, guid: 20b24d7891da1be43b77b196b08fb6d2, type: 2}
+  - {fileID: 11400000, guid: f2ca747325769d2409e3d7d071c0bb03, type: 2}
+  - {fileID: 11400000, guid: cb26eb69b7e20d843a2cb25384b8d76f, type: 2}
   registeredMaps:
+  - {fileID: 11400000, guid: 15015ccf97f801148bd356400bdbae2f, type: 2}
   - {fileID: 11400000, guid: 4832024d574d01644ba405fc4dd5b7bf, type: 2}
+  - {fileID: 11400000, guid: cafa011eea74b0d4fab5a67b6d9459ef, type: 2}
   - {fileID: 11400000, guid: 3303d56e2f14a944294d390f19a53e44, type: 2}
   - {fileID: 11400000, guid: 2c37f7fa214ffde4183193fa5799a18a, type: 2}
 --- !u!1 &359296213
@@ -50326,6 +50330,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: c47ae0876a1789b4981ab6c961e4375a, type: 3}
   - name: Additive4
     clip: {fileID: 8300000, guid: 3433270393a4e534cbc7d67fe8e1b699, type: 3}
+  - name: Additive5
+    clip: {fileID: 8300000, guid: eeec82bfba34cad4a8f546e02ed758e4, type: 3}
 --- !u!1 &598590936
 GameObject:
   m_ObjectHideFlags: 0
@@ -51366,7 +51372,7 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
   tintInjection:
     injectionParameters:
-      enable: 0
+      enable: 1
       strength: 1
       useNoiseMask: 1
       useNoiseMaskLevels: 1
@@ -51395,7 +51401,7 @@ MonoBehaviour:
         outputHiValue: 1
         contrast: 1
         saturateOutputValues: 0
-    color: {r: 1, g: 1, b: 1, a: 1}
+    color: {r: 0.999999, g: 0.97940373, b: 0.9293445, a: 1}
   ambientInjection:
     enable: 0
     strength: 1
@@ -53519,7 +53525,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 1, g: 0.508904, b: 0.07999998, a: 1}
+  m_Color: {r: 1, g: 0.6978358, b: 0.4292453, a: 1}
   m_Intensity: 1.4
   m_Range: 10
   m_SpotAngle: 30
@@ -53582,13 +53588,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07898997, y: 0.42101005, z: -0.03683362, w: 0.90285903}
+  m_LocalRotation: {x: 0.11045107, y: 0.4194681, z: -0.051504176, w: 0.89955235}
   m_LocalPosition: {x: 3.9906652, y: 32.54423, z: 3.348568}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 536159423}
-  m_LocalEulerAnglesHint: {x: 10, y: 50, z: 0}
+  m_LocalEulerAnglesHint: {x: 14, y: 50, z: 0}
 --- !u!114 &705507996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53637,8 +53643,8 @@ MonoBehaviour:
   dontDestroyOnLoad: 0
   <Name>k__BackingField: fogType
   setName: Select setting
-  disabledAngle: {x: 10, y: 50, z: 0}
-  enabledAngle: {x: 10, y: -250, z: 0}
+  disabledAngle: {x: 14, y: 50, z: 0}
+  enabledAngle: {x: 15, y: -250, z: 0}
 --- !u!1 &706986584
 GameObject:
   m_ObjectHideFlags: 0
@@ -55321,7 +55327,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.6531684, g: 0.72983074, b: 0.7735849, a: 0}
+  m_BackGroundColor: {r: 0.7698469, g: 0.87976146, b: 0.9433962, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -67146,8 +67152,12 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 8eb121de0f130d34ab350d8f230e6f86, type: 2}
   - {fileID: 2100000, guid: 2717b86857a6d8045a1debe73b01acb3, type: 2}
   - {fileID: 2100000, guid: 77547c251f5214f4eab317d900c527f6, type: 2}
-  lowShader: {fileID: 0}
-  mediumShader: {fileID: 51, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cae6b5f113f5ce3499539eff1cff26e2, type: 2}
+  - {fileID: 2100000, guid: 62b41fc6a03d3834f80ce36c135f8c73, type: 2}
+  - {fileID: 2100000, guid: f6fd6276d10d73f43a110cdbde457738, type: 2}
+  - {fileID: 2100000, guid: be7cc27ab43a80b4493d8617e08c13fd, type: 2}
+  lowShader: {fileID: 51, guid: 0000000000000000f000000000000000, type: 0}
+  mediumShader: {fileID: 0}
   highShader: {fileID: 4800000, guid: 0d71372cfce069949bb2e0d5c9bb5421, type: 3}
   extremeShader: {fileID: 0}
 --- !u!114 &1480106273
@@ -84000,7 +84010,7 @@ MonoBehaviour:
   m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 4
+  m_KeyboardType: 2
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
@@ -85972,7 +85982,7 @@ MonoBehaviour:
   m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 4
+  m_KeyboardType: 2
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
@@ -90337,7 +90347,7 @@ MonoBehaviour:
   m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 4
+  m_KeyboardType: 2
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0

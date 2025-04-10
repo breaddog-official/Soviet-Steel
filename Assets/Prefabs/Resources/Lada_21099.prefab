@@ -60,7 +60,7 @@ Transform:
   m_GameObject: {fileID: 546606875102334746}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.23636103, z: 0}
+  m_LocalPosition: {x: 0, y: -0.39, z: 0.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -85,7 +85,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.64
+  m_Radius: 0.45
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4796003705096317326
 Rigidbody:
@@ -5672,6 +5672,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   nickText: {fileID: 5039708395731204033}
+  nickMinCharacters: 1
+  nickMaxCharacters: 42
+  defaultNick: anonymous
   vehicleController: {fileID: 561493652099422345}
   cinemachine: {fileID: 2780686229170956462}
   input: {fileID: 720494016843122969}
@@ -5715,9 +5718,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   smoothInput: 1
-  smoothAmountRange: {x: 0.2, y: 0.93}
-  maxRotationRange: {x: 1.5, y: 9}
-  markerSamples: 4
+  smoothAmountRange: {x: 0.45, y: 0.93}
+  maxRotationRange: {x: 4, y: 4.85}
+  markerSamples: 3
   maxMarkerDistance: 50
   markerBlend:
     serializedVersion: 2
@@ -5771,7 +5774,7 @@ MonoBehaviour:
   drift: 8
   gravity: 14
   downforce: 5
-  mass: 950
+  mass: 1140
   AirControl: 0
   kartLike: 0
   driftMultiplier: 1.3
@@ -5779,20 +5782,20 @@ MonoBehaviour:
   rb: {fileID: 4796003705096317326}
   carBody: {fileID: 8288633980693800072}
   minFriction: 1.45
-  maxFriction: 5
+  maxFriction: 4.5
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   accelerationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: -0.09844138
-      outSlope: -0.09844138
+      value: 0.6108551
+      inSlope: 2.9715173
+      outSlope: 2.9715173
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.2875
+      outWeight: 0.033333335
     - serializedVersion: 3
       time: 1
       value: 0.3207807
@@ -5882,8 +5885,8 @@ MonoBehaviour:
   BodyTilt: 5.2
   engineSound: {fileID: 7889170015842843362}
   skidSound: {fileID: 7246618534633425175}
-  spatialBlend: 0.6
-  pitchRange: {x: 0.4, y: 1.25}
+  spatialBlend: 0.4
+  pitchRange: {x: 0.8, y: 1.8}
   cinemachineCamera: {fileID: 1918856695037207901}
   fovRange: {x: 75, y: 105}
   smoothFov: 0.3
@@ -6049,7 +6052,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.75
-  m_Height: 4.66
+  m_Height: 4.51
   m_Direction: 2
   m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!82 &7889170015842843362
@@ -6062,8 +6065,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 3230945850307199106, guid: efd4f4437a4047e41935f3d5121d4817, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 0b2844ba13c61eb459484abc96bde242, type: 3}
-  m_Resource: {fileID: 8300000, guid: 0b2844ba13c61eb459484abc96bde242, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 771ce407ce807b74885ec23ebd1e6647, type: 3}
+  m_Resource: {fileID: 8300000, guid: 771ce407ce807b74885ec23ebd1e6647, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -21748,7 +21751,7 @@ Transform:
   m_GameObject: {fileID: 8300099694197558389}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.04, z: 0}
+  m_LocalPosition: {x: 0, y: 0.33, z: -0.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21766,11 +21769,11 @@ ReflectionProbe:
   m_Type: 0
   m_Mode: 1
   m_RefreshMode: 0
-  m_TimeSlicingMode: 0
-  m_Resolution: 1024
+  m_TimeSlicingMode: 1
+  m_Resolution: 16
   m_UpdateFrequency: 0
-  m_BoxSize: {x: 1.8109272, y: 1.4767818, z: 4.392336}
-  m_BoxOffset: {x: -0.04266405, y: -0.13392544, z: 0.020755768}
+  m_BoxSize: {x: 2.0898643, y: 0.62218505, z: 2.978429}
+  m_BoxOffset: {x: 0, y: 0, z: 0}
   m_NearClip: 0.3
   m_FarClip: 1000
   m_ShadowDistance: 100
@@ -21782,7 +21785,7 @@ ReflectionProbe:
   m_IntensityMultiplier: 1
   m_BlendDistance: 1
   m_HDR: 1
-  m_BoxProjection: 0
+  m_BoxProjection: 1
   m_RenderDynamicObjects: 0
   m_UseOcclusionCulling: 1
   m_Importance: 1
@@ -21885,7 +21888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2029558708129565963, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.556
+      value: 0.664
       objectReference: {fileID: 0}
     - target: {fileID: 2029558708129565963, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -21951,10 +21954,62 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -0.854
       objectReference: {fileID: 0}
+    - target: {fileID: 5234139662276185338, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_fontSize
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234139662276185338, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7348656160539955229, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
       propertyPath: recordNetwork
       value: 
       objectReference: {fileID: 6720309574627712606}
+    - target: {fileID: 7348656160539955229, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: overrideNetwork
+      value: 
+      objectReference: {fileID: 6720309574627712606}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9962037
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.086724795
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.0021449006
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.007244028
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.255
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.787
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 9.952
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -0.176
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0.818
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

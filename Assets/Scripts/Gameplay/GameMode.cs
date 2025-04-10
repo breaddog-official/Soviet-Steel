@@ -4,8 +4,8 @@ namespace Scripts.Gameplay
 {
     public class GameMode
     {
-        public int rounds;
-        public int bots = 8;
+        public int rounds = 3;
+        public int bots = 5;
 
         public Map map;
     }

@@ -61,7 +61,7 @@ namespace ArcadeVP
             float x = Mathf.Lerp(0, 1, Mathf.Abs(amount) / maxRotation);
 
             float dot = Vector3.Dot(targetMarkerRelative, velocity);
-            float y = Mathf.Clamp(dot, minSpeed, maxSpeed);
+            float y = Mathf.Clamp(Mathf.Abs(dot), minSpeed, maxSpeed);
 
 
             if (amount < 0)
@@ -86,7 +86,7 @@ namespace ArcadeVP
 
         private Vector3 GetMarker()
         {
-            int currentMarker = GameManager.Instance.RoadManager.GetPlayers()[arcadeVehicleNetwork].marker;
+            int currentMarker = GameManager.Instance.RoadManager.GetPlayers()[arcadeVehicleNetwork.netId].marker;
             int[] markers = new int[markerSamples];
 
             for (int i = 0; i < markers.Length; i++)

@@ -11,6 +11,9 @@ namespace ArcadeVP
     public class ArcadeVehicleNetwork : NetworkBehaviour
     {
         [SerializeField] public TMP_Text nickText;
+        [SerializeField] public int nickMinCharacters = 1;
+        [SerializeField] public int nickMaxCharacters = 32;
+        [SerializeField] public string defaultNick = "anonymous";
         [Space]
         [SerializeField] public ArcadeVehicleController vehicleController;
         [SerializeField] public GameObject cinemachine;
@@ -22,29 +25,37 @@ namespace ArcadeVP
 
         [field: SyncVar(hook = nameof(ApplyNickname))]
         public string Nickname { get; private set; }
-        public bool State { get; private set; }
+        [field: SyncVar(hook = nameof(ApplySpeedMultiplier))]
+        public float SpeedMultiplier { get; private set; } = 1f;
+
+
+        [field: SyncVar]
         public bool AI { get; private set; }
+        public bool State { get; private set; }
+
+        [field: SyncVar(hook = nameof(ApplyWin))]
+        public bool IsWin { get; private set; }
 
         private ArcadeVehicleInput vehicleInput;
         private ArcadeVehicleAI vehicleAI;
+
+        public static ArcadeVehicleNetwork LocalPlayerNetwork { get; private set; }
+
+
 
         private void Awake()
         {
             vehicleInput = GetComponent<ArcadeVehicleInput>();
             vehicleAI = GetComponent<ArcadeVehicleAI>();
 
-            SetState(false);
+            SetState(autoStart);
         }
 
-        /*private void OnEnable() => GameManager.MatchStateChanged += SetState;
-        private void OnDisable() => GameManager.MatchStateChanged -= SetState;
 
-        public override void OnStartClient() => SetState(GameManager.Instance.IsMatch);
-        public override void OnStopClient() => SetState(GameManager.Instance.IsMatch);
-
-        public override void OnStartAuthority() => SetState(autoStart || GameManager.Instance.IsMatch);
-        public override void OnStopAuthority() => SetState(false);*/
-
+        public override void OnStartLocalPlayer()
+        {
+            LocalPlayerNetwork = this;
+        }
 
         private void Update()
         {
@@ -52,22 +63,33 @@ namespace ArcadeVP
         }
 
 
-
-        public void SetNickname(string name)
+        [Command]
+        public void SendRequestToNickname(string nickname)
         {
-            Nickname = name;
+            if (!string.IsNullOrWhiteSpace(nickname))
+            {
+                var chars = nickname.ToCharArray();
+
+                if (chars.Length >= nickMinCharacters && chars.Length <= nickMaxCharacters)
+                {
+                    SetNickname(nickname);
+                    return;
+                }
+            }
+            SetNickname(defaultNick);
         }
 
-        public void ApplyNickname(string old, string cur)
-        {
-            nickText.text = cur;
-        }
+        public void SetNickname(string name) => Nickname = name;
+        private void ApplyNickname(string old, string cur) => nickText.text = cur;
 
         public void SetSpeedMultiplier(float multiplier)
         {
-            vehicleController.AccelerationMultiplier = multiplier;
-            if (!AI && !isOwned)
-                vehicleController.Sync(connectionToClient, multiplier);
+            SpeedMultiplier = multiplier;
+            if (NetworkServer.active) ApplySpeedMultiplier();
+        }
+        public void ApplySpeedMultiplier(float old = default, float cur = default)
+        {
+            vehicleController.AccelerationMultiplier = SpeedMultiplier;
         }
 
         public void SetAI(bool state)
@@ -79,17 +101,33 @@ namespace ArcadeVP
         {
             State = state;
 
-            vehicleController.SetHandbrake(!state);
-            vehicleAI.enabled = state && AI;
+            bool stateAi = State && AI;
+            bool statePlayer = State && isOwned && !AI;
 
-            if ((isOwned && !AI) || state == false)
+            vehicleController.SetHandbrake(!state);
+
+            ui.SetActive(statePlayer);
+            cinemachine.SetActive(statePlayer);
+            mirrorCamera.SetActive(false);//isOwned && !AI);
+
+            input.enabled = statePlayer;
+            vehicleInput.enabled = statePlayer;
+            vehicleAI.enabled = stateAi;
+
+            nickText.enabled = !statePlayer || !state;
+        }
+
+        public void SetWin(bool state)
+        {
+            IsWin = state;
+        }
+
+        public void ApplyWin(bool old, bool cur)
+        {
+            if (!AI && isOwned)
             {
-                ui.SetActive(state);
-                cinemachine.SetActive(state);
-                mirrorCamera.SetActive(state);
-                input.enabled = state;
-                vehicleInput.enabled = state;
-                nickText.enabled = !state;
+                SetAI(cur);
+                CinemachineHelicopter.SetState(cur);
             }
         }
     }

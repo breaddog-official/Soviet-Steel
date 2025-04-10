@@ -18,14 +18,21 @@ public class GameplayUI : MonoBehaviour
         RoundsAndMaxRounds
     }
 
+    [SerializeField] protected ArcadeVehicleNetwork overrideNetwork;
+    [Space]
     [SerializeField] protected TMP_Text roundsText;
     [SerializeField] protected RoundsFormat roundsFormat = RoundsFormat.RoundsAndMaxRounds;
     [Space]
+    [SerializeField] protected bool winPlace;
     [SerializeField] protected TMP_Text placeText;
     [SerializeField] protected RoundsFormat placeFormat = RoundsFormat.RoundsAndMaxRounds;
     [Space]
     [SerializeField] protected TMP_Text timeText;
     [SerializeField] protected string timeFormat = @"mm\:ss";
+    [Space]
+    [SerializeField] protected bool winTime;
+    [SerializeField] protected TMP_Text lastTimeText;
+    [SerializeField] protected string lastTimeFormat = @"mm\:ss";
     [Space]
     [SerializeField] protected TMP_Text speedText;
     [SerializeField] protected Gradient speedGradient;
@@ -33,43 +40,72 @@ public class GameplayUI : MonoBehaviour
     [Space]
     [SerializeField] protected float disableRecordAfter = 3f;
     [SerializeField] protected TMP_Text recordText;
-    [SerializeField] protected ArcadeVehicleNetwork recordNetwork;
     [SerializeField] protected string recordFormat = @"mm\:ss\.fff";
 
+    protected ArcadeVehicleNetwork network => overrideNetwork != null ? overrideNetwork : ArcadeVehicleNetwork.LocalPlayerNetwork;
 
-    protected void Start()
+
+    protected void Awake()
     {
         ApplyRounds(0);
-        recordText.gameObject.SetActive(false);
+
+        if (recordText != null)
+            recordText.gameObject.SetActive(false);
     }
 
-    protected void OnEnable() => GameManager.Instance.RoadManager.OnPlayerReachedRound += ReachRound;
+    protected void OnEnable()
+    {
+        GameManager.Instance.RoadManager.OnPlayerReachedRound += ReachRound;
+        SetRound(GameManager.Instance.RoadManager.GetPlayers()[network.netId].round);
+    }
+
     protected void OnDisable() => GameManager.Instance.RoadManager.OnPlayerReachedRound -= ReachRound;
 
 
     private void Update()
     {
-        timeText.text = FormatTime(GameManager.Instance.MatchTime, timeFormat);
+        if (timeText != null)
+            timeText.text = FormatTime(GameManager.Instance.MatchTime, timeFormat);
 
-        speedText.text = ((int)(recordNetwork.vehicleController.Speed * speedMultiplier)).ToString();
-        speedText.color = speedGradient.Evaluate(recordNetwork.vehicleController.Speed / recordNetwork.vehicleController.maxSpeed);
+        if (speedText != null)
+        {
+            speedText.text = ((int)(network.vehicleController.Speed * speedMultiplier)).ToString();
+            speedText.color = speedGradient.Evaluate(network.vehicleController.Speed / network.vehicleController.maxSpeed);
+        }
 
-        ApplyPlace(GameManager.Instance.RoadManager.GetPlace(recordNetwork) + 1);
+        ApplyPlace(winPlace ? GameManager.Instance.RaceManager.GetPlace(network) + 1 : GameManager.Instance.RoadManager.GetPlace(network) + 1);
     }
 
     public void ReachRound(ArcadeVehicleNetwork player, int round)
     {
-        if (player == recordNetwork)
+        if (player == network)
         {
-            ApplyRounds(round);
             CheckRecord();
+            SetRound(round);
+        }
+    }
+
+    public void SetRound(int round)
+    {
+        ApplyRounds(round);
+
+        if (lastTimeText != null && GameManager.Instance.RoadManager.GetPlayers().TryGetValue(network.netId, out var score))
+        {
+            if (winTime && round < GameManager.GameMode.rounds)
+                return;
+
+            var time = score.roundsTime[GameManager.GameMode.rounds];
+            lastTimeText.text = FormatTime(time, lastTimeFormat);
         }
     }
 
     public void CheckRecord()
     {
+        if (recordText == null)
+            return;
+
         string key = $"{GameManager.GameMode.map.Name}_record";
-        double time = GameManager.Instance.RoadManager.GetPlayers().GetValueOrDefault(recordNetwork).LastBetweenTime;
+        double time = GameManager.Instance.RoadManager.GetPlayers().GetValueOrDefault(network.netId).LastBetweenTime;
 
         // 120_000 seconds, ~33 hours
         if (PlayerPrefs.GetFloat(key, 120_000f) > time)
@@ -99,7 +135,7 @@ public class GameplayUI : MonoBehaviour
         {
             RoundsFormat.Rounds => rounds.ToString(),
             RoundsFormat.MaxRounds => maxRounds.ToString(),
-            RoundsFormat.RoundsAndMaxRounds => $"{rounds} / {maxRounds}",
+            RoundsFormat.RoundsAndMaxRounds => $"{rounds}/{maxRounds}",
             _ => string.Empty
         };
     }
@@ -114,7 +150,7 @@ public class GameplayUI : MonoBehaviour
         {
             RoundsFormat.Rounds => place.ToString(),
             RoundsFormat.MaxRounds => lastPlace.ToString(),
-            RoundsFormat.RoundsAndMaxRounds => $"{place} / {lastPlace}",
+            RoundsFormat.RoundsAndMaxRounds => $"{place}/{lastPlace}",
             _ => string.Empty
         };
     }

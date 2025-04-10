@@ -18,6 +18,8 @@ namespace Scripts.Cars
         [field: SerializeField, Range(1, 4)] public int SpeedCategory { get; set; } = 3;
         [field: SerializeField, Range(1, 4)] public int TurnCategory { get; set; } = 2;
         [field: Space]
+        [field: SerializeField, Range(1, 100)] public int SpawnBotChance { get; set; } = 70;
+        [field: Space]
         [field: SerializeField] public int Salt { get; set; }
 
         /// <summary>

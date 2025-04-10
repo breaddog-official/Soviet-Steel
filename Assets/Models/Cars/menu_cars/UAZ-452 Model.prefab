@@ -104,7 +104,6 @@ MonoBehaviour:
   activateOnEnable: 1
   music: {fileID: 0}
   parts:
-  - Main
   - Bass
   - Drum1
   - Drum2

@@ -542,7 +542,7 @@ MonoBehaviour:
   - version: 2.0.0
     name: Barier
     id: 1740059045.471082
-    timestamp: 1744033859.907886
+    timestamp: 1744222215.498798
     objectType: 2
     gameobjectGUID: 
     textureGUID: 
@@ -573,7 +573,7 @@ MonoBehaviour:
     weld: 1
     combine: 0
     combineInstantiated: 1
-    markerActive: 1
+    markerActive: 0
     uvType: 0
     uv: 1
     randomObjects: 0

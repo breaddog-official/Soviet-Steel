@@ -7,9 +7,8 @@ using Mirror;
 using ArcadeVP;
 using System.Collections.Generic;
 using Scripts.Gameplay;
-using System.Linq;
+using Cysharp.Threading.Tasks;
 
-[ExecuteInEditMode]
 public class RoadManager : NetworkBehaviour
 {
     [SerializeField] private ERModularRoad road;
@@ -19,38 +18,53 @@ public class RoadManager : NetworkBehaviour
     [Space]
     [SerializeField] private bool simpleMarkers;
 
-    private readonly SyncDictionary<ArcadeVehicleNetwork, PlayerScore> players = new();
+    private readonly SyncDictionary<uint, PlayerScore> players = new();
     private readonly List<ArcadeVehicleNetwork> places = new();
 
     public event Action<ArcadeVehicleNetwork, int> OnPlayerReachedMarker;
     public event Action<ArcadeVehicleNetwork, int> OnPlayerReachedRound;
 
-    private Vector3[] simpleMarkersCache;
 
 
-
-    private void Start()
+    public override void OnStartClient()
     {
-        if (road != null)
-            simpleMarkersCache = road.markersExt.Select(m => m.position).ToArray();
+        // Only client code, not for host
+        if (NetworkServer.active)
+            return;
         
         players.OnAdd += SyncPlaceAdd;
         players.OnRemove += SyncPlaceRemove;
+
+        // Dictionary is populated before handlers are wired up so we
+        // need to manually invoke OnAdd for each element.
+        foreach (var key in players.Keys)
+            players.OnAdd?.Invoke(key);
     }
 
-    private void SyncPlaceAdd(ArcadeVehicleNetwork network) => places.Add(network);
-    private void SyncPlaceRemove(ArcadeVehicleNetwork network, PlayerScore score) => places.Remove(network);
+    private async void SyncPlaceAdd(uint id)
+    {
+        ArcadeVehicleNetwork network;
+
+        while (!TryToNetwork(id, out network))
+        {
+            await UniTask.NextFrame();
+        }
+
+        places.Add(network);
+    }
+    private void SyncPlaceRemove(uint network, PlayerScore score) => places.Remove(ToNetwork(network));
 
     [Server]
     public void AddPlayer(GameObject player)
     {
         var network = player.GetComponent<ArcadeVehicleNetwork>();
+        var id = network.netId;
         var score = new PlayerScore
         {
             marker = firstMarker
         };
 
-        players.TryAdd(network, score);
+        players.Add(id, score);
         places.Add(network);
     }
 
@@ -58,32 +72,39 @@ public class RoadManager : NetworkBehaviour
     public void RemovePlayer(GameObject player)
     {
         var network = player.GetComponent<ArcadeVehicleNetwork>();
+        var id = network.netId;
 
-        players.Remove(network);
+        players.Remove(id);
         places.Remove(network);
     }
 
 
 
-    [ServerCallback]
     public void UpdatePlayers()
     {
-        foreach (var player in players)
+        // Only server code
+        if (NetworkServer.active)
         {
-            int nextPoint = player.Value.marker.IncreaseInBoundsReturn(GetMarkers().Count);
-
-            if (Vector3.Distance(player.Key.transform.position, GetPoint(nextPoint)) < GetRadius())
+            foreach (var player in players)
             {
-                player.Value.SetMarker(nextPoint);
-                OnPlayerReachedMarker?.Invoke(player.Key, player.Value.marker);
+                if (!TryToNetwork(player.Key, out ArcadeVehicleNetwork network))
+                    continue;
 
-                if (nextPoint == firstMarker)
+                int nextPoint = player.Value.marker.IncreaseInBoundsReturn(GetMarkers().Count);
+
+                if (Vector3.Distance(network.transform.position, GetPoint(nextPoint)) < GetRadius())
                 {
-                    player.Value.AddRound(GameManager.Instance.MatchTime);
-                    OnPlayerReachedRound?.Invoke(player.Key, player.Value.round);
-                }
+                    player.Value.SetMarker(nextPoint);
+                    OnPlayerReachedMarker?.Invoke(network, player.Value.marker);
 
-                //print($"Player: {player.Key.name} Marker: {player.Value.marker} Round: {player.Value.round}");
+                    if (nextPoint == firstMarker)
+                    {
+                        player.Value.AddRound(GameManager.Instance.MatchTime);
+                        OnPlayerReachedRound?.Invoke(network, player.Value.round);
+                    }
+
+                    //print($"Player: {network.name} Marker: {player.Value.marker} Round: {player.Value.round}");
+                }
             }
         }
 
@@ -105,8 +126,19 @@ public class RoadManager : NetworkBehaviour
     public float GetRadius() => (road.GetRoadWidth() / 2f) + widthOffset;
 
     public IList<ArcadeVehicleNetwork> GetPlaces() => places;
-    public IReadOnlyList<Vector3> GetMarkers() => simpleMarkers ? simpleMarkersCache : road.splinePoints;
-    public IReadOnlyDictionary<ArcadeVehicleNetwork, PlayerScore> GetPlayers() => players;
+    public IReadOnlyList<Vector3> GetMarkers() => road.splinePoints;
+    public IReadOnlyDictionary<uint, PlayerScore> GetPlayers() => players;
+
+    public static ArcadeVehicleNetwork ToNetwork(uint uid)
+    {
+        return NetworkServer.spawned.GetValueOrDefault(uid).GetComponent<ArcadeVehicleNetwork>();
+    }
+
+    public static bool TryToNetwork(uint uid, out ArcadeVehicleNetwork network)
+    {
+        network = null;
+        return NetworkServer.spawned.TryGetValue(uid, out var identity) && identity.TryGetComponent<ArcadeVehicleNetwork>(out network);
+    }
 
     #region Gizmos
 #if UNITY_EDITOR
@@ -114,7 +146,9 @@ public class RoadManager : NetworkBehaviour
     {
         UnityEngine.Color defaultColor = new(1, 0, 0, 0.5f); // Red
         UnityEngine.Color firstColor = new(0, 1, 0, 0.5f); // Green
-        
+
+        if (road == null)
+            return;
 
         for (int i = 0; i < GetMarkers().Count; i++)
         {
@@ -133,8 +167,11 @@ public class RoadManager : NetworkBehaviour
 
     public int ComparePlayersPlaces(ArcadeVehicleNetwork first, ArcadeVehicleNetwork second)
     {
-        var firstScore = players[first];
-        var secondScore = players[second];
+        if (!players.TryGetValue(first.netId, out PlayerScore firstScore))
+            return -1;
+
+        if (!players.TryGetValue(second.netId, out PlayerScore secondScore))
+            return 1;
 
         if (firstScore.round == secondScore.round)
         {

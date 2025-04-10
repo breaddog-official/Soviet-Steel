@@ -198,13 +198,6 @@ namespace ArcadeVP
             }
         }
 
-        [TargetRpc]
-        public void Sync(NetworkConnectionToClient conn, float acceleration)
-        {
-            AccelerationMultiplier = acceleration;
-            print("sync");
-        }
-
         public void SetInput(Vector2 _moveInput, bool _brakeInput)
         {
             moveInput = _moveInput;
@@ -363,7 +356,7 @@ namespace ArcadeVP
         public void AudioManager()
         {
             //engineSound.pitch = Mathf.Lerp(MinPitch, MaxPitch, Mathf.Abs(carVelocity.z) / maxSpeed);
-            engineSound.pitch = Mathf.Lerp(MinPitch, MaxPitch, Speed / maxSpeed);
+            engineSound.pitch = Mathf.LerpUnclamped(MinPitch, MaxPitch, Speed / maxSpeed);
             //print(carVelocity.magnitude);
             if (IsDrift() && Grounded)
             {

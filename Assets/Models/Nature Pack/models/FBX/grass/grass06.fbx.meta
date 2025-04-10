@@ -3,7 +3,12 @@ guid: af034982b1f63194cb51579c227ecf07
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grass
+    second: {fileID: 2100000, guid: adbd24d160803f94e91cd2e7bcce7656, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -33,7 +38,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 6
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -88,7 +93,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 6
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

@@ -11,6 +11,7 @@ namespace Scripts.Gameplay
     public class GameManager : NetworkBehaviour
     {
         [field: SerializeField] public RoadManager RoadManager { get; private set; }
+        [field: SerializeField] public RaceManager RaceManager { get; private set; }
         [SerializeField] private bool autoStartMatch = true;
 
 

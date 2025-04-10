@@ -1,0 +1,17 @@
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\GAToUnityCallbacks.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\MacroEnd.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\MacroHeaderBegin.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\MacroSourceBegin.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UGAApplication.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UGAConfiguration.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UGADebug.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UGAEvents.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UGAInput.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UGASoftKeyboard.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UGASoftKeyboardCallbacks.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UGATypes.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UGAVersion.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UnityToGACallbacks.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UnityToGAConfigurationCallbacks.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UnityToGAKeyEventCallbacks.h
+D:\Work Games\Need-for-Buhanka\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\GameActivity\UnityToGAMotionEventCallbacks.h

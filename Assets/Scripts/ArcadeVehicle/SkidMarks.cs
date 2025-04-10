@@ -8,8 +8,11 @@ namespace ArcadeVP
     {
         private TrailRenderer skidMark;
         private ParticleSystem smoke;
+
         public ArcadeVehicleController carController;
         float fadeOutSpeed;
+
+
         private void Awake()
         {
             smoke = GetComponent<ParticleSystem>();
@@ -29,15 +32,14 @@ namespace ArcadeVP
             skidMark.enabled = false;
         }
 
-        // Update is called once per frame
         void FixedUpdate()
         {
             if (carController.Grounded)
             {
                 if (Mathf.Abs(carController.carVelocity.x) > carController.drift)
                 {
-                    fadeOutSpeed = 0f;
-                    skidMark.materials[0].color = Color.black;
+                    //fadeOutSpeed = 0f;
+                    //skidMark.materials[0].color = Color.black;
                     skidMark.emitting = true;
                 }
                 else
@@ -52,9 +54,9 @@ namespace ArcadeVP
             }
             if (!skidMark.emitting)
             {
-                fadeOutSpeed += Time.deltaTime / 2;
-                Color m_color = Color.Lerp(Color.black, new Color(0f, 0f, 0f, 0f), fadeOutSpeed);
-                skidMark.materials[0].color = m_color;
+                //fadeOutSpeed += Time.fixedDeltaTime / 2;
+                //Color m_color = Color.Lerp(Color.black, new Color(0f, 0f, 0f, 0f), fadeOutSpeed);
+                //skidMark.materials[0].color = m_color;
                 if (fadeOutSpeed > 1)
                 {
                     skidMark.Clear();

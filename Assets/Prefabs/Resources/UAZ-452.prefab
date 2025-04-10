@@ -615,6 +615,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   nickText: {fileID: 19285691585889397}
+  nickMinCharacters: 1
+  nickMaxCharacters: 42
+  defaultNick: anonymous
   vehicleController: {fileID: 6190232540197196972}
   cinemachine: {fileID: 743179590986008871}
   input: {fileID: 2404331634369452856}
@@ -658,9 +661,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   smoothInput: 1
-  smoothAmountRange: {x: 0.2, y: 0.93}
-  maxRotationRange: {x: 1.5, y: 4.85}
-  markerSamples: 4
+  smoothAmountRange: {x: 0.45, y: 0.93}
+  maxRotationRange: {x: 4, y: 4.85}
+  markerSamples: 3
   maxMarkerDistance: 50
   markerBlend:
     serializedVersion: 2
@@ -708,9 +711,9 @@ MonoBehaviour:
   drivableSurface:
     serializedVersion: 2
     m_Bits: 64
-  maxSpeed: 90
+  maxSpeed: 70
   accelaration: 12
-  turn: 6
+  turn: 5.6
   drift: 25
   gravity: 8
   downforce: 5
@@ -729,21 +732,21 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.9976425
-      inSlope: -0.01594819
-      outSlope: -0.01594819
+      value: 0.45755768
+      inSlope: 3.4666655
+      outSlope: 3.4666655
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.29583332
+      outWeight: 0.033333335
     - serializedVersion: 3
       time: 1
-      value: 0.16276234
-      inSlope: -1.509081
-      outSlope: -1.509081
+      value: 0.32786244
+      inSlope: -0.8269882
+      outSlope: -0.8269882
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.07499999
+      inWeight: 0.10833335
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -825,8 +828,8 @@ MonoBehaviour:
   BodyTilt: 10
   engineSound: {fileID: 3449596696580881780}
   skidSound: {fileID: 4537850823717060819}
-  spatialBlend: 0.6
-  pitchRange: {x: 0.5, y: 2.8}
+  spatialBlend: 0.4
+  pitchRange: {x: 1, y: 1.6}
   cinemachineCamera: {fileID: 5579852667695232331}
   fovRange: {x: 85, y: 110}
   smoothFov: 0.3
@@ -1005,8 +1008,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 3230945850307199106, guid: efd4f4437a4047e41935f3d5121d4817, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 771ce407ce807b74885ec23ebd1e6647, type: 3}
-  m_Resource: {fileID: 8300000, guid: 771ce407ce807b74885ec23ebd1e6647, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f9daa3e1d0ed9f1489a8eaf302361010, type: 3}
+  m_Resource: {fileID: 8300000, guid: f9daa3e1d0ed9f1489a8eaf302361010, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -6125,7 +6128,7 @@ Transform:
   m_GameObject: {fileID: 2666207985003112451}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4, z: -0.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6143,10 +6146,10 @@ ReflectionProbe:
   m_Type: 0
   m_Mode: 1
   m_RefreshMode: 0
-  m_TimeSlicingMode: 0
-  m_Resolution: 1024
+  m_TimeSlicingMode: 1
+  m_Resolution: 16
   m_UpdateFrequency: 0
-  m_BoxSize: {x: 7.16, y: 6.87, z: 6.26}
+  m_BoxSize: {x: 1.9880633, y: 0.7231692, z: 4.0918283}
   m_BoxOffset: {x: 0, y: 0, z: 0}
   m_NearClip: 0.3
   m_FarClip: 1000
@@ -6159,7 +6162,7 @@ ReflectionProbe:
   m_IntensityMultiplier: 1
   m_BlendDistance: 1
   m_HDR: 1
-  m_BoxProjection: 0
+  m_BoxProjection: 1
   m_RenderDynamicObjects: 0
   m_UseOcclusionCulling: 1
   m_Importance: 1
@@ -21867,6 +21870,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2029558708129565963, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.699
+      objectReference: {fileID: 0}
     - target: {fileID: 2461570279893712554, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
       propertyPath: m_Name
       value: InGameUI
@@ -21879,6 +21886,50 @@ PrefabInstance:
       propertyPath: recordNetwork
       value: 
       objectReference: {fileID: 1907090003657255099}
+    - target: {fileID: 7348656160539955229, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: overrideNetwork
+      value: 
+      objectReference: {fileID: 1907090003657255099}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.094
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9959051
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.08688427
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.024915174
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.0018472691
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.818
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 9.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 2.907
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080870870491970343, guid: 1b252e2124802c24c8f0ca5988d51773, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0.466
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

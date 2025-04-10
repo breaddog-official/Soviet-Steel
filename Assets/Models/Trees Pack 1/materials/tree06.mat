@@ -77,10 +77,10 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.59999996
     - _GlossyReflections: 1
-    - _MBAmplitude: 1.5
+    - _MBAmplitude: 0.6
     - _MBAmplitudeOffset: 2
     - _MBDefaultBending: 0
-    - _MBFrequency: 1.11
+    - _MBFrequency: 0.6
     - _MBFrequencyOffset: 0
     - _MBMaxHeight: 10
     - _MBPhase: 1

@@ -82,14 +82,11 @@ public class NetworkManagerExt : NetworkManager
         if (conn.identity != null)
             return;
 
-        var player = SpawnPlayer(message);
-
-        // call this to use this gameobject as the primary controller
-        NetworkServer.AddPlayerForConnection(conn, player);
+        var player = SpawnPlayer(message, pl => NetworkServer.AddPlayerForConnection(conn, pl));
     }
 
     [Server]
-    public GameObject SpawnPlayer(ConnectMessage message)
+    public GameObject SpawnPlayer(ConnectMessage message, Action<GameObject> configurePlayer = null)
     {
         // Spawn player
         var car = registeredCars.Where(c => c.car.CarHash == message.carHash).FirstOrDefault();
@@ -111,6 +108,8 @@ public class NetworkManagerExt : NetworkManager
         {
             network.SetNickname(message.name);
         }
+
+        configurePlayer?.Invoke(player);
 
         print($"{player.name} is connected!");
 
