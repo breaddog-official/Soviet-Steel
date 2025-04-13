@@ -73,7 +73,7 @@ public class GameplayUI : MonoBehaviour
             speedText.color = speedGradient.Evaluate(network.vehicleController.Speed / network.vehicleController.maxSpeed);
         }
 
-        ApplyPlace(winPlace ? GameManager.Instance.RaceManager.GetPlace(network) + 1 : GameManager.Instance.RoadManager.GetPlace(network) + 1);
+        ApplyPlace(winPlace ? GameManager.Instance.WinManager.GetPlace(network.netId) + 1 : GameManager.Instance.RoadManager.GetPlace(network.netId) + 1);
     }
 
     public void ReachRound(ArcadeVehicleNetwork player, int round)
@@ -104,7 +104,7 @@ public class GameplayUI : MonoBehaviour
         if (recordText == null)
             return;
 
-        string key = $"{GameManager.GameMode.map.Name}_record";
+        string key = $"{GameManager.GameMode.Map.Name}_record";
         double time = GameManager.Instance.RoadManager.GetPlayers().GetValueOrDefault(network.netId).LastBetweenTime;
 
         // 120_000 seconds, ~33 hours

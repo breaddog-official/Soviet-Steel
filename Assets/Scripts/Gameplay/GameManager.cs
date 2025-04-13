@@ -11,7 +11,7 @@ namespace Scripts.Gameplay
     public class GameManager : NetworkBehaviour
     {
         [field: SerializeField] public RoadManager RoadManager { get; private set; }
-        [field: SerializeField] public RaceManager RaceManager { get; private set; }
+        [field: SerializeField] public WinManager WinManager { get; private set; }
         [SerializeField] private bool autoStartMatch = true;
 
 
@@ -24,9 +24,16 @@ namespace Scripts.Gameplay
         public double MatchTime { get; private set; }
         protected CancellationTokenSource timeCancellation;
 
+        [SyncVar]
+        private GameMode clientGameMode;
+        private static GameMode serverGameMode = new GameMode();
 
         public static GameManager Instance { get; private set; }
-        public static GameMode GameMode { get; private set; } = new GameMode();
+        public static GameMode GameMode
+        {
+            get => Instance?.clientGameMode ?? serverGameMode;
+            set => serverGameMode = value;
+        }
 
         public static Car Car { get; private set; }
 
@@ -40,6 +47,8 @@ namespace Scripts.Gameplay
         {
             if (Instance == this)
                 Instance = null;
+
+            Extensions.Extensions.ClearNetworksCache();
         }
 
         private void Start()

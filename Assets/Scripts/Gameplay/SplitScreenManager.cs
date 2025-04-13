@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Scripts.Extensions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,7 +13,7 @@ namespace Scripts.SplitScreen
 
         public static long AddPlayer(string name, Rect viewport, InputDevice device)
         {
-            long id = RandomLong();
+            long id = RandomE.RandomLong();
             players.Add(id, new SplitScreenPlayer(name, viewport, device));
 
             return id;
@@ -26,14 +27,12 @@ namespace Scripts.SplitScreen
 
 
         public static IReadOnlyDictionary<long, SplitScreenPlayer> GetPlayers() => players;
+    }
 
-
-        public static long RandomLong()
-        {
-            int value1 = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
-            int value2 = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
-            return value1 + ((long)value2 << 32);
-        }
+    [Serializable]
+    public class SplitScreenDevice
+    {
+        public string controlScheme;
     }
 
     [Serializable]

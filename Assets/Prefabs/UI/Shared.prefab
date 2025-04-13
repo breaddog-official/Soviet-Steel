@@ -2981,7 +2981,8 @@ GameObject:
   - component: {fileID: 7726216691790117261}
   - component: {fileID: 5238932392360356284}
   - component: {fileID: 7714595531839360955}
-  - component: {fileID: 4499183405317346690}
+  - component: {fileID: 4840467725516420395}
+  - component: {fileID: 6850801534899457555}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3037,7 +3038,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   <RoadManager>k__BackingField: {fileID: 7726216691790117261}
-  <RaceManager>k__BackingField: {fileID: 4499183405317346690}
+  <WinManager>k__BackingField: {fileID: 4840467725516420395}
   autoStartMatch: 0
 --- !u!114 &7726216691790117261
 MonoBehaviour:
@@ -3057,7 +3058,7 @@ MonoBehaviour:
   road: {fileID: 0}
   firstMarker: 0
   widthOffset: 0
-  simpleMarkers: 0
+  distances: []
 --- !u!114 &5238932392360356284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3070,19 +3071,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9383eeccfd094cb48a02003a3bb3ea79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedRange: {x: 1, y: 1.32}
+  speedRange: {x: 1, y: 1.5}
   speedCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 2.8301885
+      outSlope: 2.8301885
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.33333334
+      outWeight: 0.041666668
     - serializedVersion: 3
       time: 1
       value: 1
@@ -3135,7 +3136,7 @@ MonoBehaviour:
   - "\u0428\u043B\u0435\u043F\u043E\u043A \u043C\u0430\u0439\u043E\u043D\u0435\u0437\u043D\u044B\u0439"
   - "\u043F\u0435\u0442\u0451\u043A 228"
   - "\u0434\u044F\u0434\u044F \u0432\u0430\u0441\u044C\u043A\u0430 1000-7"
---- !u!114 &4499183405317346690
+--- !u!114 &4840467725516420395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3144,13 +3145,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 8887581068955694624}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7509980e874d4c94ba1ded053c0b422b, type: 3}
+  m_Script: {fileID: 11500000, guid: 3cac12d3cb2e3cb4f98d8dde789387d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
   roadManager: {fileID: 7726216691790117261}
+--- !u!114 &6850801534899457555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8887581068955694624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c304ae42c82b34b4496df654917ce01f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skyColor: {r: 1, g: 0.9651316, b: 0.8254717, a: 0}
+  enableLights: 0
 --- !u!1 &9014556743162977976
 GameObject:
   m_ObjectHideFlags: 0
@@ -3332,11 +3347,12 @@ MonoBehaviour:
   overrideNetwork: {fileID: 0}
   roundsText: {fileID: 0}
   roundsFormat: 2
-  placeText: {fileID: 904678613955115998}
   winPlace: 1
+  placeText: {fileID: 904678613955115998}
   placeFormat: 0
   timeText: {fileID: 0}
   timeFormat: mm\:ss
+  winTime: 0
   lastTimeText: {fileID: 8190087448056717008}
   lastTimeFormat: mm\:ss
   speedText: {fileID: 0}

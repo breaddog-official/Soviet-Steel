@@ -22,9 +22,15 @@ namespace Scripts.Audio
 
         private void Awake()
         {
-            Instance = this;
-
-            gameObject.DontDestroyOnLoad();
+            if (Instance == null)
+            {
+                Instance = this;
+                gameObject.DontDestroyOnLoad();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
 

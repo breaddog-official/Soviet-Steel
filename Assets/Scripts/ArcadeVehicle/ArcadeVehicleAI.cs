@@ -15,6 +15,10 @@ namespace ArcadeVP
         [SerializeField] protected Vector2 smoothAmountRange = new(0.2f, 0.8f);
         [Space]
         [SerializeField, MinMaxSlider(0, 90)] private Vector2 maxRotationRange = new(5, 15);
+        [Space, Range(0, 100)]
+        [SerializeField] private int markerRandomization = 40;
+        [Range(0f, 1f)]
+        [SerializeField] private float markerSmoothing = 0.6f;
         [Space, Range(1, 5)]
         [SerializeField] private int markerSamples = 2;
         [SerializeField] private float maxMarkerDistance = 50f;
@@ -32,6 +36,8 @@ namespace ArcadeVP
         private float smoothAmount;
         private float maxRotation;
 
+        private Vector3[] randomedMarkersOffset;
+
 
         protected void Awake()
         {
@@ -40,6 +46,16 @@ namespace ArcadeVP
 
             arcadeVehicleNetwork = GetComponent<ArcadeVehicleNetwork>();
             arcadeVehicleController = arcadeVehicleNetwork.vehicleController;
+
+            var markers = GameManager.Instance.RoadManager.GetMarkers();
+            var randomizationFactor = GameManager.Instance.RoadManager.GetRadius() / 100f * markerRandomization;
+
+            randomedMarkersOffset = new Vector3[markers.Count];
+
+            for (int i = 1; i < randomedMarkersOffset.Length; i++)
+            {
+                randomedMarkersOffset[i] = Vector3.Lerp(randomedMarkersOffset[i - 1], Random.insideUnitSphere * randomizationFactor, 1f - markerSmoothing);
+            }
         }
 
         private void FixedUpdate()
@@ -69,6 +85,7 @@ namespace ArcadeVP
             if (dot < 0)
                 y = -y;
 
+
             gizmosTargetMarkerDirection = targetMarkerRelative;
             gizmosVelocityDirection = velocity;
             gizmosMarker = targetMarker;
@@ -86,7 +103,7 @@ namespace ArcadeVP
 
         private Vector3 GetMarker()
         {
-            int currentMarker = GameManager.Instance.RoadManager.GetPlayers()[arcadeVehicleNetwork.netId].marker;
+            int currentMarker = GameManager.Instance.RoadManager.GetPlayer(arcadeVehicleNetwork.netId).marker;
             int[] markers = new int[markerSamples];
 
             for (int i = 0; i < markers.Length; i++)
@@ -95,14 +112,16 @@ namespace ArcadeVP
                 markers[i] = currentMarker;
             }
 
-            Vector3 resultVector = GameManager.Instance.RoadManager.GetPoint(markers[0]);
-            foreach (var vector in markers.Select(m => GameManager.Instance.RoadManager.GetPoint(m)))
+            Vector3 resultVector = GetMarkerPointWithRandomization(markers[0]);
+            foreach (var vector in markers.Select(m => GetMarkerPointWithRandomization(m)))
             {
                 resultVector = Vector3.Lerp(vector, resultVector, markerBlend.Evaluate(Vector3.Distance(transform.position, vector) / maxMarkerDistance));
             }
 
             return resultVector;
         }
+
+        private Vector3 GetMarkerPointWithRandomization(int index) => GameManager.Instance.RoadManager.GetPoint(index) + randomedMarkersOffset[index];
 
 
         protected Vector3 gizmosTargetMarkerDirection;
@@ -111,6 +130,9 @@ namespace ArcadeVP
 
         private void OnDrawGizmosSelected()
         {
+            if (GameManager.Instance == null || GameManager.Instance.RoadManager == null)
+                return;
+
             Gizmos.color = Color.yellow;
             Gizmos.DrawRay(transform.position, gizmosVelocityDirection * 50f);
 
@@ -119,6 +141,9 @@ namespace ArcadeVP
 
             Gizmos.color = new(1, 0, 0, 0.7f); // Red
             Gizmos.DrawSphere(gizmosMarker, GameManager.Instance.RoadManager.GetRadius());
+            
+            Gizmos.color = new(1, 0.92f, 0.016f, 0.4f); // Yellow
+            Gizmos.DrawSphere(gizmosMarker, GameManager.Instance.RoadManager.GetRadius() / 100f * markerRandomization);
         }
     }
 }

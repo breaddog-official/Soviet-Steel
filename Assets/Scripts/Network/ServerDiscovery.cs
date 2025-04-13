@@ -64,7 +64,7 @@ namespace Scripts.Network
             return new Response
             {
                 name = ServerName,
-                mapHash = GameManager.GameMode.map.MapHash,
+                mapHash = GameManager.GameMode.mapHash,
 
                 uri = transport.ServerUri(),
 

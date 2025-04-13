@@ -19,7 +19,7 @@ namespace Scripts.UI
         {
             values.AddRange(NetworkManagerExt.instance.registeredMaps.Select(m => m.map));
             
-            Select(values.Where(v => v.Scene == GameManager.GameMode.map?.Scene).FirstOrDefault());
+            Select(values.Where(v => v.Scene == GameManager.GameMode.Map?.Scene).FirstOrDefault());
         }
 
         private void OnDisable()
@@ -35,7 +35,7 @@ namespace Scripts.UI
             var map = CurrentValue;
 
             NetworkManager.singleton.onlineScene = map.Scene;
-            GameManager.GameMode.map = map;
+            GameManager.GameMode.mapHash = map.MapHash;
 
             nameText.text = map.Name;
             descriptionText.text = map.Description;

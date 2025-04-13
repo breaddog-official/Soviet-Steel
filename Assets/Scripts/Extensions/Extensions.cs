@@ -9,6 +9,8 @@ using System.Threading;
 using Unity.Cinemachine;
 using static Scripts.Extensions.RuntimePlatformConverter;
 using UnityEngine.InputSystem;
+using System.Security.Principal;
+using ArcadeVP;
 
 namespace Scripts.Extensions
 {
@@ -397,7 +399,7 @@ namespace Scripts.Extensions
         public static float Max(this Vector3 value)
         {
             Vector3 absValue = value.Abs();
-            return ExtendedMath.Max(absValue.x, absValue.y, absValue.z);
+            return MathE.Max(absValue.x, absValue.y, absValue.z);
         }
 
         #endregion
@@ -409,9 +411,9 @@ namespace Scripts.Extensions
         /// </summary>
         public static Vector3 ToVector(this GenVector3<bool> value, float falsePresent = 0, float truePresent = 1)
         {
-            return new Vector3(ExtendedMath.ToNumber(value.x, falsePresent, truePresent),
-                               ExtendedMath.ToNumber(value.y, falsePresent, truePresent),
-                               ExtendedMath.ToNumber(value.z, falsePresent, truePresent));
+            return new Vector3(MathE.ToNumber(value.x, falsePresent, truePresent),
+                               MathE.ToNumber(value.y, falsePresent, truePresent),
+                               MathE.ToNumber(value.z, falsePresent, truePresent));
         }
 
         #endregion
@@ -423,7 +425,7 @@ namespace Scripts.Extensions
         /// </summary>
         public static bool SupportDataPath(this RuntimePlatform value)
         {
-            return value is not (RuntimePlatform.IPhonePlayer or RuntimePlatform.Android or RuntimePlatform.WSAPlayerARM or RuntimePlatform.WSAPlayerX64 or RuntimePlatform.WSAPlayerX86);
+            return value is not (RuntimePlatform.IPhonePlayer or RuntimePlatform.Android or RuntimePlatform.WebGLPlayer or RuntimePlatform.WSAPlayerARM or RuntimePlatform.WSAPlayerX64 or RuntimePlatform.WSAPlayerX86);
         }
 
         /// <summary>
@@ -511,6 +513,8 @@ namespace Scripts.Extensions
 
         #region FindByUid
 
+        #region Identity
+
         /// <summary>
         /// Finds identity by id
         /// </summary>
@@ -527,7 +531,81 @@ namespace Scripts.Extensions
             return NetworkClient.spawned.TryGetValue(ID, out identity);
         }
 
+        /// <summary>
+        /// Finds identity by id
+        /// </summary>
+        public static async UniTask<NetworkIdentity> FindByIDAsync(this uint ID, CancellationToken token = default)
+        {
+            NetworkIdentity identity;
 
+            while (!NetworkClient.spawned.TryGetValue(ID, out identity))
+            {
+                await UniTask.NextFrame(token);
+            }
+
+            return identity;
+        }
+
+        #endregion
+
+        #region Network
+
+        private static readonly Dictionary<uint, ArcadeVehicleNetwork> networksCache = new();
+
+        /// <summary>
+        /// Finds network by id
+        /// </summary>
+        public static ArcadeVehicleNetwork FindNetworkByID(this uint ID)
+        {
+            var fromCache = networksCache.GetValueOrDefault(ID);
+
+            if (fromCache != null)
+            {
+                return fromCache;
+            }
+
+            var fromSpawned = NetworkClient.spawned.GetValueOrDefault(ID);
+
+            if (fromSpawned != null && fromSpawned.TryGetComponent(out ArcadeVehicleNetwork networkFromSpawned))
+            {
+                networksCache.Add(ID, networkFromSpawned);
+                return networkFromSpawned;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Tryes find network by id
+        /// </summary>
+        public static bool TryFindNetworkByID(this uint ID, out ArcadeVehicleNetwork network)
+        {
+            network = FindNetworkByID(ID);
+            return network != null;
+        }
+
+        /// <summary>
+        /// Finds network by id
+        /// </summary>
+        public static async UniTask<ArcadeVehicleNetwork> FindNetworkByIDAsync(this uint ID, CancellationToken token = default)
+        {
+            ArcadeVehicleNetwork network;
+
+            while (!networksCache.TryGetValue(ID, out network) && (!NetworkClient.spawned.TryGetValue(ID, out var identity) || !identity.TryGetComponent(out network)))
+            {
+                await UniTask.NextFrame(token);
+            }
+
+            networksCache.Add(ID, network);
+
+            return network;
+        }
+
+        public static void ClearNetworksCache() => networksCache.Clear();
+
+        #endregion
+
+        #region TComponent
 
         /// <summary>
         /// Finds identity and component by id
@@ -545,6 +623,23 @@ namespace Scripts.Extensions
             component = null;
             return TryFindByID(ID, out var identity) && identity.TryGetComponent(out component);
         }
+
+        /// <summary>
+        /// Finds identity and component by id
+        /// </summary>
+        public static async UniTask<TComponent> FindByIDAsync<TComponent>(this uint ID, CancellationToken token = default) where TComponent : Component
+        {
+            TComponent component;
+
+            while (!NetworkClient.spawned.TryGetValue(ID, out var identity) || !identity.TryGetComponent<TComponent>(out component))
+            {
+                await UniTask.NextFrame(token);
+            }
+
+            return component;
+        }
+
+        #endregion
 
         #endregion
 
@@ -596,7 +691,7 @@ namespace Scripts.Extensions
     }
 
 
-    public static class ExtendedMath
+    public static class MathE
     {
         #region Max
 
@@ -617,6 +712,43 @@ namespace Scripts.Extensions
         public static float ToNumber(bool value, float falsePresent = 0, float truePresent = 1)
         {
             return value ? truePresent : falsePresent;
+        }
+
+        #endregion
+    }
+
+    public static class RandomE
+    {
+        #region Random Numbers
+
+        public static long RandomLong(int? seed = null)
+        {
+            if (seed != null)
+                UnityEngine.Random.InitState(seed.Value);
+
+            int value1 = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+            int value2 = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+            return value1 + ((long)value2 << 32);
+        }
+
+        public static ulong RandomUlong(int? seed = null)
+        {
+            if (seed != null)
+                UnityEngine.Random.InitState(seed.Value);
+
+            int value1 = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+            int value2 = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+            return (ulong)value1 + ((ulong)value2 << 32);
+        }
+
+        public static ulong RandomUint(int? seed = null)
+        {
+            if (seed != null)
+                UnityEngine.Random.InitState(seed.Value);
+
+            int value1 = UnityEngine.Random.Range(0, int.MaxValue);
+            int value2 = UnityEngine.Random.Range(0, int.MaxValue);
+            return (uint)value1 + (uint)value2;
         }
 
         #endregion

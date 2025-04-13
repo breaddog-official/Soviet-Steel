@@ -11,15 +11,15 @@ namespace ArcadeVP
     public class ArcadeVehicleNetwork : NetworkBehaviour
     {
         [SerializeField] public TMP_Text nickText;
-        [SerializeField] public int nickMinCharacters = 1;
-        [SerializeField] public int nickMaxCharacters = 32;
-        [SerializeField] public string defaultNick = "anonymous";
+        [SerializeField] public NicknameSettings nicknameSettings;
         [Space]
         [SerializeField] public ArcadeVehicleController vehicleController;
         [SerializeField] public GameObject cinemachine;
         [SerializeField] public PlayerInput input;
         [SerializeField] public GameObject ui;
         [SerializeField] public GameObject mirrorCamera;
+        [SerializeField] public PhysicsMaterial playerMaterial; 
+        [SerializeField] public PhysicsMaterial aiMaterial;
         [Space]
         [SerializeField] public bool autoStart;
 
@@ -47,7 +47,7 @@ namespace ArcadeVP
         {
             vehicleInput = GetComponent<ArcadeVehicleInput>();
             vehicleAI = GetComponent<ArcadeVehicleAI>();
-
+            
             SetState(autoStart);
         }
 
@@ -66,17 +66,10 @@ namespace ArcadeVP
         [Command]
         public void SendRequestToNickname(string nickname)
         {
-            if (!string.IsNullOrWhiteSpace(nickname))
+            if (nicknameSettings.TryValidateNickname(nickname, out string newNickname))
             {
-                var chars = nickname.ToCharArray();
-
-                if (chars.Length >= nickMinCharacters && chars.Length <= nickMaxCharacters)
-                {
-                    SetNickname(nickname);
-                    return;
-                }
+                SetNickname(newNickname);
             }
-            SetNickname(defaultNick);
         }
 
         public void SetNickname(string name) => Nickname = name;
@@ -105,6 +98,7 @@ namespace ArcadeVP
             bool statePlayer = State && isOwned && !AI;
 
             vehicleController.SetHandbrake(!state);
+            vehicleController.SetColliderMaterial(AI ? aiMaterial : playerMaterial);
 
             ui.SetActive(statePlayer);
             cinemachine.SetActive(statePlayer);

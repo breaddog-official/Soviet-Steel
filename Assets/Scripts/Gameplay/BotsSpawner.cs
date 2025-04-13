@@ -41,8 +41,8 @@ public class BotsSpawner : NetworkBehaviour
 
     private string GetCar()
     {
-        var number = Random.Range(0, weightsSum);
         var index = 0;
+        /*var number = Random.Range(0, weightsSum);
 
         for (int i = 0; i < weightsWithSum.Length; i++)
         {
@@ -54,8 +54,8 @@ public class BotsSpawner : NetworkBehaviour
                 index = i;
                 break;
             }
-        }
-
+        }*/
+        index = Random.Range(0, NetworkManagerExt.instance.registeredCars.Length);
         return NetworkManagerExt.instance.registeredCars[index].car.CarHash;
     }
 

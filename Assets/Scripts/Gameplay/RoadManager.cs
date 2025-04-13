@@ -8,6 +8,7 @@ using ArcadeVP;
 using System.Collections.Generic;
 using Scripts.Gameplay;
 using Cysharp.Threading.Tasks;
+using System.Linq;
 
 public class RoadManager : NetworkBehaviour
 {
@@ -15,16 +16,33 @@ public class RoadManager : NetworkBehaviour
     [MinValue(0)]
     [SerializeField] private int firstMarker;
     [SerializeField] private float widthOffset;
-    [Space]
-    [SerializeField] private bool simpleMarkers;
 
     private readonly SyncDictionary<uint, PlayerScore> players = new();
-    private readonly List<ArcadeVehicleNetwork> places = new();
+    private readonly List<uint> places = new();
 
+    [SerializeField, HideInInspector]
+    private float[] distances;
+
+    [ShowNativeProperty]
+    private int DistancesCount => distances.Length;
+    [ShowNativeProperty]
+    private float Distance => distances.Sum();
+
+    /// <summary>
+    /// Server only event
+    /// </summary>
     public event Action<ArcadeVehicleNetwork, int> OnPlayerReachedMarker;
+    /// <summary>
+    /// Server only event
+    /// </summary>
     public event Action<ArcadeVehicleNetwork, int> OnPlayerReachedRound;
 
 
+    private void Awake()
+    {
+        if (distances == null || DistancesCount < GetMarkers().Count)
+            CacheDistances();
+    }
 
     public override void OnStartClient()
     {
@@ -41,18 +59,15 @@ public class RoadManager : NetworkBehaviour
             players.OnAdd?.Invoke(key);
     }
 
-    private async void SyncPlaceAdd(uint id)
+    private void SyncPlaceAdd(uint id)
     {
-        ArcadeVehicleNetwork network;
-
-        while (!TryToNetwork(id, out network))
-        {
-            await UniTask.NextFrame();
-        }
-
-        places.Add(network);
+        places.Add(id);
     }
-    private void SyncPlaceRemove(uint network, PlayerScore score) => places.Remove(ToNetwork(network));
+
+    private void SyncPlaceRemove(uint id, PlayerScore score)
+    {
+        places.Remove(id);
+    }
 
     [Server]
     public void AddPlayer(GameObject player)
@@ -65,7 +80,7 @@ public class RoadManager : NetworkBehaviour
         };
 
         players.Add(id, score);
-        places.Add(network);
+        places.Add(id);
     }
 
     [Server]
@@ -75,7 +90,7 @@ public class RoadManager : NetworkBehaviour
         var id = network.netId;
 
         players.Remove(id);
-        places.Remove(network);
+        places.Remove(id);
     }
 
 
@@ -87,7 +102,7 @@ public class RoadManager : NetworkBehaviour
         {
             foreach (var player in players)
             {
-                if (!TryToNetwork(player.Key, out ArcadeVehicleNetwork network))
+                if (!player.Key.TryFindNetworkByID(out ArcadeVehicleNetwork network))
                     continue;
 
                 int nextPoint = player.Value.marker.IncreaseInBoundsReturn(GetMarkers().Count);
@@ -113,31 +128,52 @@ public class RoadManager : NetworkBehaviour
 
     public void SortPlaces()
     {
+        print($"sort, places count: {places.Count}");
         places.Sort((f, s) => ComparePlayersPlaces(s, f));
     }
 
+    [Button]
+    public void CacheDistances()
+    {
+        var markers = GetMarkers();
 
-    public int GetPlace(ArcadeVehicleNetwork player) => places.IndexOf(player);
+        if (distances == null || DistancesCount < markers.Count)
+            distances = new float[markers.Count];
 
+        Vector3 lastPoint = markers[markers.Count -1];
+        for (int i = 0; i < markers.Count; i++)
+        {
+            distances[i] = Vector3.Distance(lastPoint, markers[i]);
+            lastPoint = markers[i];
+        }
+    }
+
+    // Places
+    public int GetPlace(uint player) => places.IndexOf(player);
+    public IList<uint> GetPlaces() => places;
+
+    // Markers
     public Vector3 GetPoint(int index) => GetMarkers()[index];
     public Vector3 GetNextPoint(int index) => GetPoint(index.IncreaseInBoundsReturn(GetMarkers().Count));
     public int GetNextPointIndex(int index) => index.IncreaseInBoundsReturn(GetMarkers().Count);
-
+    public IReadOnlyList<Vector3> GetMarkers() => road.splinePoints;
     public float GetRadius() => (road.GetRoadWidth() / 2f) + widthOffset;
 
-    public IList<ArcadeVehicleNetwork> GetPlaces() => places;
-    public IReadOnlyList<Vector3> GetMarkers() => road.splinePoints;
+    // Players
     public IReadOnlyDictionary<uint, PlayerScore> GetPlayers() => players;
+    public PlayerScore GetPlayer(uint id) => players[id];
 
-    public static ArcadeVehicleNetwork ToNetwork(uint uid)
+    // Distances
+    public float GetDistanceBeetweenMarkers(int firstIndex, int secondIndex)
     {
-        return NetworkServer.spawned.GetValueOrDefault(uid).GetComponent<ArcadeVehicleNetwork>();
-    }
+        float distance = 0;
 
-    public static bool TryToNetwork(uint uid, out ArcadeVehicleNetwork network)
-    {
-        network = null;
-        return NetworkServer.spawned.TryGetValue(uid, out var identity) && identity.TryGetComponent<ArcadeVehicleNetwork>(out network);
+        for (int i = firstIndex; i < secondIndex; i.IncreaseInBounds(distances))
+        {
+            distance += distances[i];
+        }
+
+        return distance;
     }
 
     #region Gizmos
@@ -165,13 +201,19 @@ public class RoadManager : NetworkBehaviour
 
     #region ComparePlayersPlaces
 
-    public int ComparePlayersPlaces(ArcadeVehicleNetwork first, ArcadeVehicleNetwork second)
+    public int ComparePlayersPlaces(uint first, uint second)
     {
-        if (!players.TryGetValue(first.netId, out PlayerScore firstScore))
+        if (!players.TryGetValue(first, out PlayerScore firstScore))
+        {
+            print($"{first} not founded");
             return -1;
+        }
 
-        if (!players.TryGetValue(second.netId, out PlayerScore secondScore))
+        if (!players.TryGetValue(second, out PlayerScore secondScore))
+        {
+            print($"{second} not founded");
             return 1;
+        }
 
         if (firstScore.round == secondScore.round)
         {

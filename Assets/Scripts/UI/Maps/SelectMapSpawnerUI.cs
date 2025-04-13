@@ -69,7 +69,7 @@ namespace Scripts.UI
         public override void ApplyCurrentValue()
         {
             NetworkManager.singleton.onlineScene = CurrentValue.Scene;
-            GameManager.GameMode.map = CurrentValue;
+            GameManager.GameMode.mapHash = CurrentValue.MapHash;
 
             UpdateInstances();
         }

@@ -1,5 +1,7 @@
+using ArcadeVP;
 using Mirror;
 using NaughtyAttributes;
+using Scripts.Extensions;
 using Scripts.Gameplay;
 using UnityEngine;
 
@@ -17,8 +19,11 @@ public class InvisibleHand : MonoBehaviour
 
         for (int i = 0; i < places.Count; i++)
         {
-            float speedMultiplier = Mathf.Lerp(speedRange.x, speedRange.y, speedCurve.Evaluate(i / (float)(places.Count - 1)));
-            places[i].SetSpeedMultiplier(speedMultiplier);
+            if (places[i].TryFindNetworkByID(out ArcadeVehicleNetwork network))
+            {
+                float speedMultiplier = Mathf.Lerp(speedRange.x, speedRange.y, speedCurve.Evaluate(i / (float)(places.Count - 1)));
+                network.SetSpeedMultiplier(speedMultiplier);
+            }
         }
     }
 }

@@ -1,12 +1,15 @@
-﻿using Scripts.UI;
+﻿using System.Linq;
+using Scripts.UI;
 
 namespace Scripts.Gameplay
 {
     public class GameMode
     {
-        public int rounds = 3;
+        public int rounds = 1;
         public int bots = 5;
 
-        public Map map;
+        public string mapHash;
+
+        public Map Map => string.IsNullOrEmpty(mapHash) ? null : NetworkManagerExt.GetMap(mapHash);
     }
 }

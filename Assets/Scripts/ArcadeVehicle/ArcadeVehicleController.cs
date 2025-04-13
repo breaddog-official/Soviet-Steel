@@ -119,6 +119,7 @@ namespace ArcadeVP
 
 
         private SphereCollider sphereCollider;
+        private Collider[] carColliders;
 
         private bool handbrake;
 
@@ -150,6 +151,8 @@ namespace ArcadeVP
 
             sphereCollider = rb.GetComponent<SphereCollider>();
             sphereCollider.sharedMaterial = frictionMaterial;
+
+            carColliders = GetComponents<Collider>();
 
             radius = sphereCollider.radius;
 
@@ -196,6 +199,15 @@ namespace ArcadeVP
                 GravityLogic();
                 AccelerationLogic();
             }
+        }
+
+        public void SetColliderMaterial(PhysicsMaterial material)
+        {
+            if (carColliders == null)
+                return;
+
+            foreach (var collider in carColliders)
+                collider.material = material;
         }
 
         public void SetInput(Vector2 _moveInput, bool _brakeInput)

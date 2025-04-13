@@ -160,11 +160,9 @@ namespace Scripts.SaveManagement
             var persistentPath = platform.SupportPersistentDataPath() ? Application.persistentDataPath : null;
 
 
-
             return preferLocation switch
             {
-                DataLocation.PreferDefault when dataPath != null => dataPath,
-                DataLocation.PreferPersistent when persistentPath != null => persistentPath,
+                DataLocation.PreferPersistent => persistentPath ?? dataPath,
                 _ => dataPath ?? persistentPath
             };
         }

@@ -13,7 +13,7 @@
     },
     "refreshRate": -2147483648
   },
-  "shadows": 2,
+  "shadows": 1,
   "shadowsQuality": 3,
   "shadersQuality": 3,
   "antiAliasing": 1,

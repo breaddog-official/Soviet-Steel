@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArcadeVP;
+using Scripts.Extensions;
 using Scripts.Gameplay;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -38,7 +39,7 @@ public class CinemachineHelicopter : MonoBehaviour
 
             foreach (var player in GameManager.Instance.RoadManager.GetPlayers())
             {
-                if (RoadManager.TryToNetwork(player.Key, out var network) && !transforms.Contains(network.transform))
+                if (player.Key.TryFindNetworkByID(out var network) && !transforms.Contains(network.transform))
                 {
                     var target = new CinemachineTargetGroup.Target
                     {

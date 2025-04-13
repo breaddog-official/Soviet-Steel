@@ -88,16 +88,14 @@ public class NetworkManagerExt : NetworkManager
     [Server]
     public GameObject SpawnPlayer(ConnectMessage message, Action<GameObject> configurePlayer = null)
     {
-        // Spawn player
-        var car = registeredCars.Where(c => c.car.CarHash == message.carHash).FirstOrDefault();
-
-        if (car == default)
+        if (!TryGetCar(message.carHash, out Car car))
         {
             throw new Exception("Car is not supported on server.");
         }
 
-        var carPrefab = car.car.CarPrefab;
+        var carPrefab = car.CarPrefab;
 
+        // Spawn player
         Transform startPos = GetStartPosition();
         GameObject player = startPos != null
             ? Instantiate(carPrefab, startPos.position, startPos.rotation)
@@ -117,6 +115,22 @@ public class NetworkManagerExt : NetworkManager
         OnServerAddPlayerAction?.Invoke(player);
 
         return player;
+    }
+
+    public static Map GetMap(string hash) => instance.registeredMaps.Where(m => m.map.MapHash == hash).FirstOrDefault().map;
+    public static Car GetCar(string hash) => instance.registeredCars.Where(m => m.car.CarHash == hash).FirstOrDefault().car;
+
+
+    public static bool TryGetMap(string hash, out Map map)
+    {
+        map = instance.registeredMaps.Where(m => m.map.MapHash == hash).FirstOrDefault().map;
+        return map != default;
+    }
+
+    public static bool TryGetCar(string hash, out Car car)
+    {
+        car = instance.registeredCars.Where(m => m.car.CarHash == hash).FirstOrDefault().car;
+        return car != default;
     }
 
 

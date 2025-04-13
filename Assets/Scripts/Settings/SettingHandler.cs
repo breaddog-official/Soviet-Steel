@@ -61,6 +61,22 @@ namespace Scripts.Settings
     {
         public new T Setting => SettingsManager.GetSetting<T>(Name);
 
+        private static bool spawnedInstance;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            if (dontDestroyOnLoad && spawnedInstance)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                spawnedInstance = true;
+            }
+        }
+
 
         #region Editor
 #if UNITY_EDITOR
