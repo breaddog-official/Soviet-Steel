@@ -5325,6 +5325,7 @@ GameObject:
   - component: {fileID: 2904851051774448887}
   - component: {fileID: 7140990227517868388}
   - component: {fileID: 3530504925607819832}
+  - component: {fileID: 3496875870350534570}
   m_Layer: 7
   m_Name: Spot Light
   m_TagString: Untagged
@@ -5445,6 +5446,23 @@ MonoBehaviour:
   customCookieDistanceFalloffPower: 2
   customAngularFalloffThreshold: 0.8
   customAngularFalloffPower: 2
+--- !u!114 &3496875870350534570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2768584025805425032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d1cabb05457fd418c8ff403199426f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
+  <Name>k__BackingField: shadowsSources
+  setName: Select setting
+  lights:
+  - {fileID: 7140990227517868388}
 --- !u!1 &2970562950135220954
 GameObject:
   m_ObjectHideFlags: 0
@@ -21471,6 +21489,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5117913983889212829}
   - component: {fileID: 6547920007257355814}
+  - component: {fileID: 4936112813586202380}
   m_Layer: 7
   m_Name: Mirror
   m_TagString: Untagged
@@ -21544,6 +21563,27 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &4936112813586202380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7342831489679652406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2919d13ca007d41817d9277cadc47f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
+  <Name>k__BackingField: mirrorQuality
+  setName: Select setting
+  observerType: 1
+  mirror: {fileID: 6547920007257355814}
+  resolution: {x: 1920, y: 1080}
+  textureResolution: {x: 0, y: 0}
+  textureBits: 24
+  uiMirror: {fileID: 0}
 --- !u!1 &7739089151053918048
 GameObject:
   m_ObjectHideFlags: 0

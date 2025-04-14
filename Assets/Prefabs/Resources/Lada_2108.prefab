@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 2974020834070262679}
   - component: {fileID: 5219482255948053831}
   - component: {fileID: 3944923483372724362}
+  - component: {fileID: 8814418572713500415}
   m_Layer: 7
   m_Name: Spot Light
   m_TagString: Untagged
@@ -163,6 +164,23 @@ MonoBehaviour:
   customCookieDistanceFalloffPower: 2
   customAngularFalloffThreshold: 0.8
   customAngularFalloffPower: 2
+--- !u!114 &8814418572713500415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105853389807750434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d1cabb05457fd418c8ff403199426f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
+  <Name>k__BackingField: shadowsSources
+  setName: Select setting
+  lights:
+  - {fileID: 5219482255948053831}
 --- !u!1 &1173592383730459999
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,9 +225,9 @@ Transform:
   - {fileID: 7094196781800150178}
   - {fileID: 7794619357408197010}
   - {fileID: 6407038893220389721}
+  - {fileID: 7698578970632760968}
   - {fileID: 246001687082423443}
   - {fileID: 5711048276542852503}
-  - {fileID: 7698578970632760968}
   - {fileID: 8454643722242669544}
   - {fileID: 2974020834070262679}
   - {fileID: 7478754880572563699}
@@ -11641,6 +11659,7 @@ GameObject:
   m_Component:
   - component: {fileID: 246001687082423443}
   - component: {fileID: 8128849847388797344}
+  - component: {fileID: 3395856198868994617}
   m_Layer: 7
   m_Name: Mirror
   m_TagString: Untagged
@@ -11714,6 +11733,27 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &3395856198868994617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6210537934095805292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2919d13ca007d41817d9277cadc47f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
+  <Name>k__BackingField: mirrorQuality
+  setName: Select setting
+  observerType: 1
+  mirror: {fileID: 8128849847388797344}
+  resolution: {x: 1920, y: 1080}
+  textureResolution: {x: 0, y: 0}
+  textureBits: 24
+  uiMirror: {fileID: 0}
 --- !u!1 &6402146162783377276
 GameObject:
   m_ObjectHideFlags: 0

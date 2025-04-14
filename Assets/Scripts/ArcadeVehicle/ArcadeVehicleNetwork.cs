@@ -102,7 +102,7 @@ namespace ArcadeVP
 
             ui.SetActive(statePlayer);
             cinemachine.SetActive(statePlayer);
-            mirrorCamera.SetActive(false);//isOwned && !AI);
+            mirrorCamera.SetActive(isOwned && !AI);
 
             input.enabled = statePlayer;
             vehicleInput.enabled = statePlayer;

@@ -73,14 +73,9 @@ namespace Scripts.UI
 
         [SerializeField, HideInInspector]
         private bool autoSetCompleted;
-
+        private int frames;
 
         #region Initialization
-
-        private void Start()
-        {
-            Initialize();
-        }
 
         private void Reset()
         {
@@ -125,7 +120,13 @@ namespace Scripts.UI
 
         private void Update()
         {
-            if (cachedInteractable != button.interactable)
+            // Canvas groups update in first update
+            if (frames == 2)
+                Initialize();
+            else
+                frames++;
+
+            if (frames > 2 && cachedInteractable != button.interactable)
             {
                 cachedInteractable = button.interactable;
                 Animate(cachedInteractable ? AnimationState.Normal : AnimationState.Disabled).Forget();
@@ -267,9 +268,6 @@ namespace Scripts.UI
             }
 
             await UniTask.WhenAll(colorTask, positionTask, scaleTask);
-
-            if (state == AnimationState.Normal)
-                Cache();
         }
 
         protected AnimateType StateToAnimation(AnimationState state)
@@ -283,6 +281,11 @@ namespace Scripts.UI
                 AnimationState.Pressed => pressedAnimation,
                 _ => AnimateType.None
             };
+        }
+
+        public void Click()
+        {
+            ExecuteEvents.Execute(button.gameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
         }
     }
 }

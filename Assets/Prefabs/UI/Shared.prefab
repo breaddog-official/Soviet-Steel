@@ -452,6 +452,7 @@ GameObject:
   - component: {fileID: 5090693431178498012}
   - component: {fileID: 7191102425741744494}
   - component: {fileID: 6658234816963069077}
+  - component: {fileID: 3770515851214130412}
   m_Layer: 5
   m_Name: UIManager
   m_TagString: Untagged
@@ -519,6 +520,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d75e838e9c8fb847ae1daaadf771414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3770515851214130412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506551167809340194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2919d13ca007d41817d9277cadc47f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
+  <Name>k__BackingField: mirrorQuality
+  setName: Select setting
+  observerType: 2
+  mirror: {fileID: 0}
+  resolution: {x: 1920, y: 1080}
+  textureResolution: {x: 0, y: 0}
+  textureBits: 24
+  uiMirror: {fileID: 8900422608385418218}
 --- !u!1 &1954895829704750583
 GameObject:
   m_ObjectHideFlags: 0
@@ -1123,7 +1145,6 @@ GameObject:
   - component: {fileID: 4293474710942069043}
   - component: {fileID: 6742863733883101670}
   - component: {fileID: 8900422608385418218}
-  - component: {fileID: 7873046307044150654}
   m_Layer: 5
   m_Name: Mirror
   m_TagString: Untagged
@@ -1186,19 +1207,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &7873046307044150654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3937229641302933404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 285ed7813f7071d499fea1c21c733734, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renderTexture: {fileID: 8400000, guid: b04ccf82b41455d4b9d8bb6906f8e9ba, type: 2}
 --- !u!1 &4348855584107754733
 GameObject:
   m_ObjectHideFlags: 0

@@ -86,6 +86,27 @@ namespace Scripts.Settings
             Ultra
         }
 
+        // Like in CS2 :)
+        public enum ShadowsSources
+        {
+            DirectionalOnly,
+            All
+        }
+
+        public enum ScreenPostEffects
+        {
+            Default,
+            Retro
+        }
+
+        public enum MirrorQuality
+        {
+            Disabled,
+            Simple,
+            Standart,
+            Advanced
+        }
+
         /*public enum ParticlesMode
         {
             Disabled,
@@ -126,14 +147,17 @@ namespace Scripts.Settings
         [Header("Graphics")]
         public ShadowsType shadows;
         public ShadowsQuality shadowsQuality = ShadowsQuality.Medium;
+        public ShadowsSources shadowsSources = ShadowsSources.DirectionalOnly;
         public ShadersQuality shadersQuality = ShadersQuality.Medium;
         public AntiAliasing antiAliasing;
         public AntiAliasingMSAA antiAliasingMsaa;
+        public ScreenPostEffects screenPostEffects;
         public FogType fogType;
         public RenderDistance renderDistance = RenderDistance.Maximum;
         public ResolutionType resolutionType = ResolutionType.Full;
         public Geometry geometry = Geometry.Medium;
         public bool fastMode;
+        public MirrorQuality mirrorQuality = MirrorQuality.Standart;
 
         [HideInInspector]
         public string debugCode;

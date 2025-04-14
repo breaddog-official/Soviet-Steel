@@ -11343,6 +11343,7 @@ GameObject:
   - component: {fileID: 6264095890846896738}
   - component: {fileID: 8056615131183312757}
   - component: {fileID: 2236725735048602404}
+  - component: {fileID: 7940731507180148206}
   m_Layer: 7
   m_Name: Spot Light
   m_TagString: Untagged
@@ -11463,6 +11464,23 @@ MonoBehaviour:
   customCookieDistanceFalloffPower: 2
   customAngularFalloffThreshold: 0.8
   customAngularFalloffPower: 2
+--- !u!114 &7940731507180148206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3800751468207564364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d1cabb05457fd418c8ff403199426f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
+  <Name>k__BackingField: shadowsSources
+  setName: Select setting
+  lights:
+  - {fileID: 8056615131183312757}
 --- !u!1 &3827475584167126947
 GameObject:
   m_ObjectHideFlags: 0
@@ -16708,6 +16726,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7820495767436297860}
   - component: {fileID: 3235200357200675854}
+  - component: {fileID: 3835771417865243662}
   m_Layer: 7
   m_Name: Mirror
   m_TagString: Untagged
@@ -16781,6 +16800,27 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &3835771417865243662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6019272620504309791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2919d13ca007d41817d9277cadc47f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
+  <Name>k__BackingField: mirrorQuality
+  setName: Select setting
+  observerType: 1
+  mirror: {fileID: 3235200357200675854}
+  resolution: {x: 1920, y: 1080}
+  textureResolution: {x: 0, y: 0}
+  textureBits: 24
+  uiMirror: {fileID: 0}
 --- !u!1 &6287013698867837081
 GameObject:
   m_ObjectHideFlags: 0
@@ -16839,7 +16879,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6315959550951501673}
-  m_LocalRotation: {x: -0.07833292, y: -0, z: -0, w: 0.99692726}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.1739526, y: 1.1818194, z: 1.1817828}
   m_ConstrainProportionsScale: 0

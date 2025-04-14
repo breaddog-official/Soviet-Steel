@@ -5138,6 +5138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 627639636101942614}
   - component: {fileID: 8935196716295318315}
+  - component: {fileID: 2478468484551513339}
   m_Layer: 7
   m_Name: Mirror
   m_TagString: Untagged
@@ -5211,6 +5212,27 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &2478468484551513339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842295090077810614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2919d13ca007d41817d9277cadc47f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
+  <Name>k__BackingField: mirrorQuality
+  setName: Select setting
+  observerType: 1
+  mirror: {fileID: 8935196716295318315}
+  resolution: {x: 1920, y: 1080}
+  textureResolution: {x: 0, y: 0}
+  textureBits: 24
+  uiMirror: {fileID: 0}
 --- !u!1 &1580046439565584683
 GameObject:
   m_ObjectHideFlags: 0
@@ -10131,6 +10153,7 @@ GameObject:
   - component: {fileID: 2831736845620275705}
   - component: {fileID: 7709662488892014551}
   - component: {fileID: 6297257419454981339}
+  - component: {fileID: 8258296493050234486}
   m_Layer: 7
   m_Name: Spot Light
   m_TagString: Untagged
@@ -10251,6 +10274,23 @@ MonoBehaviour:
   customCookieDistanceFalloffPower: 2
   customAngularFalloffThreshold: 0.8
   customAngularFalloffPower: 2
+--- !u!114 &8258296493050234486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2207636782430416083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d1cabb05457fd418c8ff403199426f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
+  <Name>k__BackingField: shadowsSources
+  setName: Select setting
+  lights:
+  - {fileID: 7709662488892014551}
 --- !u!1 &2433489128334735246
 GameObject:
   m_ObjectHideFlags: 0
@@ -10924,7 +10964,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   maxSpeed: 75
-  accelaration: 10
+  accelaration: 12
   turn: 7
   drift: 8
   gravity: 14
