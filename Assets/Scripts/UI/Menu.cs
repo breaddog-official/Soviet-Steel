@@ -1,5 +1,6 @@
 using System;
 using Mirror;
+using Scripts.Gameplay;
 using Scripts.Network;
 using UnityEngine;
 
@@ -103,6 +104,11 @@ namespace Scripts.UI
         #endregion
 
 
+
+        public static void SetBotsCount(string bots)
+        {
+            GameManager.GameMode.bots = int.Parse(bots);
+        }
 
         public static void Quit()
         {

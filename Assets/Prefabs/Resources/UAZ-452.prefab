@@ -717,7 +717,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   maxSpeed: 70
-  accelaration: 12
+  accelaration: 11
   turn: 5.6
   drift: 25
   gravity: 8
@@ -729,7 +729,7 @@ MonoBehaviour:
   driftAngle: 3
   rb: {fileID: 412895281298983764}
   carBody: {fileID: 1871890942098664247}
-  minFriction: 3
+  minFriction: 2.5
   maxFriction: 5
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   accelerationCurve:
@@ -11150,12 +11150,12 @@ Camera:
   field of view: 46
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: -4
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: b04ccf82b41455d4b9d8bb6906f8e9ba, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -11423,9 +11423,9 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 1.4
   m_Range: 150
-  m_SpotAngle: 80
+  m_SpotAngle: 70
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
@@ -11457,7 +11457,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 2
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -11489,7 +11489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 1
+  strength: 2
   useScattering: 0
   overrideScattering: 0
   overridingScattering: 0.5

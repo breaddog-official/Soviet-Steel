@@ -4,21 +4,25 @@ using System.Collections.Generic;
 using Scripts.Gameplay;
 using UnityEngine;
 using System.Linq;
+using NaughtyAttributes;
+using Cysharp.Threading.Tasks;
+using Scripts.Extensions;
+using Unity.VisualScripting;
 
 public class BotsSpawner : NetworkBehaviour
 {
     [SerializeField] protected string[] names;
+    [Space]
+    [SerializeField] protected bool variableSpawnDelay;
+    [ShowIf(nameof(variableSpawnDelay)), MinMaxSlider(0, 10)]
+    [SerializeField] protected Vector2 spawnDelay = new(2, 5);
 
-    private readonly List<int> usedNames = new();
-
-    private int[] weightsWithSum;
-    private int weightsSum;
+    private static readonly List<int> notUsedNames = new();
+    private static readonly List<int> notUsedCars = new();
 
 
-    public override void OnStartServer()
+    public override async void OnStartServer()
     {
-        CalculateWeights();
-
         for (int i = 0; i < GameManager.GameMode.bots; i++)
         {
             var player = NetworkManagerExt.instance.SpawnPlayer(new()
@@ -26,6 +30,9 @@ public class BotsSpawner : NetworkBehaviour
                 name = GetName(),
                 carHash = GetCar()
             }, ConfigureBot);
+
+            if (variableSpawnDelay)
+                await UniTask.Delay(Random.Range(spawnDelay.x, spawnDelay.y).ConvertSecondsToMiliseconds());
         }
     }
 
@@ -41,54 +48,47 @@ public class BotsSpawner : NetworkBehaviour
 
     private string GetCar()
     {
-        var index = 0;
-        /*var number = Random.Range(0, weightsSum);
+        if (notUsedCars.Count == 0)
+            AddNotUsedCars();
 
-        for (int i = 0; i < weightsWithSum.Length; i++)
-        {
-            //print($"Number: {number}; Weight: {weightsWithSum[i]}; Length: {i}");
-            bool last = i + 1 == weightsWithSum.Length;
+        int notUsedIndex = Random.Range(0, notUsedCars.Count - 1);
+        int carsIndex = notUsedCars[notUsedIndex];
 
-            if (number >= weightsWithSum[i] && (last || number < weightsWithSum[i + 1]))
-            {
-                index = i;
-                break;
-            }
-        }*/
-        index = Random.Range(0, NetworkManagerExt.instance.registeredCars.Length);
-        return NetworkManagerExt.instance.registeredCars[index].car.CarHash;
+        notUsedCars.Remove(notUsedIndex);
+
+        return NetworkManagerExt.instance.registeredCars[carsIndex].car.CarHash;
     }
 
     private string GetName()
     {
-        if (usedNames.Count == names.Length)
-            usedNames.Clear();
+        if (notUsedNames.Count == 0)
+            AddNotUsedNames();
 
-        int nameIndex;
-        do
-        {
-            nameIndex = Random.Range(0, names.Length);
-        }
-        while (usedNames.Contains(nameIndex));
+        int notUsedIndex = Random.Range(0, notUsedNames.Count - 1);
+        int namesIndex = notUsedNames[notUsedIndex];
 
-        usedNames.Add(nameIndex);
+        notUsedNames.RemoveAt(notUsedIndex);
 
-        return names[nameIndex];
+        return names[namesIndex];
     }
 
-    private void CalculateWeights()
+    private void AddNotUsedNames()
     {
-        var weights = NetworkManagerExt.instance.registeredCars.Select(c => c.car.SpawnBotChance).ToArray();
-        var sum = 0;
-
-        weightsWithSum = new int[weights.Length];
-        for (int i = 1; i < weights.Length; i++)
+        for (int i = 0; i < names.Length; i++)
         {
-            weightsWithSum[i] = sum + weights[i];
-            sum += weights[i];
-            print($"Sum: {sum}");
+            notUsedNames.Add(i);
         }
+    }
 
-        weightsSum = sum;
+    private void AddNotUsedCars()
+    {
+        for (int i = 0; i < NetworkManagerExt.instance.registeredCars.Length; i++)
+        {
+            // Add index multiple times for more spawned cars
+            for (int c = 0; c < NetworkManagerExt.instance.registeredCars[i].car.spawnBotChance; c++)
+            {
+                notUsedCars.Add(i);
+            }
+        }
     }
 }

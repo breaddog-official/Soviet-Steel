@@ -5,6 +5,7 @@ using System.Threading;
 using UnityEngine;
 using Scripts.Extensions;
 using Scripts.Cars;
+using Scripts.UI;
 
 namespace Scripts.Gameplay
 {
@@ -25,13 +26,13 @@ namespace Scripts.Gameplay
         protected CancellationTokenSource timeCancellation;
 
         [SyncVar]
-        private GameMode clientGameMode;
-        private static GameMode serverGameMode = new GameMode();
+        private GameMode clientGameMode; // GameMode recieved from server
+        private static GameMode serverGameMode = new GameMode(); // Server own GameMode
 
         public static GameManager Instance { get; private set; }
         public static GameMode GameMode
         {
-            get => Instance?.clientGameMode ?? serverGameMode;
+            get => Instance != null && Instance.clientGameMode != null ? Instance.clientGameMode : serverGameMode;
             set => serverGameMode = value;
         }
 
@@ -109,10 +110,14 @@ namespace Scripts.Gameplay
 
 
 
-        public static void SetCar(Car car)
+        public static void SetCar(Car car) => Car = car;
+        public static void SetMap(Map map)
         {
-            Car = car;
+            GameMode.mapHash = map.MapHash;
+            NetworkManager.singleton.onlineScene = map.Scene;
         }
+
+
 
         public void AddPlayer(GameObject player)
         {

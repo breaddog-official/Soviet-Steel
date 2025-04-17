@@ -1,7 +1,6 @@
-#if PLATFORM_STANDALONE
+#if (UNITY_STANDALONE_WIN && UNITY_64) || UNITY_STANDALONE_OSX
 using Discord;
 using Scripts.Extensions;
-using Scripts.Gameplay;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;

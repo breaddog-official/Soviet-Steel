@@ -62,6 +62,8 @@ namespace Scripts.Audio
         }
 
 
+        public IReadOnlyDictionary<MusicPart, AudioSource> GetSources() => sources;
+
         [Serializable]
         public class MusicPart
         {

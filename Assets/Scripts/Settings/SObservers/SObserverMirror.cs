@@ -1,5 +1,6 @@
 using System;
 using NaughtyAttributes;
+using Scripts.Gameplay;
 using UnityEngine;
 using UnityEngine.UI;
 using static Scripts.Settings.Settings;
@@ -32,11 +33,14 @@ namespace Scripts.Settings
         private static event Action OnRenderTextureChanged;
 
 
-        /*protected override void OnEnable()
+        protected override void OnEnable()
         {
             if (observerType == ObserverType.Local)
             {
                 OnRenderTextureChanged += UpdateRenderTextures;
+                mirror.enabled = true;
+
+                UpdateRenderTextures();
             }
 
             base.OnEnable();
@@ -47,6 +51,7 @@ namespace Scripts.Settings
             if (observerType == ObserverType.Local)
             {
                 OnRenderTextureChanged -= UpdateRenderTextures;
+                mirror.enabled = false;
             }
 
             base.OnDisable();
@@ -60,8 +65,8 @@ namespace Scripts.Settings
             }
         }
 
-        */public override void UpdateValue()
-        {/*
+        public override void UpdateValue()
+        {
             var setting = Setting;
 
             if (observerType == ObserverType.Global)
@@ -76,14 +81,15 @@ namespace Scripts.Settings
                 Vector2Int textureMultiplier = new(Screen.currentResolution.width / resolution.x, Screen.currentResolution.height / resolution.y);
                 int width = (int)(textureResolution.x * settingMultiplier * textureMultiplier.x);
                 int height = (int)(textureResolution.y * settingMultiplier * textureMultiplier.y);
-
+                //print($"{width}   {height}");
+                //print("start creating texture");
                 if (renderTexture == null || renderTexture.width != width || renderTexture.height != height)
                 {
                     ClearTexture();
 
                     renderTexture = new RenderTexture(width, height, textureBits);
                     renderTexture.Create();
-
+                    //print($"texture {renderTexture} created");
                     OnRenderTextureChanged?.Invoke();
                 }
             }
@@ -93,17 +99,17 @@ namespace Scripts.Settings
             }
             else if (observerType == ObserverType.UI)
             {
-                uiMirror.enabled = setting != MirrorQuality.Disabled;
+                uiMirror.gameObject.SetActive(setting != MirrorQuality.Disabled);
             }
 
             UpdateRenderTextures();
-        */}/*
+        }
 
         private static void ClearTexture()
         {
             if (renderTexture == null)
                 return;
-
+            //print("texture cleared");
             renderTexture.Release();
             renderTexture = null;
         }
@@ -121,6 +127,6 @@ namespace Scripts.Settings
             {
                 uiMirror.texture = renderTexture;
             }
-        }*/
+        }
     }
 }

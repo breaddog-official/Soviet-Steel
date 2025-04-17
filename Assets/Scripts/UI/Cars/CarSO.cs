@@ -1,5 +1,6 @@
 ﻿using ArcadeVP;
 using NaughtyAttributes;
+using Scripts.Extensions;
 using UnityEngine;
 
 namespace Scripts.Cars
@@ -13,23 +14,23 @@ namespace Scripts.Cars
 
         public void OnValidate()
         {
-            if (string.IsNullOrWhiteSpace(car.Name))
-                car.Name = name;
+            if (string.IsNullOrWhiteSpace(car.name))
+                car.name = name;
 
-            if (car.Salt == 0)
+            if (car.salt == 0)
                 GenerateSalt();
 
-            if (car.CarPrefab != null && car.CarPrefab.TryGetComponent(out ArcadeVehicleController controller))
+            /*if (car.CarPrefab != null && car.CarPrefab.TryGetComponent(out ArcadeVehicleController controller))
             {
                 if (car.Weight == 0)
                     car.Weight = controller.mass;
-            }
+            }*/
         }
 
         [Button]
         protected void GenerateSalt()
         {
-            car.Salt = Random.Range(int.MinValue, int.MaxValue);
+            car.salt = RandomE.RandomLong();//Random.Range(int.MinValue, int.MaxValue);
         }
 #endif
     }

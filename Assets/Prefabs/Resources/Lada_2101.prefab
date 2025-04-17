@@ -221,7 +221,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.094120026
+        value: 0.20245743
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -5359,9 +5359,9 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 1.4
   m_Range: 150
-  m_SpotAngle: 80
+  m_SpotAngle: 70
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
@@ -5393,7 +5393,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 2
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -5425,7 +5425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 1
+  strength: 2
   useScattering: 0
   overrideScattering: 0
   overridingScattering: 0.5
@@ -5566,7 +5566,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.094120026
+        value: 0.20245743
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -11078,9 +11078,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   maxSpeed: 75
-  accelaration: 15
-  turn: 10
-  drift: 8
+  accelaration: 14
+  turn: 9
+  drift: 9
   gravity: 14
   downforce: 5
   mass: 950
@@ -11090,7 +11090,7 @@ MonoBehaviour:
   driftAngle: 6
   rb: {fileID: 8364712544126096339}
   carBody: {fileID: 4949855190695037249}
-  minFriction: 1
+  minFriction: 1.2
   maxFriction: 3
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   accelerationCurve:
@@ -11693,7 +11693,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.094120026
+        value: 0.20245743
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -16570,7 +16570,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.094120026
+        value: 0.20245743
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -21548,12 +21548,12 @@ Camera:
   field of view: 46
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: -4
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: b04ccf82b41455d4b9d8bb6906f8e9ba, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1

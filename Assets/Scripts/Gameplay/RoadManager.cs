@@ -217,9 +217,16 @@ public class RoadManager : NetworkBehaviour
 
         if (firstScore.round == secondScore.round)
         {
-            if (firstScore.marker == secondScore.marker)
+            if (firstScore.marker == secondScore.marker && first.TryFindNetworkByID(out var firstNetwork) && second.TryFindNetworkByID(out var secondNetwork))
             {
-                return 0;
+                var firstDistance = Vector3.Distance(firstNetwork.transform.position, GetNextPoint(firstScore.marker));
+                var secondDistance = Vector3.Distance(secondNetwork.transform.position, GetNextPoint(secondScore.marker));
+                if (firstDistance == secondDistance)
+                    return 0;
+                else if (firstDistance < secondDistance)
+                    return 1;
+                else if (firstDistance > secondDistance)
+                    return -1;
             }
             else if (firstScore.marker < firstMarker && secondScore.marker > firstMarker)
             {

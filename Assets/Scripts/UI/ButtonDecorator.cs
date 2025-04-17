@@ -17,7 +17,7 @@ namespace Scripts.UI
     {
         #region States
 
-        [SerializeField] protected Image targetGraphics;
+        [SerializeField] protected Graphic targetGraphics;
 
         [SerializeField, BoxGroup("Disabled"), Label("Animation"), EnumFlags] protected AnimateType disabledAnimation;
         [SerializeField, BoxGroup("Disabled"), Label("Color"), ShowIf(nameof(disabledAnimation), AnimateType.Color)] protected Color disabledColor = Color.white;
@@ -73,6 +73,7 @@ namespace Scripts.UI
 
         [SerializeField, HideInInspector]
         private bool autoSetCompleted;
+        private bool initialized;
         private int frames;
 
         #region Initialization
@@ -84,6 +85,8 @@ namespace Scripts.UI
 
         protected void Initialize()
         {
+            initialized = true;
+
             button = GetComponent<Button>();
             rect = GetComponent<RectTransform>();
             targetGraphics ??= GetComponent<Image>();
@@ -120,19 +123,27 @@ namespace Scripts.UI
 
         private void Update()
         {
-            // Canvas groups update in first update
-            if (frames == 2)
-                Initialize();
-            else
+            if (frames <= 2)
                 frames++;
 
-            if (frames > 2 && cachedInteractable != button.interactable)
+            // Canvas groups update in first update, so we initializes in second
+            if (frames == 2)
+                Initialize();
+            
+
+            if (frames == 2 && cachedInteractable != button.interactable)
             {
                 cachedInteractable = button.interactable;
                 Animate(cachedInteractable ? AnimationState.Normal : AnimationState.Disabled).Forget();
             }
         }
 
+
+        private void OnEnable()
+        {
+            if (initialized)
+                Cache();
+        }
 
         private void OnDisable()
         {

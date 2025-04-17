@@ -24,8 +24,8 @@ public class NetworkManagerExt : NetworkManager
         instance = this;
 
         spawnPrefabs.AddRange(registeredCars
-                        .Where(c => !spawnPrefabs.Contains(c.car.CarPrefab))
-                        .Select(c => c.car.CarPrefab));
+                        .Where(c => !spawnPrefabs.Contains(c.car.carPrefab))
+                        .Select(c => c.car.carPrefab));
 
         base.Awake();
     }
@@ -93,7 +93,7 @@ public class NetworkManagerExt : NetworkManager
             throw new Exception("Car is not supported on server.");
         }
 
-        var carPrefab = car.CarPrefab;
+        var carPrefab = car.carPrefab;
 
         // Spawn player
         Transform startPos = GetStartPosition();

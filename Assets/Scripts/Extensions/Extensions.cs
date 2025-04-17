@@ -37,12 +37,12 @@ namespace Scripts.Extensions
         /// <summary>
         /// Safely increments index within array length
         /// </summary>
-        public static void IncreaseInBounds(this ref int index, Array array) => index.IncreaseInBounds(array.Length);
+        public static void IncreaseInBounds(this ref int index, IList array) => index.IncreaseInBounds(array.Count);
 
         /// <summary>
         /// Safely increments index within array length
         /// </summary>
-        public static void IncreaseInBounds(this ref uint index, Array array) => index.IncreaseInBounds((uint)array.Length);
+        public static void IncreaseInBounds(this ref uint index, IList array) => index.IncreaseInBounds((uint)array.Count);
 
         /// <summary>
         /// Safely increments index within array length
@@ -70,12 +70,12 @@ namespace Scripts.Extensions
         /// <summary>
         /// Safely increments index within array length
         /// </summary>
-        public static int IncreaseInBoundsReturn(this int index, Array array) => index.IncreaseInBoundsReturn(array.Length);
+        public static int IncreaseInBoundsReturn(this int index, IList array) => index.IncreaseInBoundsReturn(array.Count);
 
         /// <summary>
         /// Safely increments index within array length
         /// </summary>
-        public static uint IncreaseInBoundsReturn(this uint index, Array array) => index.IncreaseInBoundsReturn((uint)array.Length);
+        public static uint IncreaseInBoundsReturn(this uint index, IList array) => index.IncreaseInBoundsReturn((uint)array.Count);
 
         /// <summary>
         /// Safely increments index within array length
@@ -108,12 +108,12 @@ namespace Scripts.Extensions
         /// <summary>
         /// Safely decrements index within array length
         /// </summary>
-        public static void DecreaseInBounds(this ref int index, Array array) => index.DecreaseInBounds(array.Length);
+        public static void DecreaseInBounds(this ref int index, IList array) => index.DecreaseInBounds(array.Count);
 
         /// <summary>
         /// Safely decrements index within array length
         /// </summary>
-        public static void DecreaseInBounds(this ref uint index, Array array) => index.DecreaseInBounds((uint)array.Length);
+        public static void DecreaseInBounds(this ref uint index, IList array) => index.DecreaseInBounds((uint)array.Count);
 
         /// <summary>
         /// Safely decrements index within array length
@@ -142,12 +142,12 @@ namespace Scripts.Extensions
         /// <summary>
         /// Safely decrements index within array length
         /// </summary>
-        public static int DecreaseInBoundsReturn(this int index, Array array) => index.DecreaseInBoundsReturn(array.Length);
+        public static int DecreaseInBoundsReturn(this int index, IList array) => index.DecreaseInBoundsReturn(array.Count);
 
         /// <summary>
         /// Safely decrements index within array length
         /// </summary>
-        public static uint DecreaseInBoundsReturn(this uint index, Array array) => index.DecreaseInBoundsReturn((uint)array.Length);
+        public static uint DecreaseInBoundsReturn(this uint index, IList array) => index.DecreaseInBoundsReturn((uint)array.Count);
 
         /// <summary>
         /// Safely decrements index within array length

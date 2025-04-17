@@ -18,7 +18,7 @@ namespace ArcadeVP
             smoke = GetComponent<ParticleSystem>();
             skidMark = GetComponent<TrailRenderer>();
             skidMark.emitting = false;
-            skidMark.startWidth = carController.skidWidth;
+            //skidMark.startWidth = carController.skidWidth;
 
         }
 

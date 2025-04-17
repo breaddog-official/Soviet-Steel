@@ -17,6 +17,8 @@ namespace Scripts.Settings
         protected override void Awake()
         {
             defaultResolution = Screen.currentResolution;
+
+            base.Awake();
         }
 
         public override void UpdateValue()

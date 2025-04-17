@@ -79,33 +79,5 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b9c2258c2de39964da426e9c567b9d0d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6700230896220303774}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9c2258c2de39964da426e9c567b9d0d, type: 3}
---- !u!1 &2485779697418410629 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b9c2258c2de39964da426e9c567b9d0d, type: 3}
-  m_PrefabInstance: {fileID: 3368176468244670420}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6700230896220303774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2485779697418410629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6660cfc56bddc6048af39ac2ceb16f27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activateOnEnable: 1
-  music: {fileID: 0}
-  parts:
-  - Bass
-  - Drum1
-  - Drum2
-  - Additive2
-  addPart: Select part

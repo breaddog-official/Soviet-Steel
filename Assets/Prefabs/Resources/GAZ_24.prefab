@@ -641,7 +641,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   maxSpeed: 90
-  accelaration: 13
+  accelaration: 15.5
   turn: 7
   drift: 14
   gravity: 14
@@ -686,12 +686,12 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.10679957
-      outSlope: 0.10679957
+      inSlope: 3.3962262
+      outSlope: 3.3962262
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.22083333
+      outWeight: 0.041666668
     - serializedVersion: 3
       time: 1
       value: 1
@@ -11377,9 +11377,9 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 1.4
   m_Range: 150
-  m_SpotAngle: 80
+  m_SpotAngle: 70
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
@@ -11411,7 +11411,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 2
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -11443,7 +11443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 1
+  strength: 2
   useScattering: 0
   overrideScattering: 0
   overridingScattering: 0.5
@@ -16785,12 +16785,12 @@ Camera:
   field of view: 46
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: -4
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: b04ccf82b41455d4b9d8bb6906f8e9ba, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -16879,7 +16879,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6315959550951501673}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.0026530148, y: -0.6898192, z: 0.0025278598, w: 0.72397244}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.1739526, y: 1.1818194, z: 1.1817828}
   m_ConstrainProportionsScale: 0
