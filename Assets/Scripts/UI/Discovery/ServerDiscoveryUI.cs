@@ -34,11 +34,14 @@ namespace Scripts.UI
                 spawnedInstances.Add(response.serverId, spawned);
             }
             
-            spawned.SetValues(response.name, response.playersCount, response.maxPlayers, response.serverId, this, response.uri);
+            spawned.SetValues(response, this);
         }
 
         public void RemoveServer(long key)
         {
+            if (spawnedInstances.TryGetValue(key, out var instance))
+                Destroy(instance.gameObject);
+
             spawnedInstances.Remove(key);
         }
 

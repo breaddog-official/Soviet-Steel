@@ -16,6 +16,11 @@ public class RoadManager : NetworkBehaviour
     [MinValue(0)]
     [SerializeField] private int firstMarker;
     [SerializeField] private float widthOffset;
+    //[Header("Procedural Spawn Points")]
+    //[SerializeField] private int firstSpawnMarker;
+    //[SerializeField] private int maxSpawnPoints = 64;
+    //[SerializeField] private int maxSpawnPointsPerMarker = 3;
+    //[SerializeField] private Vector2 maxSpaceBeetweenPoint = new(4, 3);
 
     private readonly SyncDictionary<uint, PlayerScore> players = new();
     private readonly List<uint> places = new();
@@ -40,6 +45,8 @@ public class RoadManager : NetworkBehaviour
 
     private void Awake()
     {
+        CreateSpawnPoints();
+
         if (distances == null || DistancesCount < GetMarkers().Count)
             CacheDistances();
     }
@@ -128,7 +135,6 @@ public class RoadManager : NetworkBehaviour
 
     public void SortPlaces()
     {
-        print($"sort, places count: {places.Count}");
         places.Sort((f, s) => ComparePlayersPlaces(s, f));
     }
 
@@ -146,6 +152,22 @@ public class RoadManager : NetworkBehaviour
             distances[i] = Vector3.Distance(lastPoint, markers[i]);
             lastPoint = markers[i];
         }
+    }
+
+    public void CreateSpawnPoints()
+    {
+        /*var markers = GetMarkers();
+        var spawnPoints = new Vector3[maxSpawnPoints];
+
+        for (int i = firstSpawnMarker; i < spawnPoints.Length; i++)
+        {
+            var marker = markers[i];
+
+            for (int s = 0; i < maxSpawnPointsPerMarker; s++)
+            {
+
+            }
+        }*/
     }
 
     // Places

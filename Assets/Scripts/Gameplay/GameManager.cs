@@ -6,6 +6,7 @@ using UnityEngine;
 using Scripts.Extensions;
 using Scripts.Cars;
 using Scripts.UI;
+using Scripts.Network;
 
 namespace Scripts.Gameplay
 {
@@ -28,6 +29,9 @@ namespace Scripts.Gameplay
         [SyncVar]
         private GameMode clientGameMode; // GameMode recieved from server
         private static GameMode serverGameMode = new GameMode(); // Server own GameMode
+
+        // Response if from current server (client only)
+        public static ServerDiscovery.Response response;
 
         public static GameManager Instance { get; private set; }
         public static GameMode GameMode

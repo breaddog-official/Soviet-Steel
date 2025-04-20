@@ -866,7 +866,8 @@ namespace Scripts.Extensions
         Shadows = 1 << 12,
         MotionVectors = 1 << 13,
         ForwardRendering = 1 << 14,
-        DefferedRendering = 1 << 15
+        DefferedRendering = 1 << 15,
+        x64 = 1 << 16
     }
 
     public static class ApplicationInfo
@@ -889,8 +890,6 @@ namespace Scripts.Extensions
             if (shaderLevel >= 45) specifies = specifies | PlatformSpecifies.ShaderLevel_4_5;
             if (shaderLevel >= 50) specifies = specifies | PlatformSpecifies.ShaderLevel_5;
 
-            if (SystemInfo.supportsComputeShaders) specifies = specifies | PlatformSpecifies.ComputeShaders;
-
             if (textureSize >= 2048) specifies = specifies | PlatformSpecifies.Texutres2K;
             if (textureSize >= 4096) specifies = specifies | PlatformSpecifies.Texutres4K;
             if (textureSize >= 8192) specifies = specifies | PlatformSpecifies.Texutres8K;
@@ -898,14 +897,16 @@ namespace Scripts.Extensions
 
             if (SystemInfo.supports2DArrayTextures) specifies = specifies | PlatformSpecifies.Textures2DArray;
             if (SystemInfo.supports3DTextures) specifies = specifies | PlatformSpecifies.Textures3DVolume;
-
+            if (SystemInfo.supportsComputeShaders) specifies = specifies | PlatformSpecifies.ComputeShaders;
             if (SystemInfo.supportsAnisotropicFilter) specifies = specifies | PlatformSpecifies.AnsotropicTextures;
             if (SystemInfo.supportsShadows) specifies = specifies | PlatformSpecifies.Shadows;
-
             if (SystemInfo.supportsMotionVectors) specifies = specifies | PlatformSpecifies.MotionVectors;
 
             if (renderPath == RenderingPath.Forward) specifies = specifies | PlatformSpecifies.ForwardRendering;
             if (renderPath == RenderingPath.DeferredShading) specifies = specifies | PlatformSpecifies.DefferedRendering;
+
+            if (IntPtr.Size == 8) specifies = specifies | PlatformSpecifies.x64;
+
 
             return specifies;
         }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnvironmentManager : MonoBehaviour
 {
     public Color skyColor;
+    public bool skyBox;
     public bool enableLights;
 
     public static event Action OnEnvironmnetChange;

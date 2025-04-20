@@ -19,10 +19,15 @@ MonoBehaviour:
     fullscreenMode: 1
     shadows: 1
     shadowsQuality: 1
+    shadowsSources: 0
     shadersQuality: 2
     antiAliasing: 0
     antiAliasingMsaa: 2
+    screenPostEffects: 0
     fogType: 1
     renderDistance: 2
+    resolutionType: 3
+    geometry: 1
     fastMode: 0
+    mirrorQuality: 0
     debugCode: 

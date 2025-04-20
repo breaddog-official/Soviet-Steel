@@ -1,6 +1,6 @@
 {
-  "soundsVolume": 1.0,
-  "musicVolume": 0.78423053,
+  "soundsVolume": 0.384698421,
+  "musicVolume": 1.0,
   "ambientVolume": 0.358668566,
   "fullscreenMode": 2,
   "resolution": {
@@ -23,7 +23,7 @@
   "fogType": 2,
   "renderDistance": 3,
   "resolutionType": 3,
-  "geometry": 1,
+  "geometry": 2,
   "fastMode": false,
   "mirrorQuality": 0,
   "debugCode": ""

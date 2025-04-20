@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Scripts.SaveManagement
 {
-    [CreateAssetMenu(fileName = "SerializerJson", menuName = "Scripts/SerializerJson")]
+    [CreateAssetMenu(fileName = "SerializerJson", menuName = "Scripts/Serializers/SerializerJson")]
     public class SerializerJson : Serializer
     {
         enum NamingStraregy

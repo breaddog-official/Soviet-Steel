@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameFull: YandexGamesPlatform
   projectSettings:
+    saveLocal: 0
+    saveCloud: 1
     selectWebGLTemplate: 1
     runInBackground: 0
     enableExceptions: 2

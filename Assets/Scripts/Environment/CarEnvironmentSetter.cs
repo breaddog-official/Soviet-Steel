@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CarEnvironmentSetter : MonoBehaviour
 {
@@ -6,6 +7,8 @@ public class CarEnvironmentSetter : MonoBehaviour
     [SerializeField] private Camera mirror;
     [Space]
     [SerializeField] private GameObject[] lights;
+
+
 
     private void OnEnable()
     {
@@ -28,11 +31,17 @@ public class CarEnvironmentSetter : MonoBehaviour
         if (probe != null)
         {
             probe.backgroundColor = EnvironmentManager.Instance.skyColor;
+            probe.clearFlags = EnvironmentManager.Instance.skyBox ? ReflectionProbeClearFlags.Skybox : ReflectionProbeClearFlags.SolidColor;
+
             probe.RenderProbe();
         }
 
         if (mirror != null)
+        {
             mirror.backgroundColor = EnvironmentManager.Instance.skyColor;
+            mirror.clearFlags = EnvironmentManager.Instance.skyBox ? CameraClearFlags.Skybox : CameraClearFlags.SolidColor;
+        }
+            
 
         if (lights != null)
         {

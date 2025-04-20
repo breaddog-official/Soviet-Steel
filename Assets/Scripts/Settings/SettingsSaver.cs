@@ -16,6 +16,7 @@ namespace Scripts.Settings
         [MinValue(0f), ShowIf(nameof(saveWithDelay))]
         [SerializeField] private float saveDelay = 1f;
         [Space]
+        [SerializeField] private Saver saver;
         [SerializeField] private Serializer serializer;
 
         [Space]
@@ -33,7 +34,7 @@ namespace Scripts.Settings
         {
             if (SettingsManager.Settings == null)
             {
-                if (SaveManager.Exists(SavePath))
+                if (saver.Exists(SavePath))
                 {
                     LoadSettings().Forget();
                 }
@@ -52,19 +53,13 @@ namespace Scripts.Settings
             if (saveOnChange)
             {
                 if (saveWithDelay)
-                    SaveDelayed();
+                    SaveSettingsDelayed().Forget();
                 else
                     SaveSettings().Forget();
             }
         }
 
-        private void SaveDelayed()
-        {
-            
-
-            SaveDelayedAsync().Forget();
-        }
-        private async UniTaskVoid SaveDelayedAsync()
+        private async UniTaskVoid SaveSettingsDelayed()
         {
             cancellationToken?.ResetToken();
             cancellationToken = new();
@@ -77,12 +72,12 @@ namespace Scripts.Settings
 
         public async UniTask SaveSettings()
         {
-            await SaveManager.SerializeAndSaveAsync(SettingsManager.Settings, SavePath, serializer);
+            await SaveManager.SerializeAndSaveAsync(SettingsManager.Settings, SavePath, saver, serializer);
         }
 
         public async UniTask LoadSettings()
         {
-            SettingsManager.SetSettings(await SaveManager.LoadAndDeserializeAsync<Settings>(SavePath, serializer));
+            SettingsManager.SetSettings(await SaveManager.LoadAndDeserializeAsync<Settings>(SavePath, saver, serializer));
         }
     }
 }

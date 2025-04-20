@@ -6,6 +6,8 @@ using Scripts.Extensions;
 
 using Cysharp.Threading.Tasks;
 using System;
+using Scripts.Network;
+using Scripts.Gameplay;
 
 namespace Scripts.UI
 {
@@ -25,19 +27,23 @@ namespace Scripts.UI
         protected CancellationTokenSource removeToken;
         protected ServerDiscoveryUI discovery;
 
+        protected ServerDiscovery.Response response;
 
-        public void SetValues(string name, int players, int maxPlayers, long serverId, ServerDiscoveryUI discovery = null, Uri uri = null)
+
+        public void SetValues(ServerDiscovery.Response response, ServerDiscoveryUI discovery = null)
         {
             nameText.SetText(name);
-            playersText.SetText(players.ToString());
-            maxPlayersText.SetText(maxPlayers.ToString());
+            playersText.SetText(response.playersCount.ToString());
+            maxPlayersText.SetText(response.maxPlayers.ToString());
 
-            ServerId = serverId;
-            Uri = uri;
+            ServerId = response.serverId;
+            Uri = response.uri;
 
             this.discovery = discovery;
 
-            connectButton.interactable = players < maxPlayers;
+            connectButton.interactable = response.playersCount < response.maxPlayers;
+
+            this.response = response;
 
             removeToken?.ResetToken();
             removeToken = new();
@@ -62,6 +68,7 @@ namespace Scripts.UI
 
         public void Connect()
         {
+            GameManager.response = response;
             discovery?.ConnectServer(Uri);
         }
     }

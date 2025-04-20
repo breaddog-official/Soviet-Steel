@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game_DarkForest.unity
     guid: b3177c764547ff4428e6a5f87fa4a3b0
+  - enabled: 1
+    path: Assets/Scenes/Game_Fields.unity
+    guid: f8de541e149791a42af5d003b76acbeb
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   m_UseUCBPForAssetBundles: 0

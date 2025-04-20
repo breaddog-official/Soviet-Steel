@@ -461,6 +461,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16955954}
   m_CullTransparentMesh: 1
+--- !u!1 &21918061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 21918062}
+  - component: {fileID: 21918063}
+  m_Layer: 0
+  m_Name: DiscordManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &21918062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21918061}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1260982867}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &21918063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21918061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43542e08964fc444c804b53739ffa3f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &38011641
 GameObject:
   m_ObjectHideFlags: 0
@@ -39350,7 +39394,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Map
+  m_text: Region
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d1403f877b324254c9b36afbf01de098, type: 2}
   m_sharedMaterial: {fileID: 9092166688137589881, guid: d1403f877b324254c9b36afbf01de098, type: 2}
@@ -45225,8 +45269,10 @@ GameObject:
   m_Component:
   - component: {fileID: 349272930}
   - component: {fileID: 349272933}
-  - component: {fileID: 349272932}
   - component: {fileID: 349272931}
+  - component: {fileID: 349272935}
+  - component: {fileID: 349272932}
+  - component: {fileID: 349272934}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -45289,7 +45335,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 349272929}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7e416e0486524f0d9580be7e13388f4, type: 3}
   m_Name: 
@@ -45333,7 +45379,7 @@ MonoBehaviour:
   offlineScene: Assets/Scenes/Menu.unity
   onlineScene: Assets/Scenes/Game_Ural.unity
   offlineSceneLoadDelay: 0
-  transport: {fileID: 349272932}
+  transport: {fileID: 0}
   networkAddress: localhost
   maxConnections: 16
   disconnectInactiveConnections: 1
@@ -45373,6 +45419,54 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3303d56e2f14a944294d390f19a53e44, type: 2}
   - {fileID: 11400000, guid: 2c37f7fa214ffde4183193fa5799a18a, type: 2}
   - {fileID: 11400000, guid: bd44af0715bb39e41bb080ec5fa9993f, type: 2}
+  - {fileID: 11400000, guid: ef75658aa8e0f1a45b8801a4592600a2, type: 2}
+--- !u!114 &349272934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349272929}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0110f245bfcfc7d459681f7bd9ebc590, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxMessageSize: 16384
+  maxHandshakeSize: 16384
+  serverMaxMsgsPerTick: 10000
+  clientMaxMsgsPerTick: 1000
+  sendTimeout: 5000
+  receiveTimeout: 20000
+  noDelay: 1
+  sslEnabled: 0
+  sslProtocols: 3072
+  sslCertJson: ./cert.json
+  port: 7766
+  batchSend: 1
+  waitBeforeSend: 1
+  clientUseWss: 0
+  clientWebsocketSettings:
+    ClientPortOption: 0
+    CustomClientPort: 7777
+  minimumLogLevel: 3
+--- !u!114 &349272935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349272929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddecdb29e5ca98e469d579dbfb249504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transports:
+  - availablePlatforms: 2096895
+    transport: {fileID: 349272932}
+  - availablePlatforms: 256
+    transport: {fileID: 349272934}
 --- !u!1 &359296213
 GameObject:
   m_ObjectHideFlags: 0
@@ -58081,6 +58175,7 @@ GameObject:
   - component: {fileID: 913400880}
   - component: {fileID: 913400879}
   - component: {fileID: 913400878}
+  - component: {fileID: 913400882}
   m_Layer: 5
   m_Name: Multiplayer
   m_TagString: Untagged
@@ -58244,6 +58339,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913400876}
   m_CullTransparentMesh: 1
+--- !u!114 &913400882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913400876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e6ae5c658cb52649b4e1cda3b1a4ed2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disablePlatforms: 256
 --- !u!1 &914807513
 GameObject:
   m_ObjectHideFlags: 0
@@ -61763,6 +61871,7 @@ MonoBehaviour:
   saveOnChange: 1
   saveWithDelay: 1
   saveDelay: 0.5
+  saver: {fileID: 11400000, guid: 5be32f1b69e8a1c4eb62f7cab526711f, type: 2}
   serializer: {fileID: 11400000, guid: f38875c22cb5ec94fa0b983e698f65b0, type: 2}
   autoSetDefaultSettings: 1
   defaultSettingsSO: {fileID: 11400000, guid: 02fa47e1520a7764ca92cc4fc012005f, type: 2}
@@ -63086,7 +63195,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.5254902, g: 0.1254902, b: 1, a: 1}
-  m_Text: 16
+  m_Text: 5
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -64831,6 +64940,7 @@ GameObject:
   - component: {fileID: 1250783501}
   - component: {fileID: 1250783500}
   - component: {fileID: 1250783499}
+  - component: {fileID: 1250783503}
   m_Layer: 5
   m_Name: Exit
   m_TagString: Untagged
@@ -64982,6 +65092,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250783497}
   m_CullTransparentMesh: 1
+--- !u!114 &1250783503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250783497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e6ae5c658cb52649b4e1cda3b1a4ed2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disablePlatforms: 304
 --- !u!1 &1251169395
 GameObject:
   m_ObjectHideFlags: 0
@@ -65490,6 +65613,7 @@ Transform:
   - {fileID: 1612785329}
   - {fileID: 589100328}
   - {fileID: 544641925}
+  - {fileID: 21918062}
   - {fileID: 1398286828}
   - {fileID: 2032479472}
   m_Father: {fileID: 0}
@@ -78340,6 +78464,7 @@ MonoBehaviour:
   setName: Select setting
   mixer: {fileID: 6661583309056480060, guid: efd4f4437a4047e41935f3d5121d4817, type: 2}
   volumeParameterName: MusicVolume
+  offset: 0
 --- !u!114 &1855086603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78357,6 +78482,7 @@ MonoBehaviour:
   setName: Select setting
   mixer: {fileID: 7955034358306943683, guid: efd4f4437a4047e41935f3d5121d4817, type: 2}
   volumeParameterName: AmbientVolume
+  offset: 0
 --- !u!114 &1855086604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78374,6 +78500,7 @@ MonoBehaviour:
   setName: Select setting
   mixer: {fileID: 3230945850307199106, guid: efd4f4437a4047e41935f3d5121d4817, type: 2}
   volumeParameterName: SoundsVolume
+  offset: 0
 --- !u!114 &1855086605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78391,6 +78518,7 @@ MonoBehaviour:
   setName: Select setting
   mixer: {fileID: 6076491154922368058, guid: efd4f4437a4047e41935f3d5121d4817, type: 2}
   volumeParameterName: RadioVolume
+  offset: 15
 --- !u!1 &1855537192
 GameObject:
   m_ObjectHideFlags: 0

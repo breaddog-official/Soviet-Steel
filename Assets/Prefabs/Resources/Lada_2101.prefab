@@ -11056,7 +11056,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   minSpeed: 0.3
-  maxSpeed: 0.85
+  maxSpeed: 0.93
 --- !u!114 &9025751498656961391
 MonoBehaviour:
   m_ObjectHideFlags: 0

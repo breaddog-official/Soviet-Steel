@@ -35,20 +35,13 @@ namespace Scripts.SaveManagement
         #endregion
 
 
-        #region Save
+        #region TrySave
 
-        public static bool Save(in string value, string path)
+        public static bool TrySave(in string value, string path, Saver saver)
         {
             try
             {
-                if (SupportIO)
-                {
-                    File.WriteAllText(path, value);
-                }
-                else
-                {
-                    PlayerPrefs.SetString(path.GetHashCode().ToString(), value);
-                }
+                saver.Save(path, value);
                 return true;
             }
             catch (Exception exp)
@@ -58,18 +51,11 @@ namespace Scripts.SaveManagement
             }
         }
 
-        public static async UniTask<bool> SaveAsync(string value, string path)
+        public static async UniTask<bool> TrySaveAsync(string value, string path, Saver saver)
         {
             try
             {
-                if (SupportIO)
-                {
-                    await File.WriteAllTextAsync(path, value);
-                }
-                else
-                {
-                    PlayerPrefs.SetString(path.GetHashCode().ToString(), value);
-                }
+                await saver.SaveAsync(path, value);
                 return true;
             }
             catch (Exception exp)
@@ -81,69 +67,21 @@ namespace Scripts.SaveManagement
 
         #endregion
 
-        #region Load
+        #region TryLoad
 
-        public static string Load(string path)
+        public static bool TryLoad(string path, Saver saver, out string value)
         {
-            if (SupportIO)
+            try
             {
-                return File.ReadAllText(path);
-            }
-            else
-            {
-                return PlayerPrefs.GetString(path.GetHashCode().ToString());
-            }
-        }
-
-        public static async UniTask<string> LoadAsync(string path)
-        {
-            if (SupportIO)
-            {
-                return await File.ReadAllTextAsync(path);
-            }
-            else
-            {
-                return PlayerPrefs.GetString(path.GetHashCode().ToString());
-            }
-        }
-
-        public static bool TryLoad(string path, out string value)
-        {
-            if (SupportIO)
-            {
-                try
-                {
-                    value = Load(path);
-                    return true;
-                }
-                catch (Exception exp)
-                {
-                    Debug.LogException(exp);
-
-                    value = string.Empty;
-                    return false;
-                }
-            }
-            else
-            {
-                value = PlayerPrefs.GetString(path.GetHashCode().ToString(), null);
+                value = saver.Load(path);
                 return value != null;
             }
-        }
-
-        #endregion
-
-        #region Exists
-
-        public static bool Exists(string path)
-        {
-            if (SupportIO)
+            catch (Exception exp)
             {
-                return File.Exists(path);
-            }
-            else
-            {
-                return PlayerPrefs.HasKey(path.GetHashCode().ToString());
+                Debug.LogException(exp);
+
+                value = string.Empty;
+                return false;
             }
         }
 
@@ -172,12 +110,12 @@ namespace Scripts.SaveManagement
 
         #region SerializeAndSave
 
-        public static bool SerializeAndSave(object value, string path, Serializer serializer)
+        public static bool SerializeAndSave(object value, string path, Saver saver, Serializer serializer)
         {
             try
             {
                 string serialized = serializer.Serialize(value);
-                return Save(serialized, path);
+                return TrySave(serialized, path, saver);
             }
             catch (Exception exp)
             {
@@ -186,12 +124,12 @@ namespace Scripts.SaveManagement
             }
         }
 
-        public static async UniTask<bool> SerializeAndSaveAsync(object value, string path, Serializer serializer)
+        public static async UniTask<bool> SerializeAndSaveAsync(object value, string path, Saver saver, Serializer serializer)
         {
             try
             {
                 string serialized = await serializer.SerializeAsync(value);
-                return await SaveAsync(serialized, path);
+                return await TrySaveAsync(serialized, path, saver);
             }
             catch (Exception exp)
             {
@@ -204,15 +142,15 @@ namespace Scripts.SaveManagement
 
         #region LoadAndDeserialize
 
-        public static object LoadAndDeserialize(string path, Serializer serializer)
+        public static object LoadAndDeserialize(string path, Saver saver, Serializer serializer)
         {
-            string loaded = Load(path);
+            string loaded = saver.Load(path);
             return serializer.Deserialize(loaded);
         }
 
-        public static async UniTask<object> LoadAndDeserializeAsync(string path, Serializer serializer)
+        public static async UniTask<object> LoadAndDeserializeAsync(string path, Saver saver, Serializer serializer)
         {
-            string loaded = Load(path);
+            string loaded = await saver.LoadAsync(path);
             return await serializer.DeserializeAsync(loaded);
         }
 
@@ -220,15 +158,15 @@ namespace Scripts.SaveManagement
 
         #region LoadAndDeserialize<T>
 
-        public static T LoadAndDeserialize<T>(string path, Serializer serializer)
+        public static T LoadAndDeserialize<T>(string path, Saver saver, Serializer serializer)
         {
-            string loaded = Load(path);
+            string loaded = saver.Load(path);
             return serializer.Deserialize<T>(loaded);
         }
 
-        public static async UniTask<T> LoadAndDeserializeAsync<T>(string path, Serializer serializer)
+        public static async UniTask<T> LoadAndDeserializeAsync<T>(string path, Saver saver, Serializer serializer)
         {
-            string loaded = Load(path);
+            string loaded = await saver.LoadAsync(path);
             return await serializer.DeserializeAsync<T>(loaded);
         }
 
@@ -236,13 +174,13 @@ namespace Scripts.SaveManagement
 
         #region TryLoadAndDeserialize
 
-        public static bool TryLoadAndDeserialize(string path, Serializer serializer, out object value)
+        public static bool TryLoadAndDeserialize(string path, Saver saver, Serializer serializer, out object value)
         {
             value = default;
 
             try
             {
-                string loaded = Load(path);
+                string loaded = saver.Load(path);
                 value = serializer.Deserialize(loaded);
 
                 return true;
@@ -254,13 +192,13 @@ namespace Scripts.SaveManagement
             }
         }
 
-        public static bool TryLoadAndDeserialize<T>(string path, Serializer serializer, out T value)
+        public static bool TryLoadAndDeserialize<T>(string path, Saver saver, Serializer serializer, out T value)
         {
             value = default;
 
             try
             {
-                string loaded = Load(path);
+                string loaded = saver.Load(path);
                 value = serializer.Deserialize<T>(loaded);
 
                 return true;

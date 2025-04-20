@@ -295,7 +295,7 @@ MonoBehaviour:
   - version: 2.0.0
     name: Fence
     id: 1740048448.1081336
-    timestamp: 1740318663.8001363
+    timestamp: 1745071450.8983924
     objectType: 2
     gameobjectGUID: 
     textureGUID: 
@@ -378,14 +378,14 @@ MonoBehaviour:
     defaultStartOffset: 0
     defaultEndOffset: 0
     segmentOffset: 0
-    totalZDistance: 8.055491
-    middleZDistance: 8.055491
+    totalZDistance: 2.416648
+    middleZDistance: 2.416648
     startZDistance: -2000
     endZDistance: -2000
     minStartZ: 1000
     maxStartZ: -1000
     minMiddleZ: 0
-    maxMiddleZ: 8.055491
+    maxMiddleZ: 2.416648
     minEndZ: 1000
     maxEndZ: -1000
     smoothStart: 0
@@ -425,7 +425,7 @@ MonoBehaviour:
     markerSurrounding: 0
     indentController: 0
     excludeTerrainSplats: 0
-    scale: {x: 1, y: 1, z: 1}
+    scale: {x: 1, y: 0.7, z: 1}
     indentExt: 0
     category: 0
     densityMap: {fileID: 0}
@@ -527,7 +527,7 @@ MonoBehaviour:
     xf2: 0
     xf1Total: 0
     xf2Total: 0
-    y1: 4.687994
+    y1: 4.6879935
     baseControllerFlag: 0
     connectorEndOffset: {x: 0, y: 0, z: 0}
     minBaseRotation: 0
@@ -542,7 +542,7 @@ MonoBehaviour:
   - version: 2.0.0
     name: Barier
     id: 1740059045.471082
-    timestamp: 1744222215.498798
+    timestamp: 1745080001.9079397
     objectType: 2
     gameobjectGUID: 
     textureGUID: 
@@ -672,7 +672,7 @@ MonoBehaviour:
     markerSurrounding: 0
     indentController: 0
     excludeTerrainSplats: 0
-    scale: {x: 1, y: 1, z: 1}
+    scale: {x: 1, y: 0.7, z: 1}
     indentExt: 0
     category: 0
     densityMap: {fileID: 0}

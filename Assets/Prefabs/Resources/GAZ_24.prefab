@@ -521,6 +521,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3ba2e708-74ff-4aec-841a-3920fe7b846e
     m_ActionName: 'Player/Move1[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: af90f6f1-56a3-49e4-9472-40a9a6cef227
+    m_ActionName: 'UI/AnyButton[/Keyboard/anyKey]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -619,7 +623,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   minSpeed: 0.3
-  maxSpeed: 0.85
+  maxSpeed: 0.93
 --- !u!114 &8641940616736910355
 MonoBehaviour:
   m_ObjectHideFlags: 0

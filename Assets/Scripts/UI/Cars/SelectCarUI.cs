@@ -58,11 +58,7 @@ namespace Scripts.Cars
                 if (currentActiveCar != null)
                     SetCarsState(currentActiveCar, false);
 
-                if (spawnedCars.ContainsKey(car))
-                {
-                    SetCarsState(car, true);
-                }
-                else
+                if (!spawnedCars.ContainsKey(car))
                 {
                     if (spawnedCars.Count >= cleanupCount)
                         ClearSpawnedCars();
@@ -71,6 +67,8 @@ namespace Scripts.Cars
 
                     spawnedCars.Add(car, spawnedCarsModels);
                 }
+
+                SetCarsState(car, true);
                 currentActiveCar = car;
             }
         }

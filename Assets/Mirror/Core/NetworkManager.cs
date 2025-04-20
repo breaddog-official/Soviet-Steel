@@ -711,7 +711,7 @@ namespace Mirror
             // so only if we didn't destroy ourselves.
 
             // This tries to avoid missing transport errors and more clearly tells user what to fix.
-            if (transport == null)
+            /*if (transport == null)
                 if (TryGetComponent(out Transport newTransport))
                 {
                     Debug.LogWarning($"No Transport assigned to Network Manager - Using {newTransport} found on same object.");
@@ -723,7 +723,7 @@ namespace Mirror
                     return false;
                 }
 
-            Transport.active = transport;
+            Transport.active = transport;*/
             return true;
         }
 
