@@ -18,7 +18,8 @@ namespace Scripts.TranslateManagement
         }
         public override void ChangeElement()
         {
-            text.SetText(TranslationString);
+            if (text != null)
+                text.SetText(TranslationString);
         }
     }
 }

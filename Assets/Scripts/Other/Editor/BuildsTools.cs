@@ -157,15 +157,19 @@ public class BuildTools : EditorWindow
         if (target == BuildTarget.Android)
         {
             string apkName = PlayerSettings.productName + ".apk";
-            options.locationPathName = System.IO.Path.Combine("Builds", target.ToString(), apkName);
+            options.locationPathName = System.IO.Path.Combine("Builds", "Android", apkName);
         }
         else if (target == BuildTarget.StandaloneWindows64)
         {
-            options.locationPathName = System.IO.Path.Combine("Builds", target.ToString(), PlayerSettings.productName + ".exe");
+            options.locationPathName = System.IO.Path.Combine("Builds", "Win64", PlayerSettings.productName + ".exe");
+        }
+        else if (target == BuildTarget.StandaloneWindows)
+        {
+            options.locationPathName = System.IO.Path.Combine("Builds", "Win32", PlayerSettings.productName + ".exe");
         }
         else if (target == BuildTarget.StandaloneLinux64)
         {
-            options.locationPathName = System.IO.Path.Combine("Builds", target.ToString(), PlayerSettings.productName + ".x86_64");
+            options.locationPathName = System.IO.Path.Combine("Builds", "Linux", PlayerSettings.productName + ".x86_64");
         }
         else
             options.locationPathName = System.IO.Path.Combine("Builds", target.ToString(), PlayerSettings.productName);

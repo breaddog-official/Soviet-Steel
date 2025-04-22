@@ -10,7 +10,7 @@ namespace Scripts.Cars
     public class Car
     {
         [SerializeField] public string name;
-        [SerializeField, ResizableTextArea] public string description;
+        [SerializeField] public string description;
         [Space]
         [SerializeField] public GameObject carPrefab;
         [SerializeField] public GameObject carModelPrefab;

@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
+using Scripts.TranslateManagement;
 using TMPro;
 using UnityEngine;
 
@@ -33,7 +34,7 @@ public class RadioVisualizer : MonoBehaviour
         }
         else
         {
-            songText.text = loadingText;
+            songText.text = TranslateManager.GetTranslationString(loadingText);
         }
     }
 }

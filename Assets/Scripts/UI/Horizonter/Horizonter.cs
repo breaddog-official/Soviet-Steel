@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Scripts.UI
 {
-    [ExecuteAlways, SelectionBase]
+    [SelectionBase]
     public class Horizonter : MonoBehaviour
     {
         [SerializeField] protected HorizonterElement prefab;

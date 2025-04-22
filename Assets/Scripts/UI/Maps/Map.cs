@@ -9,7 +9,7 @@ namespace Scripts.UI
     public class Map
     {
         [field: SerializeField] public string Name { get; set; }
-        [field: SerializeField, ResizableTextArea] public string Description { get; set; }
+        [field: SerializeField] public string Description { get; set; }
         [field: Scene]
         [field: SerializeField] public string Scene { get; set; }
         [field: Space]

@@ -1436,7 +1436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   songText: {fileID: 1686027767575974892}
-  loadingText: Loading...
+  loadingText: loading
   radio: {fileID: 4262648308327124407}
 --- !u!1 &2690089242821748608
 GameObject:
@@ -4380,7 +4380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2754274603991666591
 RectTransform:
   m_ObjectHideFlags: 0

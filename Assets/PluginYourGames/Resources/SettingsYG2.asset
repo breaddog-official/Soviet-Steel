@@ -25,7 +25,6 @@ MonoBehaviour:
     saveCloud: 1
     saveCloudInterval: 0
     flush: 0
-    labelAdvSimLabel: 0
   Basic:
     platform: {fileID: 11400000, guid: c2a303d33a9fd394bae4c4b88b9a1c44, type: 2}
     autoApplySettings: 0
@@ -40,7 +39,7 @@ MonoBehaviour:
     simulationLoadScene: 0
   Simulation:
     device: 0
-    language: ru
+    language: en
     advIntervalSimulation: 60
     durationAdv: 0.5
     loadAdv: 0

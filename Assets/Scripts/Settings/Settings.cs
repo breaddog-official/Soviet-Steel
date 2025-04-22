@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using Scripts.TranslateManagement;
 using System;
 using UnityEngine;
 
@@ -134,6 +135,9 @@ namespace Scripts.Settings
         #endregion
 
         #region Fields
+
+        [Header("Global")]
+        public ApplicationLanguage language = ApplicationLanguage.Unknown;
 
         [Header("Volume")]
         public float soundsVolume;

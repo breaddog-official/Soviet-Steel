@@ -40,6 +40,7 @@ namespace Scripts.TranslateManagement
         // Sets only one Instance (Singletone)
         private void Awake()
         {
+#if UNITY_EDITOR
             if (AssetDatabase.FindAssets($"t:{nameof(TranslationConfig)}").Length > 1)
             {
                 string assetPath = AssetDatabase.GetAssetPath(this.GetInstanceID());
@@ -50,6 +51,7 @@ namespace Scripts.TranslateManagement
 
                 Debug.Log($"Can be maximum 1 {nameof(TranslationConfig)}");
             }
+#endif
         }
 
         /// <summary>

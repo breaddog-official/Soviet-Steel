@@ -1,5 +1,6 @@
 ﻿using Mirror;
 using Scripts.Gameplay;
+using Scripts.TranslateManagement;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -8,8 +9,8 @@ namespace Scripts.UI
 {
     public class SelectMapUI : SelectUI<Map>
     {
-        [SerializeField] protected TMP_Text nameText;
-        [SerializeField] protected TMP_Text descriptionText;
+        [SerializeField] protected TextTranslater nameText;
+        [SerializeField] protected TextTranslater descriptionText;
         [Space]
         [SerializeField] protected Material screenMaterial;
         [SerializeField] protected Texture defaultScreenTexture;
@@ -37,8 +38,8 @@ namespace Scripts.UI
             NetworkManager.singleton.onlineScene = map.Scene;
             GameManager.GameMode.mapHash = map.MapHash;
 
-            nameText.text = map.Name;
-            descriptionText.text = map.Description;
+            nameText.SetName(map.Name);
+            descriptionText.SetName(map.Description);
             screenMaterial.mainTexture = map.Icon;
         }
     }

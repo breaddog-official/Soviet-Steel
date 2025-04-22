@@ -6,6 +6,7 @@ using Scripts.Gameplay;
 using System.Collections.Generic;
 using Scripts.Audio;
 using Scripts.Extensions;
+using Scripts.TranslateManagement;
 
 
 namespace Scripts.Cars
@@ -13,8 +14,8 @@ namespace Scripts.Cars
     public class SelectCarUI : SelectUI<Car>
     {
         [Space]
-        [SerializeField] protected TMP_Text nameText;
-        [SerializeField] protected TMP_Text descriptionText;
+        [SerializeField] protected TextTranslater nameText;
+        [SerializeField] protected TextTranslater descriptionText;
         [Space]
         [SerializeField] protected bool spawnCar;
         [Min(1)]
@@ -47,8 +48,8 @@ namespace Scripts.Cars
         {
             var car = CurrentValue;
 
-            nameText.text = car.name;
-            descriptionText.text = car.description;
+            nameText.SetName(car.name);
+            descriptionText.SetName(car.description);
 
             GameManager.SetCar(car);
 

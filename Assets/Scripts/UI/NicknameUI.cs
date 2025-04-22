@@ -13,7 +13,7 @@ public class NicknameUI : MonoBehaviour
 
     private async void Start()
     {
-        inputField.text = PlayerPrefs.GetString(player_prefs_key, string.Empty);
+        inputField.text = PlayerPrefs.GetString(player_prefs_key, DefaultNick);
 
         // Player connects not immediatly, so wait ~5 seconds
         for (int i = 0; i < 25; i++)
@@ -36,4 +36,11 @@ public class NicknameUI : MonoBehaviour
         network.SendRequestToNickname(nickname);
         PlayerPrefs.SetString(player_prefs_key, nickname);
     }
+
+    private string DefaultNick =>
+#if YandexGamesPlatform_yg
+        YG.YG2.player.name;
+#else
+        string.Empty;
+#endif
 }
