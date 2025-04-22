@@ -1,0 +1,169 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3912e0c767c410f4fa1f74d08325436e, type: 3}
+  m_Name: Translation_English
+  m_EditorClassIdentifier: 
+  <Language>k__BackingField: 29
+  Translation:
+    back: Back
+    loading: Loading
+    none: None
+    menu_play: Play
+    menu_settings: Settings
+    menu_quit: Quit
+    menu_garage: Garage
+    menu_region: Region
+    menu_join: Join
+    menu_bots_count: 'Bots:'
+    menu_previous: Previous
+    menu_next: Next
+    menu_select: Select
+    menu_settings_audio: Audio
+    menu_settings_graphics: Graphics
+    menu_settings_shadows: Shadows
+    menu_settings_other: Other
+    menu_settings_volume_sounds: Sounds
+    menu_settings_volume_music: Music
+    menu_settings_volume_ambient: Ambient
+    menu_settings_geometry_quality: 'Geometry:'
+    menu_settings_shaders_quality: 'Shaders:'
+    menu_settings_resolution_type: 'Resolution:'
+    menu_settings_antialiasing: 'Antialiasing:'
+    menu_settings_render_distance: 'Render Distance:'
+    menu_settings_fog_quality: 'Fog:'
+    menu_settings_fullscreen_mode: 'Fullscreen Mode:'
+    menu_settings_style_mode: 'Style Mode:'
+    menu_settings_mirror_quality: 'Mirror Mode:'
+    menu_settings_shadows_mode: 'Shadows:'
+    menu_settings_shadows_quality: 'Shadows Quality:'
+    menu_settings_shadows_sources: 'Shadows Sources:'
+    menu_settings_language: 'Language:'
+    menu_settings_enable_vsync: 'Vertical Sync:'
+    menu_settings_color_blind: Color Blindness
+    menu_settings_color_blind_protanopia: Protanopia
+    menu_settings_color_blind_deuteranopia: Deuteranopia
+    menu_settings_color_blind_tritanopia: Tritanopia
+    menu_settings_windowed: Windowed
+    menu_settings_maximized: Maximized
+    menu_settings_fullscreen: Fullscreen
+    menu_settings_exclusive: Exclusice
+    menu_settings_perfomance_level_worst: Worst
+    menu_settings_perfomance_level_bad: Bad
+    menu_settings_perfomance_level_not_bad: Not Bad
+    menu_settings_perfomance_level_normal: Normal
+    menu_settings_perfomance_level_good: Good
+    menu_settings_perfomance_level_excellent: Excellent
+    menu_settings_perfomance_level_excess: Excess
+    menu_settings_low: Low
+    menu_settings_medium: Medium
+    menu_settings_high: High
+    menu_settings_ultra: Ultra
+    menu_settings_maximum: Maximum
+    menu_settings_full: Full
+    menu_settings_simple: Simple
+    menu_settings_volumetric: Volumetric
+    menu_settings_standart: Standart
+    menu_settings_advanced: Advanced
+    menu_settings_style_modern: Modern
+    menu_settings_style_retro: Retro
+    menu_settings_shadows_only_sun: Only Sun
+    menu_settings_shadows_everything: Everything
+    menu_join_joinGame: Join
+    menu_join_find: Find Server
+    menu_join_manual: Manual Connection
+    menu_join_manual_address: Address
+    menu_join_manual_port: Port
+    menu_server_players: 'Players:'
+    menu_server_maxPlayers: 'Max Players:'
+    menu_levels_tundra: Tundra
+    menu_levels_tundra_description: The far edge of great Siberia, not far from a
+      small scientific town, turned out to be a great place for racing!
+    menu_levels_ural: Ural
+    menu_levels_ural_description: Picturesque Ural Mountains through which a long
+      and winding route passes.
+    menu_levels_blacksea: Black Sea
+    menu_levels_blacksea_description: On a wild stretch of the coast of the great
+      Black Sea there is a challenging route with a beautiful view of the sea and
+      the Caucasus Mountains.
+    menu_levels_saratov: Saratov
+    menu_levels_saratov_description: A forgotten and abandoned city in the middle
+      of an endless desert
+    menu_levels_hills: Hills
+    menu_levels_hills_description: Hilly landscapes through which a difficult road
+      with many serpentines passes
+    menu_levels_darkforest: Dark Forest
+    menu_levels_darkforest_description: Night racing has always attracted professional
+      motorists, especially if it is the broadleaf forests of a great country!
+    menu_levels_fields: Fields
+    menu_levels_fields_description: Wheat fields through which a winding and difficult
+      route runs
+    menu_cars_21099: VAZ-21099
+    menu_cars_21099_description: 'VAZ-21099 "Sputnik" - is a Soviet and Russian small-class
+      passenger car, the predecessor of the Lada Samara. It was mass-produced at
+      the AvtoVAZ plant from December 22, 1990 to June 30, 2004.
+
+
+      A light
+      and agile car that literally glides along the road.'
+    menu_cars_2101: VAZ-2101
+    menu_cars_2101_description: 'VAZ-2101 "Zhiguli" - is a Soviet rear-wheel drive
+      small-class passenger car.
+
+
+      It has low traction, so it is not very fast,
+      but at the same time it is quite agile.'
+    menu_cars_uaz: UAZ-452
+    menu_cars_uaz_description: 'UAZ-452 (UAZ SGR "Old Cargo Row") - Soviet all-wheel
+      drive cargo-passenger vehicle with increased cross-country ability, primarily
+      for military purposes.
+
+
+      Heavy and clumsy, but can accelerate to decent
+      speeds.'
+    menu_cars_2106: VAZ-2106
+    menu_cars_2106_description: 'VAZ-2106 "Zhiguli" - is a Soviet and Russian rear-wheel
+      drive small car, which is a modernization of the VAZ-2103.
+
+
+      It has average
+      grip, so it is the golden mean between speed and maneuverability. The only
+      downside is its relatively high weight'
+    menu_cars_2108: VAZ-2108
+    menu_cars_2108_description: 'VAZ-2108 "Sputnik" - is a Soviet and Russian small-class
+      passenger car with a three-door hatchback body. It was mass-produced at the
+      AvtoVAZ plant in 1984-2003.
+
+
+      It is a fast and light car, combining the
+      speed and maneuverability of its predecessors. Unfortunately, the grip on the
+      road leaves much to be desired.'
+    menu_cars_volga: GAZ-24
+    menu_cars_volga_description: 'GAZ-24 "Volga" - is a Soviet business class car,
+      mass-produced at the Gorky Automobile Plant from 1968 to 1986.
+
+
+      Due
+      to its high weight, it has excellent traction but very slow acceleration.'
+    menu_cars_prototype: VAZ-2103 Prototype
+    menu_cars_prototype_description: 'VAZ-2103 "Zhiguli" with a station wagon body
+      - is an experimental version of the VAZ-2103 with a station wagon body. In
+      1974, 3 such cars were manufactured, after which they never entered production.
+      A very rare car.
+
+
+      It accelerates very slowly, but has a very high maximum
+      speed.'
+    game_leave: Leave
+    game_start_match: Start Match
+    game_enter_nickname: Enter nickname...
+    game_score_title: Match Results
+    game_time: 'Time:'

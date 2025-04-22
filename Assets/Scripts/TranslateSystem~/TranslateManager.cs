@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Scripts.TranslateSystem
@@ -37,9 +36,24 @@ namespace Scripts.TranslateSystem
 
         #endregion
 
-        public static void SetTranslation(Translation translation)
+        public static bool LoadTranslation(string language, Translation translation)
         {
-            CurrentTranslation = translation;
+            return LoadedTranslations.TryAdd(language, translation);
+        }
+
+        public static bool UnloadTranslation(string language)
+        {
+            return LoadedTranslations.Remove(language);
+        }
+
+        public static bool TrySetTranslation(string language)
+        {
+            if (TryGetTranslation(language, out var translation))
+            {
+                CurrentTranslation = translation;
+                return true;
+            }
+            return false;
         }
 
         public static bool TryGetTranslation(string language, out Translation translation)
@@ -49,17 +63,6 @@ namespace Scripts.TranslateSystem
 
 
         public static IReadOnlyCollection<string> GetKeys() => TranslationKeys;
-        public static Dictionary<string, Translation> GetTranslations() => LoadedTranslations;
-    }
-
-    [Serializable]
-    public class Translation
-    {
-        public readonly Dictionary<string, string> values;
-
-        public Translation(Dictionary<string, string> values)
-        {
-            this.values = values;
-        }
+        public static IReadOnlyDictionary<string, Translation> GetTranslations() => LoadedTranslations;
     }
 }

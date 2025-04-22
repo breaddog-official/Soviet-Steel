@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Scripts.TranslateManagement;
+using TMPro;
 using UnityEngine;
 
 namespace Scripts.UI
@@ -6,6 +7,7 @@ namespace Scripts.UI
     public class HorizonterElement : MonoBehaviour
     {
         [SerializeField] protected TMP_Text textName;
+        [SerializeField] protected TextTranslater textTranslater;
         [SerializeField] protected GameObject selector;
 
         public Horizonter Horizonter { get; protected set; }
@@ -62,9 +64,15 @@ namespace Scripts.UI
 
         public virtual void UpdatePreset()
         {
-            textName.SetText(GetPreset().presetName);
+            var preset = GetPreset();
 
-            gameObject.SetActive(GetPreset().IsShow);
+            if (preset.nameMode == HorizonterPreset.NameMode.Raw)
+                textName.SetText(preset.presetName);
+
+            else if (preset.nameMode == HorizonterPreset.NameMode.Translate)
+                textTranslater.SetName(preset.presetName);
+
+            gameObject.SetActive(preset.IsShow);
         }
 
 

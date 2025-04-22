@@ -11,12 +11,19 @@ namespace Scripts.UI
     public class HorizonterPreset
     {
         public string presetName;
+        public NameMode nameMode = NameMode.Translate;
         [Space]
         [EnumFlags]
         public RuntimePlatformFlags platforms;
         [EnumFlags]
         public PlatformSpecifies specifies;
 
+
+        public enum NameMode
+        {
+            Raw,
+            Translate
+        }
 
         public bool IsShow
         {

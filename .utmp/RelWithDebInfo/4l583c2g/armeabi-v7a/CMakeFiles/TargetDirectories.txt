@@ -1,0 +1,5 @@
+D:/Work Games/Soviet-Steel/.utmp/RelWithDebInfo/4l583c2g/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/Work Games/Soviet-Steel/.utmp/RelWithDebInfo/4l583c2g/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+D:/Work Games/Soviet-Steel/.utmp/RelWithDebInfo/4l583c2g/armeabi-v7a/GameActivity/CMakeFiles/game.dir
+D:/Work Games/Soviet-Steel/.utmp/RelWithDebInfo/4l583c2g/armeabi-v7a/GameActivity/CMakeFiles/edit_cache.dir
+D:/Work Games/Soviet-Steel/.utmp/RelWithDebInfo/4l583c2g/armeabi-v7a/GameActivity/CMakeFiles/rebuild_cache.dir
