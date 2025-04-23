@@ -16,7 +16,7 @@ namespace Scripts.SaveManagement
             return RedefineYG.PlayerPrefs.GetString(ProcessPath(path));
         }
 
-        public override bool Exists(string path) => PlayerPrefs.HasKey(ProcessPath(path));
+        public override bool Exists(string path) => RedefineYG.PlayerPrefs.HasKey(ProcessPath(path));
         private string ProcessPath(string path) => path.GetHashCode().ToString();
 
         public override bool IsAvailable() => Application.platform == RuntimePlatform.WebGLPlayer;

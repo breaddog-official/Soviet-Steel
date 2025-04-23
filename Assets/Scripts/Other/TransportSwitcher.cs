@@ -1,6 +1,5 @@
 using System;
 using Mirror;
-using NaughtyAttributes;
 using Scripts.Extensions;
 using UnityEngine;
 
@@ -11,12 +10,17 @@ public class TransportSwitcher : MonoBehaviour
 
     private void Awake()
     {
+        UpdateTransport();
+    }
+
+    public void UpdateTransport(ConnectionMode mode = ConnectionMode.None)
+    {
         var currentPlatform = Application.platform.ToFlags();
         bool transportAssigned = false;
 
         foreach (var transport in transports)
         {
-            bool available = transport.availablePlatforms.HasFlag(currentPlatform);
+            bool available = transport.availablePlatforms.HasFlag(currentPlatform) && transport.availableConnectionModes.HasFlag(mode);
 
             if (available && !transportAssigned)
             {
@@ -30,10 +34,21 @@ public class TransportSwitcher : MonoBehaviour
         }
     }
 
+
     [Serializable]
     private struct Transport
     {
         public RuntimePlatformFlags availablePlatforms;
+        public ConnectionMode availableConnectionModes;
         public Mirror.Transport transport;
     }
+}
+
+[Flags]
+public enum ConnectionMode
+{
+    None = 0,
+    Client = 1 << 0,
+    Host = 1 << 1,
+    Server = 1 << 2
 }

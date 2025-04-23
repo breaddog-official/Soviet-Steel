@@ -1,19 +1,21 @@
 using ArcadeVP;
 using Cysharp.Threading.Tasks;
 using Mirror;
+using Scripts.SaveManagement;
 using TMPro;
 using UnityEngine;
 
 public class NicknameUI : MonoBehaviour
 {
+    [SerializeField] private Saver saver;
     [SerializeField] private TMP_InputField inputField;
 
-    private const string player_prefs_key = "nicknameInputCache";
+    private const string save_key = "nicknameInputCache";
     private ArcadeVehicleNetwork network;
 
     private async void Start()
     {
-        inputField.text = PlayerPrefs.GetString(player_prefs_key, DefaultNick);
+        inputField.text = saver.Exists(save_key) ? await saver.LoadAsync(save_key) : DefaultNick;
 
         // Player connects not immediatly, so wait ~5 seconds
         for (int i = 0; i < 25; i++)
@@ -34,12 +36,12 @@ public class NicknameUI : MonoBehaviour
             return;
 
         network.SendRequestToNickname(nickname);
-        PlayerPrefs.SetString(player_prefs_key, nickname);
+        saver.Save(save_key, nickname);
     }
 
     private string DefaultNick =>
 #if YandexGamesPlatform_yg
-        YG.YG2.player.name;
+        YG.YG2.player.auth ? YG.YG2.player.name : string.Empty;
 #else
         string.Empty;
 #endif

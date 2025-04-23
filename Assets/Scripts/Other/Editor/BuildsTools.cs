@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using Unity.EditorCoroutines.Editor;
+using System.Drawing.Printing;
 
 public class BuildTools : EditorWindow
 {
@@ -28,6 +29,12 @@ public class BuildTools : EditorWindow
 
     Dictionary<BuildTarget, bool> TargetsToBuild = new Dictionary<BuildTarget, bool>();
     List<BuildTarget> AvailableTargets = new List<BuildTarget>();
+    private bool isDevelopmentBuild;
+
+
+    private const BuildOptions defaultOptions = BuildOptions.CompressWithLz4HC;
+    private const BuildOptions developmentOptions = BuildOptions.CompressWithLz4 | BuildOptions.Development;
+
 
     private void OnEnable()
     {
@@ -78,6 +85,8 @@ public class BuildTools : EditorWindow
             if (TargetsToBuild[target])
                 numEnabled++;
         }
+
+        isDevelopmentBuild = EditorGUILayout.Toggle("Development Build", isDevelopmentBuild);
 
         if (numEnabled > 0)
         {
@@ -152,7 +161,8 @@ public class BuildTools : EditorWindow
         options.scenes = scenes.ToArray();
         options.target = target;
         options.targetGroup = GetTargetGroupForTarget(target);
-
+        options.options = isDevelopmentBuild ? developmentOptions : defaultOptions;
+        Debug.Log(isDevelopmentBuild);
         // set the location path name
         if (target == BuildTarget.Android)
         {

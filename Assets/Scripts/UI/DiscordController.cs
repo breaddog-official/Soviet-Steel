@@ -122,8 +122,8 @@ public class DiscordController : MonoBehaviour
             long matchTime = 0L;
             if (GameManager.Instance != null)
             {
-                matchTime = (long)(DateTime.Now - new DateTime(0, 0, 0, 0, 0, (int)GameManager.Instance.MatchTime)).TotalSeconds;
-                print(matchTime);
+                //matchTime = (long)(DateTime.Now - new DateTime(0, 0, 0, 0, 0, (int)GameManager.Instance.MatchTime)).TotalSeconds;
+                //print(matchTime);
             }
 
             var activityManager = discord.GetActivityManager();

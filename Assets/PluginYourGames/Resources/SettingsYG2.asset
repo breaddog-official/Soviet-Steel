@@ -20,6 +20,11 @@ MonoBehaviour:
     uniqueID: 000
     playerPhoto: demo image
     payingStatus: 2
+  Metrica:
+    enable: 1
+    metricaCounterID: 101333034
+    log: 1
+    useYandexMetrica: 1
   Storage:
     saveLocal: 0
     saveCloud: 1
@@ -74,8 +79,10 @@ MonoBehaviour:
   platformInfo:
     ownHost: 0
   platformToggles:
-    saveLocal: 0
-    saveCloud: 0
+    useYandexMetrica: 0
+    metricaCounterID: 0
+    saveLocal: 1
+    saveCloud: 1
     selectWebGLTemplate: 1
     runInBackground: 1
     enableExceptions: 1

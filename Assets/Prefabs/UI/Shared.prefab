@@ -697,6 +697,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d75e838e9c8fb847ae1daaadf771414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnLeave:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6849725111260565790}
+        m_TargetAssemblyTypeName: GameAnalyticsEnter, Assembly-CSharp
+        m_MethodName: ProcessLeave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3770515851214130412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1868,7 +1883,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &790536042267952803
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2425,6 +2440,50 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6826400551140364281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2101124849059820651}
+  - component: {fileID: 6849725111260565790}
+  m_Layer: 0
+  m_Name: GameAnalytics
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2101124849059820651
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6826400551140364281}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8371989650438176977}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6849725111260565790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6826400551140364281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8420fe17a5fcc0944a2222ebfbb65f9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7045125520814738096
 GameObject:
   m_ObjectHideFlags: 0
@@ -2759,6 +2818,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 96923048667273118}
+  - {fileID: 2101124849059820651}
   - {fileID: 6684076151310952701}
   m_Father: {fileID: 2533029982220409394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3415,6 +3475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1854fea1ac267a74c8dfc24cf445f7f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saver: {fileID: 11400000, guid: 96b9980bdb7c68b4e8e01bc1aae072b9, type: 2}
   inputField: {fileID: 1008209720299807984}
 --- !u!1 &7875336595864235032
 GameObject:

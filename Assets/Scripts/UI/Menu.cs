@@ -51,6 +51,8 @@ namespace Scripts.UI
 
         public void Play()
         {
+            UpdateTransport();
+
             switch (playMode)
             {
                 case NetworkPlayMode.Server:
@@ -70,14 +72,29 @@ namespace Scripts.UI
                     break;
 
                 case NetworkPlayMode.Solo:
+                    SetMaxConnections(1);
+
                     NetworkManager.StartHost();
                     Discovery.StopDiscovery();
 
-                    SetMaxConnections(1);
                     break;
             }
         }
 
+
+        private void UpdateTransport()
+        {
+            if (NetworkManager.singleton.TryGetComponent(out TransportSwitcher switcher))
+            {
+                switcher.UpdateTransport(playMode switch
+                {
+                    NetworkPlayMode.Server => ConnectionMode.Server,
+                    NetworkPlayMode.Host or NetworkPlayMode.Solo => ConnectionMode.Host,
+                    NetworkPlayMode.Client => ConnectionMode.Client,
+                    _ => ConnectionMode.None
+                });
+            }
+        }
 
 
         public void SetAddress(string address) => NetworkManager.networkAddress = address;

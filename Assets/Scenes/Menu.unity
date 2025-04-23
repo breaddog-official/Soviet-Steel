@@ -43428,10 +43428,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transports:
-  - availablePlatforms: 2096895
-    transport: {fileID: 349272932}
   - availablePlatforms: 256
+    availableConnectionModes: 1
     transport: {fileID: 349272934}
+  - availablePlatforms: -1
+    availableConnectionModes: -1
+    transport: {fileID: 349272932}
 --- !u!1 &359296213
 GameObject:
   m_ObjectHideFlags: 0
@@ -60161,6 +60163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultCar: {fileID: 11400000, guid: 220305a5df9df734589c95d570517e4f, type: 2}
   defaultMap: {fileID: 11400000, guid: 15015ccf97f801148bd356400bdbae2f, type: 2}
+  saver: {fileID: 11400000, guid: 96b9980bdb7c68b4e8e01bc1aae072b9, type: 2}
   selectCarUI: {fileID: 661803925}
 --- !u!1 &1407362369
 GameObject:
@@ -66304,7 +66307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 177638, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11496292, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_audioModuleState

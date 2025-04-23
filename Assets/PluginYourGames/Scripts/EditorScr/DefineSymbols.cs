@@ -89,7 +89,7 @@ namespace YG.EditorScr
                 AssetDatabase.Refresh();
             }
 
-            BuildTargetGroup buildTargetGroup = EditorUserBuildSettings.selectedBuildTargetGroup;
+            BuildTargetGroup buildTargetGroup = BuildTargetGroup.WebGL;//EditorUserBuildSettings.selectedBuildTargetGroup;
             string definesText = PlayerSettings.GetScriptingDefineSymbols(UnityEditor.Build.NamedBuildTarget.FromBuildTargetGroup(buildTargetGroup));
 
             if (currentPlatform != string.Empty && !definesText.Contains(currentPlatform))
@@ -188,7 +188,7 @@ namespace YG.EditorScr
 
                 if (!mismatch)
                 {
-                    BuildTargetGroup buildTargetGroup = EditorUserBuildSettings.selectedBuildTargetGroup;
+                    BuildTargetGroup buildTargetGroup = BuildTargetGroup.WebGL;//EditorUserBuildSettings.selectedBuildTargetGroup;
                     string definesText = PlayerSettings.GetScriptingDefineSymbols(UnityEditor.Build.NamedBuildTarget.FromBuildTargetGroup(buildTargetGroup));
                     List<string> defines = definesText.Split(";").ToList();
 
@@ -223,7 +223,7 @@ namespace YG.EditorScr
 
         public static bool CheckDefine(string define)
         {
-            BuildTargetGroup buildTargetGroup = EditorUserBuildSettings.selectedBuildTargetGroup;
+            BuildTargetGroup buildTargetGroup = BuildTargetGroup.WebGL; //EditorUserBuildSettings.selectedBuildTargetGroup;
             string defines = PlayerSettings.GetScriptingDefineSymbols(UnityEditor.Build.NamedBuildTarget.FromBuildTargetGroup(buildTargetGroup));
 
             if (define != string.Empty && defines.Contains(define))
@@ -238,7 +238,7 @@ namespace YG.EditorScr
             if (string.IsNullOrEmpty(define) || define == " " || define.Contains(" "))
                 return;
 
-            BuildTargetGroup buildTargetGroup = EditorUserBuildSettings.selectedBuildTargetGroup;
+            BuildTargetGroup buildTargetGroup = BuildTargetGroup.WebGL; //EditorUserBuildSettings.selectedBuildTargetGroup;
             string defines = PlayerSettings.GetScriptingDefineSymbols(UnityEditor.Build.NamedBuildTarget.FromBuildTargetGroup(buildTargetGroup));
 
             if (defines.Contains(define))
@@ -252,7 +252,7 @@ namespace YG.EditorScr
             if (string.IsNullOrEmpty(define) || define == " " || define.Contains(" "))
                 return;
 
-            BuildTargetGroup buildTargetGroup = EditorUserBuildSettings.selectedBuildTargetGroup;
+            BuildTargetGroup buildTargetGroup = BuildTargetGroup.WebGL;//EditorUserBuildSettings.selectedBuildTargetGroup;
             string defines = PlayerSettings.GetScriptingDefineSymbols(UnityEditor.Build.NamedBuildTarget.FromBuildTargetGroup(buildTargetGroup));
 
             if (defines.Contains(define))

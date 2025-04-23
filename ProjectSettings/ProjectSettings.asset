@@ -140,7 +140,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.7
+  bundleVersion: 0.7.0
   preloadedAssets:
   - {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   metroInputSource: 0
@@ -164,14 +164,14 @@ PlayerSettings:
   androidMaxAspectRatio: 2.4
   androidMinAspectRatio: 1
   applicationIdentifier:
-    Android: com.breaddog.NeedForBuhanka
+    Android: com.breaddog.SovietSteel
     Standalone: com.breaddog.NeedForBuhanka
   buildNumber:
     Standalone: 0
     VisionOS: 0
     iPhone: 0
     tvOS: 0
-  overrideDefaultApplicationIdentifier: 1
+  overrideDefaultApplicationIdentifier: 0
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 23
   AndroidTargetSdkVersion: 0
@@ -262,7 +262,7 @@ PlayerSettings:
   useCustomBaseGradleTemplate: 0
   useCustomGradlePropertiesTemplate: 0
   useCustomGradleSettingsTemplate: 0
-  useCustomProguardFile: 0
+  useCustomProguardFile: 1
   AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
@@ -736,7 +736,7 @@ PlayerSettings:
   blurSplashScreenBackground: 1
   spritePackerPolicy: 
   webGLMemorySize: 16
-  webGLExceptionSupport: 3
+  webGLExceptionSupport: 2
   webGLNameFilesAsHashes: 0
   webGLShowDiagnostics: 0
   webGLDataCaching: 1
@@ -757,14 +757,14 @@ PlayerSettings:
   webGLMemoryLinearGrowthStep: 16
   webGLMemoryGeometricGrowthStep: 0.2
   webGLMemoryGeometricGrowthCap: 96
-  webGLEnableWebGPU: 0
+  webGLEnableWebGPU: 1
   webGLPowerPreference: 2
   webGLWebAssemblyTable: 0
   webGLWebAssemblyBigInt: 0
   webGLCloseOnQuit: 0
   webWasm2023: 0
   scriptingDefineSymbols:
-    Android: UNITY_POST_PROCESSING_STACK_V2;EASYROADS3D_PRO;MIRROR;MIRROR_81_OR_NEWER;MIRROR_82_OR_NEWER;MIRROR_83_OR_NEWER;MIRROR_84_OR_NEWER;MIRROR_85_OR_NEWER;MIRROR_86_OR_NEWER;MIRROR_89_OR_NEWER;MIRROR_90_OR_NEWER;MIRROR_93_OR_NEWER;EDGEGAP_PLUGIN_SERVERS;AURA_IN_SCENEVIEW;AURA_IN_PROJECT;DOTWEEN;UNITASK_DOTWEEN_SUPPORT;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;__MICROSPLAT__;YandexGamesPlatform_yg;Authorization_yg;EnvirData_yg;RedefinePlayerPrefs_yg;Storage_yg
+    Android: UNITY_POST_PROCESSING_STACK_V2;EASYROADS3D_PRO;MIRROR;MIRROR_81_OR_NEWER;MIRROR_82_OR_NEWER;MIRROR_83_OR_NEWER;MIRROR_84_OR_NEWER;MIRROR_85_OR_NEWER;MIRROR_86_OR_NEWER;MIRROR_89_OR_NEWER;MIRROR_90_OR_NEWER;MIRROR_93_OR_NEWER;EDGEGAP_PLUGIN_SERVERS;AURA_IN_SCENEVIEW;AURA_IN_PROJECT;DOTWEEN;UNITASK_DOTWEEN_SUPPORT;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;__MICROSPLAT__;Authorization_yg;EnvirData_yg;RedefinePlayerPrefs_yg;Storage_yg
     EmbeddedLinux: UNITY_POST_PROCESSING_STACK_V2;DOTWEEN
     GameCoreScarlett: DOTWEEN
     GameCoreXboxOne: UNITY_POST_PROCESSING_STACK_V2;DOTWEEN
@@ -774,9 +774,9 @@ PlayerSettings:
     PS5: UNITY_POST_PROCESSING_STACK_V2;DOTWEEN
     QNX: UNITY_POST_PROCESSING_STACK_V2;DOTWEEN
     ReservedCFE: UNITY_POST_PROCESSING_STACK_V2;DOTWEEN
-    Standalone: UNITY_POST_PROCESSING_STACK_V2;EASYROADS3D_PRO;AURA_IN_PROJECT;MIRROR;MIRROR_81_OR_NEWER;MIRROR_82_OR_NEWER;MIRROR_83_OR_NEWER;MIRROR_84_OR_NEWER;MIRROR_85_OR_NEWER;MIRROR_86_OR_NEWER;MIRROR_89_OR_NEWER;MIRROR_90_OR_NEWER;MIRROR_93_OR_NEWER;EDGEGAP_PLUGIN_SERVERS;AURA_IN_SCENEVIEW;DOTWEEN;UNITASK_DOTWEEN_SUPPORT;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;__MICROSPLAT__;EnvirData_yg;RedefinePlayerPrefs_yg;Storage_yg;Authorization_yg;YandexGamesPlatform_yg
+    Standalone: UNITY_POST_PROCESSING_STACK_V2;EASYROADS3D_PRO;AURA_IN_PROJECT;MIRROR;MIRROR_81_OR_NEWER;MIRROR_82_OR_NEWER;MIRROR_83_OR_NEWER;MIRROR_84_OR_NEWER;MIRROR_85_OR_NEWER;MIRROR_86_OR_NEWER;MIRROR_89_OR_NEWER;MIRROR_90_OR_NEWER;MIRROR_93_OR_NEWER;EDGEGAP_PLUGIN_SERVERS;AURA_IN_SCENEVIEW;DOTWEEN;UNITASK_DOTWEEN_SUPPORT;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;__MICROSPLAT__;EnvirData_yg;RedefinePlayerPrefs_yg;Storage_yg;Authorization_yg
     VisionOS: UNITY_POST_PROCESSING_STACK_V2;DOTWEEN
-    WebGL: EASYROADS3D_PRO;UNITY_POST_PROCESSING_STACK_V2;DOTWEEN;MIRROR;MIRROR_81_OR_NEWER;MIRROR_82_OR_NEWER;MIRROR_83_OR_NEWER;MIRROR_84_OR_NEWER;MIRROR_85_OR_NEWER;MIRROR_86_OR_NEWER;MIRROR_89_OR_NEWER;MIRROR_90_OR_NEWER;MIRROR_93_OR_NEWER;EDGEGAP_PLUGIN_SERVERS;AURA_IN_SCENEVIEW;AURA_IN_PROJECT;UNITASK_DOTWEEN_SUPPORT;YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;RU_YG2;__MICROSPLAT__;EnvirData_yg;Storage_yg;RedefinePlayerPrefs_yg;Authorization_yg
+    WebGL: EASYROADS3D_PRO;UNITY_POST_PROCESSING_STACK_V2;DOTWEEN;MIRROR;MIRROR_81_OR_NEWER;MIRROR_82_OR_NEWER;MIRROR_83_OR_NEWER;MIRROR_84_OR_NEWER;MIRROR_85_OR_NEWER;MIRROR_86_OR_NEWER;MIRROR_89_OR_NEWER;MIRROR_90_OR_NEWER;MIRROR_93_OR_NEWER;EDGEGAP_PLUGIN_SERVERS;AURA_IN_SCENEVIEW;AURA_IN_PROJECT;UNITASK_DOTWEEN_SUPPORT;YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;RU_YG2;__MICROSPLAT__;EnvirData_yg;Storage_yg;RedefinePlayerPrefs_yg;Authorization_yg;Metrica_yg
     Windows Store Apps: DOTWEEN
     XboxOne: UNITY_POST_PROCESSING_STACK_V2;DOTWEEN
     iPhone: DOTWEEN
@@ -792,7 +792,7 @@ PlayerSettings:
   il2cppCodeGeneration: {}
   il2cppStacktraceInformation: {}
   managedStrippingLevel:
-    Android: 3
+    Android: 1
     EmbeddedLinux: 1
     GameCoreScarlett: 1
     GameCoreXboxOne: 1
@@ -801,9 +801,9 @@ PlayerSettings:
     PS5: 1
     QNX: 1
     Stadia: 1
-    Standalone: 3
+    Standalone: 1
     VisionOS: 1
-    WebGL: 3
+    WebGL: 1
     Windows Store Apps: 1
     XboxOne: 1
     iPhone: 1

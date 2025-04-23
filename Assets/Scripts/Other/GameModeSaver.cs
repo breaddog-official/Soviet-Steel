@@ -1,6 +1,7 @@
 using System.Linq;
 using Scripts.Cars;
 using Scripts.Gameplay;
+using Scripts.SaveManagement;
 using Scripts.UI;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class GameModeSaver : MonoBehaviour
 {
     [SerializeField] private CarSO defaultCar;
     [SerializeField] private MapSO defaultMap;
+    [SerializeField] private Saver saver;
     [Space]
     [SerializeField] private SelectCarUI selectCarUI;
 
@@ -33,11 +35,11 @@ public class GameModeSaver : MonoBehaviour
         var car = GameManager.Car ?? defaultCar.car;
         var map = GameManager.GameMode.Map ?? defaultMap.map;
 
-        if (PlayerPrefs.HasKey(carKey))
-            car = NetworkManagerExt.GetCar(PlayerPrefs.GetString(carKey));
+        if (saver.Exists(carKey))
+            car = NetworkManagerExt.GetCar(saver.Load(carKey));
 
-        if (PlayerPrefs.HasKey(mapKey))
-            map = NetworkManagerExt.GetMap(PlayerPrefs.GetString(mapKey));      
+        if (saver.Exists(mapKey))
+            map = NetworkManagerExt.GetMap(saver.Load(mapKey));      
 
         GameManager.SetCar(car);
         GameManager.SetMap(map);
@@ -63,8 +65,7 @@ public class GameModeSaver : MonoBehaviour
     {
         cachedCar = GameManager.Car;
         cachedMap = GameManager.GameMode.Map;
-        PlayerPrefs.SetString(carKey, GameManager.Car.CarHash);
-        PlayerPrefs.SetString(mapKey, GameManager.GameMode.Map.MapHash);
-        PlayerPrefs.Save();
+        saver.Save(carKey, GameManager.Car.CarHash);
+        saver.Save(mapKey, GameManager.GameMode.Map.MapHash);
     }
 }
