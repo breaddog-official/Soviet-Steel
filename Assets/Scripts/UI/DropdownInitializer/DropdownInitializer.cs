@@ -5,11 +5,13 @@ using UnityEngine;
 
 public abstract class DropdownInitializer : MonoBehaviour
 {
+    [SerializeField] protected bool initializeOnAwake;
     protected TMP_Dropdown dropdown;
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        InitializeDropdown();
+        if (initializeOnAwake)
+            InitializeDropdown();
     }
 
     public virtual void InitializeDropdown()

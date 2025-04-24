@@ -10,7 +10,17 @@ namespace Scripts.SaveManagement
     {
         public Saver[] savers;
 
-        private Saver Saver => savers.Where(s => s.IsAvailable()).FirstOrDefault();
+        private Saver Saver
+        {
+            get
+            {
+                foreach (var saver in savers)
+                    if (saver.IsAvailable())
+                        return saver;
+
+                return null;
+            }
+        }
 
 
         public override void Save(string path, string value) => Saver.Save(path, value);

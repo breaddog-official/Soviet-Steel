@@ -66,8 +66,10 @@ namespace Scripts.UI
         {
             var preset = GetPreset();
 
+            textTranslater.enabled = preset.nameMode == HorizonterPreset.NameMode.Translate;
+
             if (preset.nameMode == HorizonterPreset.NameMode.Raw)
-                textName.SetText(preset.presetName);
+                textName.text = preset.presetName;
 
             else if (preset.nameMode == HorizonterPreset.NameMode.Translate)
                 textTranslater.SetName(preset.presetName);

@@ -26,6 +26,7 @@ namespace Scripts.TranslateManagement
         public string menu_next;
         public string menu_select;
         public string menu_insert_tape;
+        public string menu_level;
         [Header("Menu: Settings")]
         public string menu_settings_general;
         public string menu_settings_audio;

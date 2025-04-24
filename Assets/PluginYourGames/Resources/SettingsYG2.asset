@@ -79,8 +79,8 @@ MonoBehaviour:
   platformInfo:
     ownHost: 0
   platformToggles:
-    useYandexMetrica: 0
-    metricaCounterID: 0
+    useYandexMetrica: 1
+    metricaCounterID: 1
     saveLocal: 1
     saveCloud: 1
     selectWebGLTemplate: 1

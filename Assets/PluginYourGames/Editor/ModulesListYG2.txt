@@ -1,5 +1,6 @@
 Authorization v1.0
 EnvirData v1.002
+Leaderboards v1.0
 Metrica v1.01
 RedefinePlayerPrefs v1.001
 Storage v1.01

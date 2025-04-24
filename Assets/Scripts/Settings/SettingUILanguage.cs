@@ -9,6 +9,7 @@ namespace Scripts.Settings
     public sealed class SettingUILanguage : SettingHandler<ApplicationLanguage>
     {
         [SerializeField] private TMP_Dropdown dropdown;
+        [SerializeField] private DropdownInitializer initializer;
 
         private List<ApplicationLanguage> languages;
 
@@ -16,6 +17,9 @@ namespace Scripts.Settings
         protected override void Awake()
         {
             languages = TranslationConfig.Instance.GetTranslations().Select(t => t.Language).ToList();
+
+            if (initializer != null)
+                initializer.InitializeDropdown();
 
             base.Awake();
         }

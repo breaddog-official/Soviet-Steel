@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Scripts.UI
 {
+    [ExecuteInEditMode]
     public class NumberTextUI : MonoBehaviour
     {
         [SerializeField] private TMP_Text valueText;

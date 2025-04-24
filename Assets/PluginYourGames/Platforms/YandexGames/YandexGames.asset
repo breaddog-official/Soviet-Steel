@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameFull: YandexGamesPlatform
   projectSettings:
+    useYandexMetrica: 1
+    metricaCounterID: 101333034
     saveLocal: 0
     saveCloud: 1
     selectWebGLTemplate: 1
     runInBackground: 0
-    enableExceptions: 2
+    enableExceptions: 3
     compressionFormat: 0
     decompressionFallback: 0
     autoGraphicsAPI: 1

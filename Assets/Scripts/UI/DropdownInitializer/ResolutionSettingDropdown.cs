@@ -11,7 +11,7 @@ namespace Scripts.UI
     {
         public override void InitializeDropdown()
         {
-            dropdown = GetComponent<TMP_Dropdown>();
+            base.InitializeDropdown();
 
             List<string> options = new(Screen.resolutions.Length);
             foreach (var resolution in Screen.resolutions)

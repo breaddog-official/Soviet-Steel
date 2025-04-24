@@ -28,6 +28,7 @@ MonoBehaviour:
     menu_next: Next
     menu_select: Select
     menu_insert_tape: insert tape here
+    menu_level: level
     menu_settings_general: General
     menu_settings_audio: Audio
     menu_settings_graphics: Graphics

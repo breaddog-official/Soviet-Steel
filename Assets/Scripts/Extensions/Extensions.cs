@@ -502,7 +502,7 @@ namespace Scripts.Extensions
         /// </summary>
         public static void DontDestroyOnLoad(this GameObject gameObject)
         {
-            // Try get predicted rigidbody and move them
+            // DontDestroyOnLoad dont work with childrens
             if (gameObject.transform.parent != null)
                 gameObject.transform.parent = null;
 

@@ -60,7 +60,9 @@ MonoBehaviour:
   CustomDimensions02: []
   CustomDimensions03: []
   ResourceItemTypes: []
-  ResourceCurrencies: []
+  ResourceCurrencies:
+  - Experience
+  - Level
   LastCreatedGamePlatform: -1
   Platforms: 02000000
   CurrentInspectorState: 1
@@ -95,7 +97,7 @@ MonoBehaviour:
   CustomDimensions02FoldOut: 0
   CustomDimensions03FoldOut: 0
   ResourceItemTypesFoldOut: 0
-  ResourceCurrenciesFoldOut: 0
+  ResourceCurrenciesFoldOut: 1
   EnableMemoryHistogram: 0
   EnableHealthEvent: 0
   EnableFPSHistogram: 0

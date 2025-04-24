@@ -19,6 +19,11 @@ namespace Scripts.SaveManagement
         public override bool Exists(string path) => RedefineYG.PlayerPrefs.HasKey(ProcessPath(path));
         private string ProcessPath(string path) => path.GetHashCode().ToString();
 
-        public override bool IsAvailable() => Application.platform == RuntimePlatform.WebGLPlayer;
+        public override bool IsAvailable() =>
+#if YandexGamesPlatform_yg
+            Application.platform == RuntimePlatform.WebGLPlayer;
+#else
+            false;
+#endif
     }
 }
