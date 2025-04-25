@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ArcadeVP;
 using Mirror;
@@ -9,6 +10,8 @@ public class WinManager : NetworkBehaviour
     [SerializeField] private RoadManager roadManager;
 
     private readonly SyncList<uint> winnersPlaces = new();
+
+    public event Action<uint> OnWin;
 
 
     private void OnEnable()
@@ -29,6 +32,8 @@ public class WinManager : NetworkBehaviour
         {
             winnersPlaces.Add(network.netId);
             network.SetWin(true/*winnersPlaces.Count*/);
+
+            OnWin?.Invoke(network.netId);
         }
     }
 
