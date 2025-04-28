@@ -104,7 +104,7 @@ public class GameplayUI : MonoBehaviour
         if (recordText == null)
             return;
 
-        string key = $"{GameManager.GameMode.Map.Name}_record";
+        string key = $"{GameManager.GameMode.Map.TranslateName}_record";
         double time = GameManager.Instance.RoadManager.GetPlayers().GetValueOrDefault(network.netId).LastBetweenTime;
 
         // 120_000 seconds, ~33 hours

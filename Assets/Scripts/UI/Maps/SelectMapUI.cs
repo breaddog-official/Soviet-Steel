@@ -1,5 +1,6 @@
 ﻿using Mirror;
 using Scripts.Gameplay;
+using Scripts.Gameplay.Experience;
 using Scripts.TranslateManagement;
 using System.Linq;
 using TMPro;
@@ -9,6 +10,7 @@ namespace Scripts.UI
 {
     public class SelectMapUI : SelectUI<Map>
     {
+        [Space]
         [SerializeField] protected TextTranslater nameText;
         [SerializeField] protected TextTranslater descriptionText;
         [Space]
@@ -38,9 +40,14 @@ namespace Scripts.UI
             NetworkManager.singleton.onlineScene = map.Scene;
             GameManager.GameMode.mapHash = map.MapHash;
 
-            nameText.SetName(map.Name);
-            descriptionText.SetName(map.Description);
+            nameText.SetName(map.TranslateName);
+            descriptionText.SetName(map.TranslateDescription);
             screenMaterial.mainTexture = map.Icon;
+        }
+
+        public override bool IsAvailable(int index)
+        {
+            return values[index].Level <= ExperienceManager.GetCurrentLevel();
         }
     }
 }

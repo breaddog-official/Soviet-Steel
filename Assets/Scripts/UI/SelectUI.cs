@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Scripts.Extensions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Scripts.UI
 {
@@ -48,7 +49,7 @@ namespace Scripts.UI
 
         public void Next()
         {
-            if (!allowRoundSwitching && currentValueIndex == values.Count - 1)
+            if (!allowRoundSwitching && currentValueIndex == values.Where(v => IsAvailable(values.IndexOf(v))).Count() - 1)
                 return;
 
             int index = currentValueIndex;

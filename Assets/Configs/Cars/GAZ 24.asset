@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: GAZ 24
   m_EditorClassIdentifier: 
   car:
-    name: menu_cars_volga
-    description: menu_cars_volga_description
+    name: GAZ 24
+    translateName: menu_cars_volga
+    translateDescription: menu_cars_volga_description
     carPrefab: {fileID: 650323390445680912, guid: 35654683cde91c543831ae0c6d0cfa59, type: 3}
     carModelPrefab: {fileID: 323341941182788237, guid: ad900b52b2af57840926110a359ac8b7, type: 3}
     spawnBotChance: 2
-    musicType: 1
-    customMusic: {fileID: 0}
+    level: 11
     musicPatterns:
     - Bass
     - Drum1
     - Drum2
     - Additive3
+    icon: {fileID: 2800000, guid: 3df019a675d2c9343bc3b9cf2d150260, type: 3}
     salt: 4023980795172754210

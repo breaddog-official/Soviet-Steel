@@ -29,9 +29,9 @@ public class RoadManager : NetworkBehaviour
     private float[] distances;
 
     [ShowNativeProperty]
-    private int DistancesCount => distances.Length;
+    public int DistancesCount => distances.Length;
     [ShowNativeProperty]
-    private float Distance => distances.Sum();
+    public float Distance => distances.Sum();
 
     /// <summary>
     /// Server only event

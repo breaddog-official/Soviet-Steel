@@ -12,8 +12,8 @@ namespace Scripts.UI
 
         public void OnValidate()
         {
-            if (string.IsNullOrWhiteSpace(map.Name))
-                map.Name = name;
+            if (string.IsNullOrWhiteSpace(map.TranslateName))
+                map.TranslateName = name;
 
             if (map.Salt == 0)
                 GenerateSalt();

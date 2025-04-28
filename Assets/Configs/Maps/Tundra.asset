@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Tundra
   m_EditorClassIdentifier: 
   map:
-    <Name>k__BackingField: menu_levels_tundra
-    <Description>k__BackingField: menu_levels_tundra_description
+    <Name>k__BackingField: Tundra
+    <TranslateName>k__BackingField: menu_levels_tundra
+    <TranslateDescription>k__BackingField: menu_levels_tundra_description
     <Scene>k__BackingField: Game_Tundra
+    <Level>k__BackingField: 1
     <Icon>k__BackingField: {fileID: 2800000, guid: 020bcc8c1314f314ab3812faa2c76eba, type: 3}
     <Salt>k__BackingField: 6

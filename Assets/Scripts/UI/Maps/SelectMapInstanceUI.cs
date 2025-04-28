@@ -23,8 +23,8 @@ namespace Scripts.UI
             this.map = map;
             this.selectAction = onSelect;
 
-            nameText.SetText(map.Name);
-            descriptionText.SetText(map.Description);
+            nameText.SetText(map.TranslateName);
+            descriptionText.SetText(map.TranslateDescription);
 
             iconImage.texture = map.Icon;
         }

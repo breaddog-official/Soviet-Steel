@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Saratov
   m_EditorClassIdentifier: 
   map:
-    <Name>k__BackingField: menu_levels_saratov
-    <Description>k__BackingField: menu_levels_saratov_description
+    <Name>k__BackingField: Saratov
+    <TranslateName>k__BackingField: menu_levels_saratov
+    <TranslateDescription>k__BackingField: menu_levels_saratov_description
     <Scene>k__BackingField: Game_Saratov
+    <Level>k__BackingField: 6
     <Icon>k__BackingField: {fileID: 2800000, guid: a2e61f5dfb4bea3449c30b1eac0fcfd9, type: 3}
     <Salt>k__BackingField: 5

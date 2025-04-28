@@ -462,7 +462,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   minSpeed: 0.3
-  maxSpeed: 0.93
+  maxSpeed: 0.98
 --- !u!114 &7393522823925777190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,7 +484,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   maxSpeed: 80
-  accelaration: 11.5
+  accelaration: 11.8
   turn: 7
   drift: 8
   gravity: 14

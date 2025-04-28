@@ -1,12 +1,14 @@
 using Mirror;
 using Scripts.Extensions;
 using Scripts.Gameplay;
+using Scripts.TranslateManagement;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DiscordController : MonoBehaviour
 {
-    #if (UNITY_STANDALONE_WIN && UNITY_64) || UNITY_STANDALONE_OSX
+#if (UNITY_STANDALONE_WIN && UNITY_64) || UNITY_STANDALONE_OSX || UNITY_EDITOR_WIN || UNITY_EDITOR_OSX
     public const long APPLICATION_ID = 1349843959899361310;
 
     private static Discord.Discord discord;
@@ -95,46 +97,69 @@ public class DiscordController : MonoBehaviour
             string mapName = string.Empty;
             string mapDescription = string.Empty;
 
-            if (map != null)
+            var car = GameManager.Car;
+            string carImage = string.Empty;
+            string carName = string.Empty;
+            string carDescription = string.Empty;
+
+            bool isMenu = SceneManager.GetActiveScene().name == "Menu";
+
+            if (map != null && !isMenu)
             {
                 mapImage = map.Icon.name.ToLower();
-                mapName = map.Name;
-                //mapDescription = map.Description;
+                mapName = TranslateManager.GetTranslationString(map.TranslateName);
+                //mapDescription = TranslateManager.GetTranslationString(map.TranslateDescription);
+            }
+            else if (isMenu)
+            {
+                mapImage = "icon";
+                mapName = TranslateManager.GetTranslationString("menu_levels_menu");
+            }
+
+            if (car != null && !isMenu)
+            {
+                carImage = car.icon.name.ToLower();
+                carName = TranslateManager.GetTranslationString(car.translateName);
+                //carDescription = TranslateManager.GetTranslationString(car.translateDescription);
             }
 
             string state = string.Empty;
             int players = 0;
             int maxPlayers = 0;
 
-            if (NetworkServer.active)
+            if (Application.isEditor)
             {
-                state = "Играет на своём сервере";
+                state = TranslateManager.GetTranslationString("discord_developing");
+            }
+            else if (NetworkServer.active)
+            {
+                state = TranslateManager.GetTranslationString("discord_host");
                 players = NetworkServer.connections.Count;
                 maxPlayers = NetworkServer.maxConnections;
             } 
             else if (NetworkClient.active)
             {
-                state = $"Играет на сервере {GameManager.response.name}";
+                state = $"{TranslateManager.GetTranslationString("discord_client")} {GameManager.response.name}";
                 players = GameManager.response.playersCount;
                 players = GameManager.response.maxPlayers;
             }
 
-            long matchTime = 0L;
+            /*long matchTime = 0L;
             if (GameManager.Instance != null)
             {
-                //matchTime = (long)(DateTime.Now - new DateTime(0, 0, 0, 0, 0, (int)GameManager.Instance.MatchTime)).TotalSeconds;
-                //print(matchTime);
-            }
+                matchTime = TimeSpan.FromSeconds(Time.timeAsDouble - GameManager.Instance.MatchTime).Seconds;
+                print(matchTime);
+            }*/
 
             var activityManager = discord.GetActivityManager();
             var activity = new Discord.Activity
             {
                 State = state,
                 Details = mapName,
-                Timestamps =
+                /*Timestamps =
                 {
                     Start = matchTime,
-                },
+                },*/
                 Party =
                 {
                     Privacy = Discord.ActivityPartyPrivacy.Private,
@@ -148,8 +173,12 @@ public class DiscordController : MonoBehaviour
                 {
                     LargeImage = mapImage,
                     LargeText = mapDescription,
+
+                    SmallImage = carImage,
+                    SmallText = carName,
                 },
             };
+
             activityManager.UpdateActivity(activity, (res) =>
             {
                 if (res != Discord.Result.Ok)

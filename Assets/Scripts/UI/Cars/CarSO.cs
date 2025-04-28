@@ -14,8 +14,8 @@ namespace Scripts.Cars
 
         public void OnValidate()
         {
-            if (string.IsNullOrWhiteSpace(car.name))
-                car.name = name;
+            if (string.IsNullOrWhiteSpace(car.translateName))
+                car.translateName = name;
 
             if (car.salt == 0)
                 GenerateSalt();

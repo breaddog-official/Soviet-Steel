@@ -6,7 +6,7 @@ namespace Scripts.Gameplay
 {
     public class GameMode
     {
-        public int rounds = 1;
+        public int rounds = 2;
         public int bots = 5;
 
         public string mapHash;

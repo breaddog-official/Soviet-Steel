@@ -10942,7 +10942,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   minSpeed: 0.3
-  maxSpeed: 0.93
+  maxSpeed: 0.98
 --- !u!114 &8048772468450213976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10964,8 +10964,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   maxSpeed: 75
-  accelaration: 12
-  turn: 7
+  accelaration: 10.5
+  turn: 8.4
   drift: 7
   gravity: 14
   downforce: 5
@@ -10976,8 +10976,8 @@ MonoBehaviour:
   driftAngle: 4
   rb: {fileID: 3728326242443608145}
   carBody: {fileID: 7714288601950345298}
-  minFriction: 1.5
-  maxFriction: 2.7
+  minFriction: 1.2
+  maxFriction: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   accelerationCurve:
     serializedVersion: 2

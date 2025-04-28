@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: UAZ 452
   m_EditorClassIdentifier: 
   car:
-    name: menu_cars_uaz
-    description: menu_cars_uaz_description
+    name: UAZ 452
+    translateName: menu_cars_uaz
+    translateDescription: menu_cars_uaz_description
     carPrefab: {fileID: 1841487198751500824, guid: 13d85d504f29e1a4da43cdf5e36674cc, type: 3}
     carModelPrefab: {fileID: 2485779697418410629, guid: 05cbad86727ef05419a21e3cc9d8c50e, type: 3}
     spawnBotChance: 4
-    musicType: 1
-    customMusic: {fileID: 0}
+    level: 5
     musicPatterns:
     - Bass
     - Drum1
     - Drum2
     - Additive2
+    icon: {fileID: 2800000, guid: e171acfd90844184998b5560d53c4c4a, type: 3}
     salt: 2433309342125180854

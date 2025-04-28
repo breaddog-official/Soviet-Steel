@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: Lada 2108
   m_EditorClassIdentifier: 
   car:
-    name: menu_cars_2108
-    description: menu_cars_2108_description
+    name: Lada 2108
+    translateName: menu_cars_2108
+    translateDescription: menu_cars_2108_description
     carPrefab: {fileID: 1173592383730459999, guid: a66819b462e8505498e65dba3569519c, type: 3}
     carModelPrefab: {fileID: 5534936683715426961, guid: 123c21f67cdf74b4ba75813582257083, type: 3}
     spawnBotChance: 4
-    musicType: 1
-    customMusic: {fileID: 0}
+    level: 9
     musicPatterns:
     - Bass
     - Drum1
     - Drum2
     - Additive2
+    icon: {fileID: 2800000, guid: e151836bb6f32a2479208a91bea24469, type: 3}
     salt: 7054895044867913645

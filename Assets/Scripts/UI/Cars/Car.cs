@@ -1,34 +1,28 @@
 using System;
 using UnityEngine;
-using NaughtyAttributes;
 using System.Text;
-using UnityEngine.Audio;
 
 namespace Scripts.Cars
 {
     [Serializable]
     public class Car
     {
+
         [SerializeField] public string name;
-        [SerializeField] public string description;
+        [Space]
+        [SerializeField] public string translateName;
+        [SerializeField] public string translateDescription;
         [Space]
         [SerializeField] public GameObject carPrefab;
         [SerializeField] public GameObject carModelPrefab;
         [Space]
         [SerializeField, Range(1, 10)] public int spawnBotChance = 4;
+        [SerializeField] public int level;
         [Space]
-        [SerializeField] public MusicType musicType;
-        [SerializeField] public AudioResource customMusic;
         [SerializeField] public string[] musicPatterns;
         [Space]
+        [SerializeField] public Texture2D icon;
         [SerializeField] public long salt;
-
-        public enum MusicType
-        {
-            None,
-            Patterns,
-            Music
-        }
 
         /// <summary>
         /// Fully unique hash, based on name + salt for reliability

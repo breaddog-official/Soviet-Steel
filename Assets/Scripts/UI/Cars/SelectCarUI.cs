@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using Scripts.UI;
-using TMPro;
 using System.Linq;
 using Scripts.Gameplay;
 using System.Collections.Generic;
 using Scripts.Audio;
 using Scripts.Extensions;
 using Scripts.TranslateManagement;
+using Scripts.Gameplay.Experience;
 
 
 namespace Scripts.Cars
@@ -48,8 +48,8 @@ namespace Scripts.Cars
         {
             var car = CurrentValue;
 
-            nameText.SetName(car.name);
-            descriptionText.SetName(car.description);
+            nameText.SetName(car.translateName);
+            descriptionText.SetName(car.translateDescription);
 
             GameManager.SetCar(car);
 
@@ -93,7 +93,7 @@ namespace Scripts.Cars
         {
             foreach (var carModel in spawnedCars[car])
             {
-                if (state && isActiveAndEnabled && car.musicType == Car.MusicType.Patterns && dynamicMusic != null)
+                if (state && isActiveAndEnabled && dynamicMusic != null)
                 {
                     dynamicMusic.SetPattern(car.musicPatterns);
                 }
@@ -113,6 +113,11 @@ namespace Scripts.Cars
             }
 
             spawnedCars.Clear();
+        }
+
+        public override bool IsAvailable(int index)
+        {
+            return values[index].level <= ExperienceManager.GetCurrentLevel();
         }
     }
 }

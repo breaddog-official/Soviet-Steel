@@ -1,5 +1,6 @@
 using Mirror;
 using Scripts.Gameplay;
+using Scripts.Gameplay.Experience;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Scripts.UI
 {
     public class SelectMapSpawnerUI : SelectUI<Map>
     {
+        [Space]
         [SerializeField] protected MapSO[] mapsSo;
         [SerializeField] protected SelectMapInstanceUI mapPrefab;
         [SerializeField] protected Transform spawnParent;
@@ -72,6 +74,11 @@ namespace Scripts.UI
             GameManager.GameMode.mapHash = CurrentValue.MapHash;
 
             UpdateInstances();
+        }
+
+        public override bool IsAvailable(int index)
+        {
+            return values[index].Level <= ExperienceManager.GetCurrentLevel();
         }
     }
 }

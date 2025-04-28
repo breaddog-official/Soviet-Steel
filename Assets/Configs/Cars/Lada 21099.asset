@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: Lada 21099
   m_EditorClassIdentifier: 
   car:
-    name: menu_cars_21099
-    description: menu_cars_21099_description
+    name: Lada 21099
+    translateName: menu_cars_21099
+    translateDescription: menu_cars_21099_description
     carPrefab: {fileID: 2500684510066942452, guid: 5fa0c006de50588488f0991172d8199a, type: 3}
     carModelPrefab: {fileID: 1977069252868065412, guid: 2312654abfff6ff48bed2e96ab015dc7, type: 3}
     spawnBotChance: 5
-    musicType: 1
-    customMusic: {fileID: 0}
+    level: 1
     musicPatterns:
     - Bass
     - Drum1
     - Drum2
     - Additive4
+    icon: {fileID: 2800000, guid: f52f9540e354d25428920017ef0c7fdd, type: 3}
     salt: -1681496795152324238

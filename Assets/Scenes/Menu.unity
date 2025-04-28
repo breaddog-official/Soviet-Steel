@@ -43061,7 +43061,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 7.5006714, y: 14}
+  m_AnchoredPosition: {x: 7.5004883, y: 14}
   m_SizeDelta: {x: -75.000015, y: 690}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &342997863
@@ -43114,7 +43114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45d25249c1677234aa65f8e21c3dd03f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowRoundSwitching: 1
+  allowRoundSwitching: 0
   nameText: {fileID: 225473122}
   descriptionText: {fileID: 1342967993}
   screenMaterial: {fileID: 2100000, guid: b2e014ee82232ea41909bcb66497473b, type: 2}
@@ -49924,7 +49924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70d16fa0982c8f34b960da73c3a75261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowRoundSwitching: 1
+  allowRoundSwitching: 0
   nameText: {fileID: 1596854221}
   descriptionText: {fileID: 1384214831}
   spawnCar: 1
@@ -52194,7 +52194,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 100
-  field of view: 30.593994
+  field of view: 31.330317
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -55456,7 +55456,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 30.593994
+    FieldOfView: 31.330317
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 100

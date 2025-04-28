@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Hills
   m_EditorClassIdentifier: 
   map:
-    <Name>k__BackingField: menu_levels_hills
-    <Description>k__BackingField: menu_levels_hills_description
+    <Name>k__BackingField: Hills
+    <TranslateName>k__BackingField: menu_levels_hills
+    <TranslateDescription>k__BackingField: menu_levels_hills_description
     <Scene>k__BackingField: Game_Hills
+    <Level>k__BackingField: 8
     <Icon>k__BackingField: {fileID: 2800000, guid: 449dd6dc765c2aa43a88b18a18c44f35, type: 3}
     <Salt>k__BackingField: 4

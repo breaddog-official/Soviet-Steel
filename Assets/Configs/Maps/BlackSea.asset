@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: BlackSea
   m_EditorClassIdentifier: 
   map:
-    <Name>k__BackingField: menu_levels_blacksea
-    <Description>k__BackingField: menu_levels_blacksea_description
+    <Name>k__BackingField: BlackSea
+    <TranslateName>k__BackingField: menu_levels_blacksea
+    <TranslateDescription>k__BackingField: menu_levels_blacksea_description
     <Scene>k__BackingField: Game_BlackSea
+    <Level>k__BackingField: 4
     <Icon>k__BackingField: {fileID: 2800000, guid: b75bb6d242f6ce846bbb034b5499f0dc, type: 3}
     <Salt>k__BackingField: 1

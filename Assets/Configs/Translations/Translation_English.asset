@@ -87,6 +87,7 @@ MonoBehaviour:
     menu_join_manual_port: Port
     menu_server_players: 'Players:'
     menu_server_maxPlayers: 'Max Players:'
+    menu_levels_menu: Menu
     menu_levels_tundra: Tundra
     menu_levels_tundra_description: The far edge of great Siberia, not far from a
       small scientific town, turned out to be a great place for racing!
@@ -165,8 +166,12 @@ MonoBehaviour:
 
       It accelerates very slowly, but has a very high maximum
       speed.'
+    discord_developing: Develops a game
+    discord_host: Plays on own server
+    discord_client: Plays on server
     game_leave: Leave
     game_start_match: Start Match
     game_enter_nickname: Enter nickname...
+    game_new_record: New record!
     game_score_title: Match Results
     game_time: 'Time:'

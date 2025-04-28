@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Ural
   m_EditorClassIdentifier: 
   map:
-    <Name>k__BackingField: menu_levels_ural
-    <Description>k__BackingField: menu_levels_ural_description
+    <Name>k__BackingField: Ural
+    <TranslateName>k__BackingField: menu_levels_ural
+    <TranslateDescription>k__BackingField: menu_levels_ural_description
     <Scene>k__BackingField: Game_Ural
+    <Level>k__BackingField: 2
     <Icon>k__BackingField: {fileID: 2800000, guid: 9fcb876c8b10f2f42936bed33b25d148, type: 3}
     <Salt>k__BackingField: 7

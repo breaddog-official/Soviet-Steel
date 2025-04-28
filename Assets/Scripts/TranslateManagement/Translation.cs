@@ -101,6 +101,8 @@ namespace Scripts.TranslateManagement
         public string menu_server_maxPlayers;
 
         [Header("Menu: levels")]
+        public string menu_levels_menu;
+        [Space(30)]
         public string menu_levels_tundra;
         [ResizableTextArea]
         public string menu_levels_tundra_description;
@@ -158,10 +160,16 @@ namespace Scripts.TranslateManagement
         [ResizableTextArea]
         public string menu_cars_prototype_description;
 
+        [Header("Discord")]
+        public string discord_developing;
+        public string discord_host;
+        public string discord_client;
+
         [Header("Game")]
         public string game_leave;
         public string game_start_match;
         public string game_enter_nickname;
+        public string game_new_record;
 
         [Header("Game: Score")]
         public string game_score_title;

@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Fields
   m_EditorClassIdentifier: 
   map:
-    <Name>k__BackingField: menu_levels_fields
-    <Description>k__BackingField: menu_levels_fields_description
+    <Name>k__BackingField: Fields
+    <TranslateName>k__BackingField: menu_levels_fields
+    <TranslateDescription>k__BackingField: menu_levels_fields_description
     <Scene>k__BackingField: Game_Fields
+    <Level>k__BackingField: 12
     <Icon>k__BackingField: {fileID: 2800000, guid: 3edba12b9b252c240926276356d7705a, type: 3}
     <Salt>k__BackingField: 3

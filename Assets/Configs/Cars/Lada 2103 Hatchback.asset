@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: Lada 2103 Hatchback
   m_EditorClassIdentifier: 
   car:
-    name: menu_cars_prototype
-    description: menu_cars_prototype_description
+    name: Lada 2103 Hatchback
+    translateName: menu_cars_prototype
+    translateDescription: menu_cars_prototype_description
     carPrefab: {fileID: 2945791474935421764, guid: dd19be31535cf004b8e9795b51034ba9, type: 3}
     carModelPrefab: {fileID: 7424394767828908802, guid: cd320b24395f93948aef2c677801d0e9, type: 3}
     spawnBotChance: 3
-    musicType: 1
-    customMusic: {fileID: 0}
+    level: 12
     musicPatterns:
     - Bass
     - Drum1
     - Drum2
     - Additive1
+    icon: {fileID: 2800000, guid: 2ee0cad3e91d7f04382bcde347fb5ee7, type: 3}
     salt: 3077222410686098686
