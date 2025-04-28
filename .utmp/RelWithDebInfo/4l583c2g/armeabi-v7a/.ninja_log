@@ -1,10 +1,19 @@
 # ninja log v5
 21	4304	7669686102745709	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	e621c69f0b36ef06
 38	4326	7669686102765707	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	396663d2dcf3d30c
-1	4340	7669686103129560	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	e611204840aaf645
-46	4346	7669686103169552	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	ddd22f59d4d6cabb
-8	4444	7669686104179815	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	ac4a7e9a9c2b99cc
 55	4611	7669686105855937	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	15c7bdf6d50aa125
+1	4340	7669686103129560	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	e611204840aaf645
+8	4444	7669686104179815	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	ac4a7e9a9c2b99cc
+46	4346	7669686103169552	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	ddd22f59d4d6cabb
+5023	5168	7669686111474195	D:/Work Games/Soviet-Steel/Library/Bee/Android/Prj/Mono2x/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4l583c2g/obj/armeabi-v7a/libgame.so	581576453f6491db
 29	4823	7669686107961036	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	c6276561778a8a2e
 15	5022	7669686109932894	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	88a5c3c9d0469d31
-5023	5168	7669686111474195	D:/Work Games/Soviet-Steel/Library/Bee/Android/Prj/Mono2x/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4l583c2g/obj/armeabi-v7a/libgame.so	581576453f6491db
+150	4811	7675474184964581	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	e621c69f0b36ef06
+122	4814	7675474184964581	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	396663d2dcf3d30c
+102	4820	7675474185132068	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	e611204840aaf645
+142	4830	7675474185289757	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	ddd22f59d4d6cabb
+14	4901	7675474185981159	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	ac4a7e9a9c2b99cc
+160	5031	7675474187301612	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	15c7bdf6d50aa125
+131	5282	7675474189776195	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	c6276561778a8a2e
+112	5465	7675474191576296	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	88a5c3c9d0469d31
+5466	6699	7675474204018001	D:/Work Games/Soviet-Steel/Library/Bee/Android/Prj/Mono2x/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4l583c2g/obj/armeabi-v7a/libgame.so	581576453f6491db

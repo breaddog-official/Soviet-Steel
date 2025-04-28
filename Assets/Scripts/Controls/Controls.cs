@@ -103,18 +103,9 @@ namespace Scripts.Controls
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Move1"",
-                    ""type"": ""Value"",
-                    ""id"": ""3ba2e708-74ff-4aec-841a-3920fe7b846e"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Break"",
+                    ""name"": ""Turbo"",
                     ""type"": ""Button"",
-                    ""id"": ""f1ba0d36-48eb-4cd5-b651-1c94a6531f70"",
+                    ""id"": ""15795297-34ad-4b5f-8898-0fd1f899c697"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -139,7 +130,7 @@ namespace Scripts.Controls
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -150,7 +141,7 @@ namespace Scripts.Controls
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -161,7 +152,7 @@ namespace Scripts.Controls
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -172,7 +163,7 @@ namespace Scripts.Controls
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -211,17 +202,6 @@ namespace Scripts.Controls
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""f7e052c9-9a7c-46f7-9661-9f956a179b54"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": ""down"",
                     ""id"": ""e5f29f05-42f7-46bb-a6f2-6d2c15faf196"",
                     ""path"": ""<Gamepad>/leftTrigger"",
@@ -236,17 +216,6 @@ namespace Scripts.Controls
                     ""name"": ""down"",
                     ""id"": ""676673c7-2a83-4eab-a84b-9ca8e11333e4"",
                     ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""cedf7a1b-2dac-4037-9067-4c1a7b04bb38"",
-                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -311,78 +280,100 @@ namespace Scripts.Controls
                 },
                 {
                     ""name"": ""Arrows"",
-                    ""id"": ""f3de5adc-0965-4c37-9a8b-8bf32a00320d"",
-                    ""path"": ""Dpad"",
+                    ""id"": ""4b0283f6-a8c2-44f1-87f8-c31da131d9db"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move1"",
+                    ""action"": ""Move"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""dd264f30-5f22-49c8-b77f-2679cfa5f2a1"",
+                    ""id"": ""8e0d5537-1f59-4d0f-84dd-437081b619e5"",
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Move1"",
+                    ""groups"": "";KeyboardRight"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""da1689dc-54a1-4f8a-b474-9df35c759a0c"",
+                    ""id"": ""349b39da-bc9a-40bc-87bb-0513176043aa"",
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Move1"",
+                    ""groups"": "";KeyboardRight"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""29d665de-9129-4868-8141-fea47804abbb"",
+                    ""id"": ""b785e782-8a55-43b8-81d6-dd8da777f0f9"",
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Move1"",
+                    ""groups"": "";KeyboardRight"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""5061941b-a9dc-40a4-a737-8e2305fb1581"",
+                    ""id"": ""1f21b3c8-b8a2-4968-bcbd-eff2809dd61e"",
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Move1"",
+                    ""groups"": "";KeyboardRight"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
-                    ""id"": ""eb40bb66-4559-4dfa-9a2f-820438abb426"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""id"": ""d5fb7c03-1118-40db-be86-bfafcc615922"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Break"",
+                    ""groups"": "";KeyboardLeft"",
+                    ""action"": ""Turbo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""794acfec-7bc4-480f-9d46-988c6c62ad85"",
+                    ""id"": ""1ffcd5e0-7925-4434-9a4f-a26d4c7afbe7"",
+                    ""path"": ""<Keyboard>/rightShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardRight"",
+                    ""action"": ""Turbo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""49f09775-743e-48ca-8c3c-619baa0c2e05"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""Break"",
+                    ""action"": ""Turbo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c6c441e4-2353-4c73-8c9d-68abd4f1cc73"",
+                    ""path"": ""<Joystick>/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Joystick"",
+                    ""action"": ""Turbo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -675,7 +666,7 @@ namespace Scripts.Controls
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -686,7 +677,7 @@ namespace Scripts.Controls
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -697,7 +688,7 @@ namespace Scripts.Controls
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -708,7 +699,7 @@ namespace Scripts.Controls
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -719,7 +710,7 @@ namespace Scripts.Controls
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -730,7 +721,7 @@ namespace Scripts.Controls
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -741,7 +732,7 @@ namespace Scripts.Controls
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -752,7 +743,7 @@ namespace Scripts.Controls
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -763,7 +754,7 @@ namespace Scripts.Controls
                     ""path"": ""*/{Submit}"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad;Touch;Joystick;XR;Keyboard"",
+                    ""groups"": ""Gamepad;Touch;Joystick;XR;KeyboardLeft"",
                     ""action"": ""Submit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -774,7 +765,7 @@ namespace Scripts.Controls
                     ""path"": ""*/{Cancel}"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad;Touch;Joystick;XR;Keyboard"",
+                    ""groups"": ""Gamepad;Touch;Joystick;XR;KeyboardLeft"",
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -785,7 +776,7 @@ namespace Scripts.Controls
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Point"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -796,7 +787,7 @@ namespace Scripts.Controls
                     ""path"": ""<Pen>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Point"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -818,7 +809,7 @@ namespace Scripts.Controls
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -829,7 +820,7 @@ namespace Scripts.Controls
                     ""path"": ""<Pen>/tip"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -862,7 +853,7 @@ namespace Scripts.Controls
                     ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""ScrollWheel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -873,7 +864,7 @@ namespace Scripts.Controls
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""RightClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -884,7 +875,7 @@ namespace Scripts.Controls
                     ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""MiddleClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -917,7 +908,7 @@ namespace Scripts.Controls
                     ""path"": ""<Keyboard>/anyKey"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Keyboard"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""AnyButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -949,8 +940,8 @@ namespace Scripts.Controls
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""Keyboard"",
-            ""bindingGroup"": ""Keyboard"",
+            ""name"": ""KeyboardLeft"",
+            ""bindingGroup"": ""KeyboardLeft"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
@@ -980,14 +971,24 @@ namespace Scripts.Controls
                     ""isOR"": false
                 }
             ]
+        },
+        {
+            ""name"": ""KeyboardRight"",
+            ""bindingGroup"": ""KeyboardRight"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
         }
     ]
 }");
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-            m_Player_Move1 = m_Player.FindAction("Move1", throwIfNotFound: true);
-            m_Player_Break = m_Player.FindAction("Break", throwIfNotFound: true);
+            m_Player_Turbo = m_Player.FindAction("Turbo", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1083,8 +1084,7 @@ namespace Scripts.Controls
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Move;
-        private readonly InputAction m_Player_Move1;
-        private readonly InputAction m_Player_Break;
+        private readonly InputAction m_Player_Turbo;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1101,13 +1101,9 @@ namespace Scripts.Controls
             /// </summary>
             public InputAction @Move => m_Wrapper.m_Player_Move;
             /// <summary>
-            /// Provides access to the underlying input action "Player/Move1".
+            /// Provides access to the underlying input action "Player/Turbo".
             /// </summary>
-            public InputAction @Move1 => m_Wrapper.m_Player_Move1;
-            /// <summary>
-            /// Provides access to the underlying input action "Player/Break".
-            /// </summary>
-            public InputAction @Break => m_Wrapper.m_Player_Break;
+            public InputAction @Turbo => m_Wrapper.m_Player_Turbo;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1137,12 +1133,9 @@ namespace Scripts.Controls
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Move1.started += instance.OnMove1;
-                @Move1.performed += instance.OnMove1;
-                @Move1.canceled += instance.OnMove1;
-                @Break.started += instance.OnBreak;
-                @Break.performed += instance.OnBreak;
-                @Break.canceled += instance.OnBreak;
+                @Turbo.started += instance.OnTurbo;
+                @Turbo.performed += instance.OnTurbo;
+                @Turbo.canceled += instance.OnTurbo;
             }
 
             /// <summary>
@@ -1157,12 +1150,9 @@ namespace Scripts.Controls
                 @Move.started -= instance.OnMove;
                 @Move.performed -= instance.OnMove;
                 @Move.canceled -= instance.OnMove;
-                @Move1.started -= instance.OnMove1;
-                @Move1.performed -= instance.OnMove1;
-                @Move1.canceled -= instance.OnMove1;
-                @Break.started -= instance.OnBreak;
-                @Break.performed -= instance.OnBreak;
-                @Break.canceled -= instance.OnBreak;
+                @Turbo.started -= instance.OnTurbo;
+                @Turbo.performed -= instance.OnTurbo;
+                @Turbo.canceled -= instance.OnTurbo;
             }
 
             /// <summary>
@@ -1402,17 +1392,17 @@ namespace Scripts.Controls
         /// Provides a new <see cref="UIActions" /> instance referencing this action map.
         /// </summary>
         public UIActions @UI => new UIActions(this);
-        private int m_KeyboardSchemeIndex = -1;
+        private int m_KeyboardLeftSchemeIndex = -1;
         /// <summary>
         /// Provides access to the input control scheme.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
-        public InputControlScheme KeyboardScheme
+        public InputControlScheme KeyboardLeftScheme
         {
             get
             {
-                if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
-                return asset.controlSchemes[m_KeyboardSchemeIndex];
+                if (m_KeyboardLeftSchemeIndex == -1) m_KeyboardLeftSchemeIndex = asset.FindControlSchemeIndex("KeyboardLeft");
+                return asset.controlSchemes[m_KeyboardLeftSchemeIndex];
             }
         }
         private int m_GamepadSchemeIndex = -1;
@@ -1441,6 +1431,19 @@ namespace Scripts.Controls
                 return asset.controlSchemes[m_JoystickSchemeIndex];
             }
         }
+        private int m_KeyboardRightSchemeIndex = -1;
+        /// <summary>
+        /// Provides access to the input control scheme.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
+        public InputControlScheme KeyboardRightScheme
+        {
+            get
+            {
+                if (m_KeyboardRightSchemeIndex == -1) m_KeyboardRightSchemeIndex = asset.FindControlSchemeIndex("KeyboardRight");
+                return asset.controlSchemes[m_KeyboardRightSchemeIndex];
+            }
+        }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player" which allows adding and removing callbacks.
         /// </summary>
@@ -1456,19 +1459,12 @@ namespace Scripts.Controls
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnMove(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "Move1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "Turbo" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnMove1(InputAction.CallbackContext context);
-            /// <summary>
-            /// Method invoked when associated input action "Break" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnBreak(InputAction.CallbackContext context);
+            void OnTurbo(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
