@@ -27,6 +27,7 @@ namespace Scripts.Settings
 
         public override void UpdateValue()
         {
+#if !PLATFORM_WEBGL
             var mixer = Setting == ScreenPostEffects.Retro ? retroMixer : defaultMixer;
 
             if (type == AudioType.AudioSource)
@@ -37,6 +38,7 @@ namespace Scripts.Settings
                 foreach (var source in dynamicMusic.GetSources())
                     source.Value.outputAudioMixerGroup = mixer;
             }
+#endif
         }
     }
 }

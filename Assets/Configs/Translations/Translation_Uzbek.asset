@@ -1,0 +1,155 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3912e0c767c410f4fa1f74d08325436e, type: 3}
+  m_Name: Translation_Uzbek
+  m_EditorClassIdentifier: 
+  <Language>k__BackingField: 142
+  Translation:
+    back: Orqaga
+    loading: Yuklanmoqda
+    none: "O\u2018chirilgan"
+    menu_play: "O\u2018ynash"
+    menu_settings: Sozlamalar
+    menu_quit: Chiqish
+    menu_garage: "Gara\u017E"
+    menu_region: Mintaqa
+    menu_join: "Qo\u2018shilish"
+    menu_bots_count: 'Botlar:'
+    menu_previous: Oldingi
+    menu_next: Keyingi
+    menu_select: Tanlash
+    menu_insert_tape: Kasetani joylashtiring
+    menu_level: Daraja
+    menu_settings_general: Umumiy
+    menu_settings_audio: Audio
+    menu_settings_graphics: Grafika
+    menu_settings_shadows: Soyalar
+    menu_settings_other: Boshqa
+    menu_settings_volume_sounds: Tovushlar
+    menu_settings_volume_music: Musiqa
+    menu_settings_volume_ambient: Atrof-muhit
+    menu_settings_geometry_quality: 'Geometriya:'
+    menu_settings_shaders_quality: 'Shaderlar:'
+    menu_settings_resolution_type: 'Kenglik:'
+    menu_settings_antialiasing: 'Antialiasing:'
+    menu_settings_render_distance: 'Chizish masofasi:'
+    menu_settings_fog_quality: 'Tuman:'
+    menu_settings_fullscreen_mode: 'Butun ekran rejimi:'
+    menu_settings_style_mode: 'Stil rejimi:'
+    menu_settings_mirror_quality: "Ko\u2018zgudagi sifat:"
+    menu_settings_shadows_mode: 'Soyalar:'
+    menu_settings_shadows_quality: 'Soyalar sifati:'
+    menu_settings_shadows_sources: 'Soyalar manbalari:'
+    menu_settings_language: 'Til:'
+    menu_settings_enable_vsync: 'Vertikal sinxronlash:'
+    menu_settings_color_blind: "Rang ko\u2018rmaslik"
+    menu_settings_color_blind_protanopia: Protanopiya
+    menu_settings_color_blind_deuteranopia: Deuteranopiya
+    menu_settings_color_blind_tritanopia: Tritanopiya
+    menu_settings_windowed: Derazaviy
+    menu_settings_maximized: Kengaytirilgan
+    menu_settings_fullscreen: Butun ekran
+    menu_settings_exclusive: Eksklyuziv
+    menu_settings_perfomance_level_worst: Eng yomon
+    menu_settings_perfomance_level_bad: Yomon
+    menu_settings_perfomance_level_not_bad: Yomon emas
+    menu_settings_perfomance_level_normal: Oddiy
+    menu_settings_perfomance_level_good: Yaxshi
+    menu_settings_perfomance_level_excellent: Ajoyib
+    menu_settings_perfomance_level_excess: "O\u2018ta yuqori"
+    menu_settings_low: Past
+    menu_settings_medium: "O\u2018rta"
+    menu_settings_high: Yuqori
+    menu_settings_ultra: Ultra
+    menu_settings_maximum: Maksimal
+    menu_settings_full: "To\u2018liq"
+    menu_settings_simple: Oddiy
+    menu_settings_volumetric: Hajmli
+    menu_settings_standart: Standart
+    menu_settings_advanced: "Ilg\u2018or"
+    menu_settings_style_modern: Zamonaviy
+    menu_settings_style_retro: Retro
+    menu_settings_shadows_only_sun: Faqat quyoshdan
+    menu_settings_shadows_everything: Hammasidan
+    menu_join_joinGame: "Qo\u2018shilish"
+    menu_join_find: Serverni topish
+    menu_join_manual: "Qo\u2018lda ulanish"
+    menu_join_manual_address: Manzil
+    menu_join_manual_port: Port
+    menu_server_players: "O\u2018yinchilar:"
+    menu_server_maxPlayers: "Maksimal o\u2018yinchilar:"
+    menu_levels_menu: Menyu
+    menu_levels_tundra: "O\u2018rmon tunda"
+    menu_levels_tundra_description: "Kichik ilmiy shahar yaqinidagi katta Sibirning
+      chekka hududlari musobaqalar uchun ajoyib joy ekanligini ko\u2018rsatmoqda!"
+    menu_levels_ural: "Ural tog\u2018lari"
+    menu_levels_ural_description: "Ural tog\u2018larining manzarali yo\u2018llari,
+      ular orqali uzun va burilishli marshrut o\u2018tadi."
+    menu_levels_blacksea: Qora dengiz
+    menu_levels_blacksea_description: "Buyuk Qora dengizning yovvoyi sohilida juda
+      chiroyli manzaraga ega, murakkab yo\u2018l."
+    menu_levels_saratov: Saratov
+    menu_levels_saratov_description: "Cheksiz cho\u2018lda unutilgan va tashlab ketilgan
+      shahar"
+    menu_levels_hills: "Tog\u2018lar"
+    menu_levels_hills_description: "Ko\u2018plab serpinginlar bilan murakkab yo\u2018lni
+      o\u2018taydigan tepalik landshaftlari"
+    menu_levels_darkforest: "Qorong\u2018i o\u2018rmon"
+    menu_levels_darkforest_description: "Tungi poygalar har doim professional haydovchilarni
+      jalb qilgan, ayniqsa katta mamlakatning keng o\u2018rmonlari bo\u2018lsa!"
+    menu_levels_fields: Maydonlar
+    menu_levels_fields_description: "Bug\u2018doy maydonlari, ular orqali murakkab
+      yo\u2018l o\u2018tadi"
+    menu_cars_21099: "To\u2018qqiz"
+    menu_cars_21099_description: "VAZ-21099 \u201ESputnik\u201C (oddiy qilib \u201ETo\u2018qqiz\u201C)
+      \u2014 Sovet va Rossiya kichik klassdagi o\u2018tgan avlodning mashinasi, Lada
+      Samara ning oldingi modelli. 1990 yil 22 dekabrdan 2004 yil 30 iyungacha ishlab
+      chiqarilgan. \r\n\r\nYengil va tezkor mashina, yo\u2018lda suzib ketadi."
+    menu_cars_2101: Bir
+    menu_cars_2101_description: "VAZ-2101 \u201EZhiguli\u201C (oddiy qilib \u201EBir\u201C)
+      \u2014 Sovet va Rossiya orqa tirkama mashinasi. \r\n\r\nYo\u2018lga kam bog\u2018langanligi
+      sababli tez emas, ammo juda harakatlanuvchan."
+    menu_cars_uaz: Buxanka
+    menu_cars_uaz_description: "UAZ-452 (UAZ SGR \u201EEski yuk mashinalari\u201C
+      \u2014 \u201EBuxanka\u201C) \u2014 Sovet harbiy maqsadlarda ishlatiladigan
+      ko\u2018p funktsiyali yuk mashinasi. \r\n\r\nOg\u2018ir va noqulay, lekin yaxshi
+      tezlikka erishishi mumkin."
+    menu_cars_2106: Olti
+    menu_cars_2106_description: "VAZ-2106 \u201EZhiguli\u201C (oddiy qilib \u201EOlti\u201C)
+      \u2014 Sovet va Rossiya kichik klassdagi orqa tirkama mashinasi, WAZ-2103 ning
+      yangilangan modeli. \r\n\r\nO\u2018rta bog\u2018lanish bilan mashina, tezlik
+      va harakatlanuvchanlikning oltin o\u2018rtasidir. Biroq, uning vazni nisbatan
+      katta."
+    menu_cars_2108: Sakkiz
+    menu_cars_2108_description: "VAZ-2108 \u201ESputnik\u201C (oddiy qilib \u201ESakkiz\u201C)
+      \u2014 Sovet va Rossiya kichik klassdagi mashina, uch eshikli hatchback tipi.
+      1984-2003 yillar davomida ishlab chiqarilgan. \r\n\r\nYuqori tezlik va engil
+      mashina, tezlik va harakatlanuvchanlikni birlashtiradi. Biroq, yo\u2018lga
+      bog\u2018lanish yaxshilanmaydi."
+    menu_cars_volga: Volga
+    menu_cars_volga_description: "GAZ-24 \u201EVolga\u201C \u2014 Sovet yuqori sinf
+      mashinasi, 1968-1986 yillar davomida ishlab chiqarilgan. \r\n\r\nOg\u2018irligi
+      sababli yaxshi bog\u2018lanishga ega, ammo tezlikka tezda erishish qiyin."
+    menu_cars_prototype: Prototip
+    menu_cars_prototype_description: "VAZ-2103 \u201EZhiguli\u201C kombi versiyasi
+      \u2014 WAZ-2103 ning eksperimental kombi versiyasi. 1974 yilda 3 dona ishlab
+      chiqarilgan, ammo ommaviy ishlab chiqarishga kirmagan. Nihoyat kam uchraydigan
+      mashina.\r\n\r\nYuqori tezlikka erishishi mumkin, lekin juda sekin boshlaydi."
+    discord_developing: "O\u2018yin ishlab chiqmoqda"
+    discord_host: "O\u2018z serverida o\u2018ynayapti"
+    discord_client: "Serverda o\u2018ynayapti"
+    game_leave: Chiqish
+    game_start_match: "O\u2018yin boshlash"
+    game_enter_nickname: Laqabni kiriting...
+    game_new_record: Yangi rekord!
+    game_score_title: Yakuniy natijalar
+    game_time: 'Vaqt:'

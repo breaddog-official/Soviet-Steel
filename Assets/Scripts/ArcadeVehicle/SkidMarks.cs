@@ -18,19 +18,13 @@ namespace ArcadeVP
             smoke = GetComponent<ParticleSystem>();
             skidMark = GetComponent<TrailRenderer>();
             skidMark.emitting = false;
+            skidMark.enabled = true;
+            skidMark.alignment = LineAlignment.TransformZ;
+            transform.Rotate(Vector3.right, 90f);
             //skidMark.startWidth = carController.skidWidth;
 
         }
 
-
-        private void OnEnable()
-        {
-            skidMark.enabled = true;
-        }
-        private void OnDisable()
-        {
-            skidMark.enabled = false;
-        }
 
         void FixedUpdate()
         {

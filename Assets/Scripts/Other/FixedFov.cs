@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -11,7 +12,15 @@ public class FixedFov : MonoBehaviour
         OnlyGreater
     }
 
+    protected enum CameraMode
+    {
+        Camera,
+        Cinemachine
+    }
+
+    [SerializeField] protected CameraMode cameraMode;
     [SerializeField] protected Camera cam;
+    [ShowIf(nameof(cameraMode), CameraMode.Cinemachine)]
     [SerializeField] protected CinemachineCamera cinemaCam;
     [Space]
     [SerializeField] protected float targetFov = 60f;
@@ -22,7 +31,6 @@ public class FixedFov : MonoBehaviour
 
     protected float TargetAspect => ((float)targetAspect.x) / targetAspect.y;
     protected float CurrentAspect => ((float)cam.pixelWidth) / cam.pixelHeight;
-
 
 
     private void Start()
@@ -36,7 +44,7 @@ public class FixedFov : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (cam == null || cinemaCam == null)
+        if (cam == null || (cameraMode == CameraMode.Cinemachine && cinemaCam == null))
             return;
 
         float currentAspect;
@@ -51,7 +59,20 @@ public class FixedFov : MonoBehaviour
             currentAspect = CurrentAspect;
 
         float calculatedFov = targetFov * TargetAspect / currentAspect;
-        cinemaCam.Lens.FieldOfView = calculatedFov > maxFov ? maxFov : calculatedFov;
+        SetFov(Mathf.Min(calculatedFov, maxFov));
     }
 
+    protected virtual void SetFov(float fov)
+    {
+        switch (cameraMode)
+        {
+            case CameraMode.Camera:
+                cam.fieldOfView = fov;
+                break;
+
+            case CameraMode.Cinemachine:
+                cinemaCam.Lens.FieldOfView = fov;
+                break;
+        }
+    }
 }

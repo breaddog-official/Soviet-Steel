@@ -1,4 +1,4 @@
-using Scripts.TranslateManagement;
+ using Scripts.TranslateManagement;
 
 namespace Scripts.Settings
 {
@@ -6,6 +6,7 @@ namespace Scripts.Settings
     {
         public override void UpdateValue()
         {
+#if !YandexGamesPlatform_yg
             if (Setting == ApplicationLanguage.Unknown && TranslateManager.GameLanguage != ApplicationLanguage.Unknown)
             {
                 SetSetting(TranslateManager.GameLanguage);
@@ -13,6 +14,7 @@ namespace Scripts.Settings
             }
 
             TranslateManager.ChangeLanguage(Setting);
+#endif
         }
     }
 }

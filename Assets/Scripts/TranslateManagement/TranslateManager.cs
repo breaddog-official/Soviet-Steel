@@ -57,7 +57,7 @@ namespace Scripts.TranslateManagement
             if (withInvoke) GameLanguageChanged?.Invoke();
         }
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void SetSystemLanguage() => ChangeLanguage(GetSystemLanguage());
 
         public static string GetTranslationString(string name)

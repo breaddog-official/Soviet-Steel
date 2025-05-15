@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 5361874214287896417}
   - component: {fileID: 3211685642690975998}
   - component: {fileID: 7321208815162121365}
+  - component: {fileID: 8263204110017661697}
   m_Layer: 7
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -160,6 +161,21 @@ MonoBehaviour:
   AmplitudeGain: 1
   FrequencyGain: 1
   m_NoiseOffsets: {x: -560.64746, y: 203.72498, z: -422.7694}
+--- !u!114 &8263204110017661697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116642557668908073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955a88b206bb9ae4bb8a6fe1fa71ade9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraMode: 1
+  cam: {fileID: 0}
+  cinemachine: {fileID: 4827250677853304712}
 --- !u!1 &119847570876541542
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,10 +491,6 @@ MonoBehaviour:
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: f1ba0d36-48eb-4cd5-b651-1c94a6531f70
-    m_ActionName: 'Player/Break[/Keyboard/space]'
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: c95b2375-e6d9-4b88-9c4c-c5e76515df4b
     m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
@@ -519,12 +531,12 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 3ba2e708-74ff-4aec-841a-3920fe7b846e
-    m_ActionName: 'Player/Move1[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: af90f6f1-56a3-49e4-9472-40a9a6cef227
     m_ActionName: 'UI/AnyButton[/Keyboard/anyKey]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 15795297-34ad-4b5f-8898-0fd1f899c697
+    m_ActionName: 'Player/Turbo[/Keyboard/leftShift,/Keyboard/rightShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -548,7 +560,7 @@ MonoBehaviour:
   nickText: {fileID: 7009034035561991701}
   nicknameSettings: {fileID: 11400000, guid: 8600ccc0f78c0ea4297bc2bf34daddbd, type: 2}
   vehicleController: {fileID: 8641940616736910355}
-  cinemachine: {fileID: 116642557668908073}
+  cinemachine: {fileID: 4827250677853304712}
   input: {fileID: 1302148977035955355}
   ui: {fileID: 5013784450166342955}
   mirrorCamera: {fileID: 6019272620504309791}
@@ -888,10 +900,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650323390445680912}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 40
+  m_LinearDamping: 0
+  m_AngularDamping: 40
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -11698,10 +11710,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4828154338887198920}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -16883,7 +16895,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6315959550951501673}
-  m_LocalRotation: {x: 0.0026530148, y: -0.6898192, z: 0.0025278598, w: 0.72397244}
+  m_LocalRotation: {x: 0.03562863, y: -0, z: -0, w: 0.9993651}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.1739526, y: 1.1818194, z: 1.1817828}
   m_ConstrainProportionsScale: 0

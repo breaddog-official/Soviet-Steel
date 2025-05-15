@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scripts.TranslateManagement
@@ -59,6 +60,7 @@ namespace Scripts.TranslateManagement
             }
         }
         #endregion
+
 
         #region SystemToHLCode
         public static string SystemToHLCode(SystemLanguage systemLanguage)
@@ -461,6 +463,7 @@ namespace Scripts.TranslateManagement
         }
         #endregion
 
+
         #region SystemToApplicationLanguage
         public static ApplicationLanguage SystemToApplicationLanguage(SystemLanguage systemLanguage)
         {
@@ -566,6 +569,7 @@ namespace Scripts.TranslateManagement
         }
 
         #endregion
+
 
         #region ConvertHLCodeToApplicationLanguage
         public static ApplicationLanguage HLCodeToApplication(string hlCode)
@@ -873,31 +877,206 @@ namespace Scripts.TranslateManagement
         }
         #endregion
 
+
+        #region NativeLanguage
+
+        private static readonly Dictionary<ApplicationLanguage, string> LanguageNames = new Dictionary<ApplicationLanguage, string>
+        {
+        { ApplicationLanguage.Unknown, "Unknown" },
+        { ApplicationLanguage.Afrikaans, "Afrikaans" },
+        { ApplicationLanguage.Akan, "Akan" },
+        { ApplicationLanguage.Albanian, "Shqip" },
+        { ApplicationLanguage.Amharic, "አማርኛ" },
+        { ApplicationLanguage.Arabic, "العربية" },
+        { ApplicationLanguage.Armenian, "Հայերեն" },
+        { ApplicationLanguage.Azerbaijani, "Azərbaycan dili" },
+        { ApplicationLanguage.Basque, "Euskara" },
+        { ApplicationLanguage.Belarusian, "Беларуская" },
+        { ApplicationLanguage.Bemba, "Ichibemba" },
+        { ApplicationLanguage.Bengali, "বাংলা" },
+        { ApplicationLanguage.Bihari, "भोजपुरी" },
+        { ApplicationLanguage.Bork, "Bork" },
+        { ApplicationLanguage.Bosnian, "Bosanski" },
+        { ApplicationLanguage.Breton, "Brezhoneg" },
+        { ApplicationLanguage.Bulgarian, "Български" },
+        { ApplicationLanguage.Cambodian, "ភាសាខ្មែរ" },
+        { ApplicationLanguage.Catalan, "Català" },
+        { ApplicationLanguage.Cherokee, "ᏣᎳᎩ" },
+        { ApplicationLanguage.Chichewa, "ChiCheŵa" },
+        { ApplicationLanguage.Chinese_Simplified, "简体中文" },
+        { ApplicationLanguage.Chinese_Traditional, "繁體中文" },
+        { ApplicationLanguage.Corsican, "Corsu" },
+        { ApplicationLanguage.Croatian, "Hrvatski" },
+        { ApplicationLanguage.Czech, "Čeština" },
+        { ApplicationLanguage.Danish, "Dansk" },
+        { ApplicationLanguage.Dutch, "Nederlands" },
+        { ApplicationLanguage.Elmer, "Elmer" },
+        { ApplicationLanguage.English, "English" },
+        { ApplicationLanguage.Esperanto, "Esperanto" },
+        { ApplicationLanguage.Estonian, "Eesti" },
+        { ApplicationLanguage.Ewe, "Eʋegbe" },
+        { ApplicationLanguage.Faroese, "Føroyskt" },
+        { ApplicationLanguage.Filipino, "Filipino" },
+        { ApplicationLanguage.Finnish, "Suomi" },
+        { ApplicationLanguage.French, "Français" },
+        { ApplicationLanguage.Frisian, "Frysk" },
+        { ApplicationLanguage.Ga, "Gã" },
+        { ApplicationLanguage.Galician, "Galego" },
+        { ApplicationLanguage.Georgian, "ქართული" },
+        { ApplicationLanguage.German, "Deutsch" },
+        { ApplicationLanguage.Greek, "Ελληνικά" },
+        { ApplicationLanguage.Guarani, "Avañe'ẽ" },
+        { ApplicationLanguage.Gujarati, "ગુજરાતી" },
+        { ApplicationLanguage.Hacker, "H4x0r" },
+        { ApplicationLanguage.Haitian, "Kreyòl ayisyen" },
+        { ApplicationLanguage.Hausa, "Hausa" },
+        { ApplicationLanguage.Hawaiian, "ʻŌlelo Hawaiʻi" },
+        { ApplicationLanguage.Hebrew, "עברית" },
+        { ApplicationLanguage.Hindi, "हिन्दी" },
+        { ApplicationLanguage.Hungarian, "Magyar" },
+        { ApplicationLanguage.Icelandic, "Íslenska" },
+        { ApplicationLanguage.Igbo, "Asụsụ Igbo" },
+        { ApplicationLanguage.Indonesian, "Bahasa Indonesia" },
+        { ApplicationLanguage.Interlingua, "Interlingua" },
+        { ApplicationLanguage.Irish, "Gaeilge" },
+        { ApplicationLanguage.Italian, "Italiano" },
+        { ApplicationLanguage.Japanese, "日本語" },
+        { ApplicationLanguage.Javanese, "Basa Jawa" },
+        { ApplicationLanguage.Kannada, "ಕನ್ನಡ" },
+        { ApplicationLanguage.Kazakh, "Қазақ тілі" },
+        { ApplicationLanguage.Kinyarwanda, "Ikinyarwanda" },
+        { ApplicationLanguage.Kirundi, "Ikirundi" },
+        { ApplicationLanguage.Klingon, "tlhIngan Hol" },
+        { ApplicationLanguage.Kongo, "Kikongo" },
+        { ApplicationLanguage.Korean, "한국어" },
+        { ApplicationLanguage.Krio, "Krio" },
+        { ApplicationLanguage.Kurdish, "Kurdî" },
+        { ApplicationLanguage.Kurdish_Soranî, "کوردیی سۆرانی" },
+        { ApplicationLanguage.Kyrgyz, "Кыргызча" },
+        { ApplicationLanguage.Laothian, "ພາສາລາວ" },
+        { ApplicationLanguage.Latin, "Latina" },
+        { ApplicationLanguage.Latvian, "Latviešu" },
+        { ApplicationLanguage.Lingala, "Lingála" },
+        { ApplicationLanguage.Lithuanian, "Lietuvių" },
+        { ApplicationLanguage.Lozi, "Silozi" },
+        { ApplicationLanguage.Luganda, "Luganda" },
+        { ApplicationLanguage.Luo, "Dholuo" },
+        { ApplicationLanguage.Macedonian, "Македонски" },
+        { ApplicationLanguage.Malagasy, "Malagasy" },
+        { ApplicationLanguage.Malay, "Bahasa Melayu" },
+        { ApplicationLanguage.Malayalam, "മലയാളം" },
+        { ApplicationLanguage.Maltese, "Malti" },
+        { ApplicationLanguage.Maori, "Te Reo Māori" },
+        { ApplicationLanguage.Marathi, "मराठी" },
+        { ApplicationLanguage.Mauritian_Creole, "Kreol Morisien" },
+        { ApplicationLanguage.Moldavian, "Moldovenească" },
+        { ApplicationLanguage.Mongolian, "Монгол" },
+        { ApplicationLanguage.Montenegrin, "Crnogorski" },
+        { ApplicationLanguage.Nepali, "नेपाली" },
+        { ApplicationLanguage.Nigerian_Pidgin, "Naijá" },
+        { ApplicationLanguage.Northern_Sotho, "Sesotho sa Leboa" },
+        { ApplicationLanguage.Norwegian, "Norsk" },
+        { ApplicationLanguage.Norwegian_Nynorsk, "Nynorsk" },
+        { ApplicationLanguage.Occitan, "Occitan" },
+        { ApplicationLanguage.Oriya, "ଓଡ଼ିଆ" },
+        { ApplicationLanguage.Oromo, "Afaan Oromoo" },
+        { ApplicationLanguage.Pashto, "پښتو" },
+        { ApplicationLanguage.Persian, "فارسی" },
+        { ApplicationLanguage.Pirate, "Pirate" },
+        { ApplicationLanguage.Polish, "Polski" },
+        { ApplicationLanguage.Portuguese_Brazil, "Português (Brasil)" },
+        { ApplicationLanguage.Portuguese_Portugal, "Português (Portugal)" },
+        { ApplicationLanguage.Punjabi, "ਪੰਜਾਬੀ" },
+        { ApplicationLanguage.Quechua, "Qhichwa" },
+        { ApplicationLanguage.Romanian, "Română" },
+        { ApplicationLanguage.Romansh, "Rumantsch" },
+        { ApplicationLanguage.Runyakitara, "Runyakitara" },
+        { ApplicationLanguage.Russian, "Русский" },
+        { ApplicationLanguage.Scots, "Scots" },
+        { ApplicationLanguage.Serbian, "Српски" },
+        { ApplicationLanguage.Serbo_Croatian, "Srpskohrvatski" },
+        { ApplicationLanguage.Sesotho, "Sesotho" },
+        { ApplicationLanguage.Setswana, "Setswana" },
+        { ApplicationLanguage.Seychellois_Creole, "Kreol Seselwa" },
+        { ApplicationLanguage.Shona, "ChiShona" },
+        { ApplicationLanguage.Sindhi, "سنڌي" },
+        { ApplicationLanguage.Sinhalese, "සිංහල" },
+        { ApplicationLanguage.Slovak, "Slovenčina" },
+        { ApplicationLanguage.Slovenian, "Slovenščina" },
+        { ApplicationLanguage.Somali, "Soomaaliga" },
+        { ApplicationLanguage.Spanish, "Español" },
+        { ApplicationLanguage.Spanish_LatinAmerican, "Español (Latinoamérica)" },
+        { ApplicationLanguage.Sundanese, "Basa Sunda" },
+        { ApplicationLanguage.Swahili, "Kiswahili" },
+        { ApplicationLanguage.Swedish, "Svenska" },
+        { ApplicationLanguage.Tajik, "Тоҷикӣ" },
+        { ApplicationLanguage.Tamil, "தமிழ்" },
+        { ApplicationLanguage.Tatar, "Татар теле" },
+        { ApplicationLanguage.Telugu, "తెలుగు" },
+        { ApplicationLanguage.Thai, "ไทย" },
+        { ApplicationLanguage.Tigrinya, "ትግርኛ" },
+        { ApplicationLanguage.Tonga, "Chitonga" },
+        { ApplicationLanguage.Tshiluba, "Tshiluba" },
+        { ApplicationLanguage.Tumbuka, "Chitumbuka" },
+        { ApplicationLanguage.Turkish, "Türkçe" },
+        { ApplicationLanguage.Turkmen, "Türkmençe" },
+        { ApplicationLanguage.Twi, "Twi" },
+        { ApplicationLanguage.Uighur, "ئۇيغۇرچە" },
+        { ApplicationLanguage.Ukrainian, "Українська" },
+        { ApplicationLanguage.Urdu, "اردو" },
+        { ApplicationLanguage.Uzbek, "Oʻzbekcha" },
+        { ApplicationLanguage.Vietnamese, "Tiếng Việt" },
+        { ApplicationLanguage.Welsh, "Cymraeg" },
+        { ApplicationLanguage.Wolof, "Wolof" },
+        { ApplicationLanguage.Xhosa, "isiXhosa" },
+        { ApplicationLanguage.Yiddish, "ייִדיש" },
+        { ApplicationLanguage.Yoruba, "Yorùbá" },
+        { ApplicationLanguage.Zulu, "isiZulu" },
+    };
+
+        public static string GetNativeLanguageName(ApplicationLanguage language)
+        {
+            if (LanguageNames.TryGetValue(language, out var name))
+            {
+                return name;
+            }
+            else
+                return language.ToString();
+        }
+
+        #endregion
+
+
         #region Extensions
 
-        public static bool CheckForGoogleTranslateException(this ApplicationLanguage systemLanguage)
-            => IsGoogleTranslateException(systemLanguage);
+    public static bool CheckForGoogleTranslateException(this ApplicationLanguage systemLanguage)
+        => IsGoogleTranslateException(systemLanguage);
 
 
 
-        public static string ToHLCode(this SystemLanguage systemLanguage)
-            => SystemToHLCode(systemLanguage);
+    public static string ToHLCode(this SystemLanguage systemLanguage)
+        => SystemToHLCode(systemLanguage);
 
-        public static string ToHLCode(this ApplicationLanguage applicationLanguage)
-            => ApplicationToHLCode(applicationLanguage);
-
-
-
-        public static ApplicationLanguage ToApplicationLanguage(this SystemLanguage systemLanguage)
-            => SystemToApplicationLanguage(systemLanguage);
+    public static string ToHLCode(this ApplicationLanguage applicationLanguage)
+        => ApplicationToHLCode(applicationLanguage);
 
 
-        public static ApplicationLanguage ToApplicationLanguage(this string parse)
-            => ParseToApplicationLanguage(parse);
+
+    public static ApplicationLanguage ToApplicationLanguage(this SystemLanguage systemLanguage)
+        => SystemToApplicationLanguage(systemLanguage);
 
 
-        public static ApplicationLanguage HLToApplicationLanguage(this string hlCode)
-            => HLCodeToApplication(hlCode);
+    public static ApplicationLanguage ToApplicationLanguage(this string parse)
+        => ParseToApplicationLanguage(parse);
+
+
+    public static ApplicationLanguage HLToApplicationLanguage(this string hlCode)
+        => HLCodeToApplication(hlCode);
+
+
+    public static string ToNativeName(this ApplicationLanguage language)
+        => GetNativeLanguageName(language);
+
         #endregion
     }
 }

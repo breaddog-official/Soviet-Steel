@@ -6,19 +6,26 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Audio;
+using static Unity.VisualScripting.Member;
 
 namespace Scripts.Audio
 {
-    public class DynamicMusic : MonoBehaviour
+    public class DynamicMusic : Music
     {
         [Range(0f, 1f)]
         [SerializeField] protected float volume;
         [SerializeField] protected AudioMixerGroup mixer;
         [Space]
+        [SerializeField] private float showDuration = 0.5f;
+        [SerializeField] private float hideDuration = 0.5f;
+        [Space]
         [SerializeField] protected MusicPart[] parts;
 
         protected readonly Dictionary<MusicPart, AudioSource> sources = new();
+        protected readonly HashSet<UniTask> tasksCache = new();
 
+        protected float volumeMultiplier = 1f;
+        protected float Volume => volume * volumeMultiplier;
 
 
         private void Awake()
@@ -40,7 +47,7 @@ namespace Scripts.Audio
         public void SetPattern(params string[] parts)
         {
             var patternParts = this.parts.Where(p => parts.Contains(p.name)).Select(p => sources[p]);
-            SmoothPlay(default, patternParts.ToArray()).Forget();
+            UpdateVolumes(default, patternParts.ToArray()).Forget();
         }
 
         public List<string> GetParts()
@@ -48,17 +55,36 @@ namespace Scripts.Audio
             return parts.Select(p => p.name).ToList();
         }
 
-        protected async UniTask SmoothPlay(CancellationToken token = default, params AudioSource[] sources)
+        protected async UniTask UpdateVolumes(CancellationToken token = default, params AudioSource[] sources)
         {
-            HashSet<UniTask> tasks = new();
+            tasksCache.Clear();
 
             foreach (var source in this.sources)
             {
-                float endValue = sources.Contains(source.Value) ? volume : 0f;
-                tasks.Add(source.Value.DOFade(endValue, 0.5f).WithCancellation(token));
+                bool contains = sources.Contains(source.Value);
+                float endValue = contains ? Volume : 0f;
+                float duration = contains ? showDuration : hideDuration;
+
+                source.Key.isPlaying = contains;
+
+                tasksCache.Add(source.Value.DOFade(endValue, duration).WithCancellation(token));
             }
 
-            await UniTask.WhenAll(tasks);
+            await UniTask.WhenAll(tasksCache);
+        }
+
+
+
+        public override async UniTask ShowMusic(CancellationToken token = default)
+        {
+            volumeMultiplier = 1f;
+            await UpdateVolumes(token, sources.Where(s => s.Key.isPlaying).Select(s => s.Value).ToArray());
+        }
+
+        public override async UniTask HideMusic(CancellationToken token = default)
+        {
+            volumeMultiplier = 0f;
+            await UpdateVolumes(token, sources.Where(s => s.Key.isPlaying).Select(s => s.Value).ToArray());
         }
 
 
@@ -69,6 +95,8 @@ namespace Scripts.Audio
         {
             public string name;
             public AudioResource clip;
+            [HideInInspector]
+            public bool isPlaying;
         }
     }
 }

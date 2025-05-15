@@ -25,14 +25,14 @@ public class BotsSpawner : NetworkBehaviour
     {
         for (int i = 0; i < GameManager.GameMode.bots; i++)
         {
+            if (variableSpawnDelay)
+                await UniTask.Delay(Random.Range(spawnDelay.x, spawnDelay.y).ConvertSecondsToMiliseconds());
+
             var player = NetworkManagerExt.instance.SpawnPlayer(new()
             {
                 name = GetName(),
                 carHash = GetCar()
             }, ConfigureBot);
-
-            if (variableSpawnDelay)
-                await UniTask.Delay(Random.Range(spawnDelay.x, spawnDelay.y).ConvertSecondsToMiliseconds());
         }
     }
 
@@ -54,7 +54,7 @@ public class BotsSpawner : NetworkBehaviour
         int notUsedIndex = Random.Range(0, notUsedCars.Count - 1);
         int carsIndex = notUsedCars[notUsedIndex];
 
-        notUsedCars.Remove(notUsedIndex);
+        notUsedCars.RemoveAt(carsIndex);
 
         return NetworkManagerExt.instance.registeredCars[carsIndex].car.CarHash;
     }

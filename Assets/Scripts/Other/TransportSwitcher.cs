@@ -1,5 +1,6 @@
 using System;
 using Mirror;
+using NaughtyAttributes;
 using Scripts.Extensions;
 using UnityEngine;
 
@@ -38,6 +39,8 @@ public class TransportSwitcher : MonoBehaviour
     [Serializable]
     private struct Transport
     {
+        [ShowNativeProperty]
+        public string Name => transport.ToString();
         public RuntimePlatformFlags availablePlatforms;
         public ConnectionMode availableConnectionModes;
         public Mirror.Transport transport;

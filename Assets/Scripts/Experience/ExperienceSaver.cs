@@ -58,6 +58,8 @@ namespace Scripts.Gameplay.Experience
 
         private void UpdateExperience(uint old, uint cur)
         {
+            saver.Save(experienceKey, cur.ToString());
+
             if (sendMetrics)
             {
                 if (old < cur)
@@ -81,8 +83,6 @@ namespace Scripts.Gameplay.Experience
                     YG.YG2.SetLeaderboard(leaderboardKey, (int)cur);
 #endif
             }
-
-            saver.Save(experienceKey, cur.ToString());
         }
 
         private string GetLevelKey(int level) => $"level{level}";

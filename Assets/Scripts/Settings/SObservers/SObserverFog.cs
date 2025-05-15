@@ -18,8 +18,6 @@ namespace Scripts.Settings
         [SerializeField] protected float linearPercentage = 5f;
         [ShowIf(EConditionOperator.And, nameof(smoothRenderDistanceByFog), nameof(IsExponential))]
         [SerializeField] protected float dencityMultiplier = 1f;
-        //[ShowIf(nameof(smoothRenderDistanceByFog))]
-        //[SerializeField] protected float distanceThreshold = 1000f;
         [ShowIf(nameof(smoothRenderDistanceByFog))]
         [SerializeField] protected Camera renderDistanceCamera;
 
@@ -60,27 +58,26 @@ namespace Scripts.Settings
 
         public override void UpdateValue()
         {
-            if (Application.isPlaying)
-            {
-                auraCamera.enabled = Setting == FogType.VolumetricFog;
-                RenderSettings.fog = Setting != FogType.None;
-            }
+            auraCamera.enabled = Setting == FogType.VolumetricFog;
+            RenderSettings.fog = Setting != FogType.None;
 
-            if (smoothRenderDistanceByFog /*&& renderDistanceCamera.farClipPlane < distanceThreshold*/)
+            float distance = EnvironmentManager.Instance.renderDistance;
+
+            if (smoothRenderDistanceByFog && RenderSettings.fog == true)
             {
                 if (IsLinear)
                 {
-                    var targetStart = renderDistanceCamera.farClipPlane / 100f * (100f - linearPercentage);
-                    var targetEnd = renderDistanceCamera.farClipPlane;
+                    var targetStart = distance / 100f * (100f - linearPercentage);
+                    var targetEnd = distance;
 
-                    RenderSettings.fogStartDistance = targetStart < cachedStartDistance ? targetStart : cachedStartDistance;
-                    RenderSettings.fogEndDistance = targetEnd < cachedEndDistance ? targetEnd : cachedEndDistance;
+                    RenderSettings.fogStartDistance = Mathf.Min(targetStart, cachedStartDistance);
+                    RenderSettings.fogEndDistance = Mathf.Min(targetEnd, cachedEndDistance);
                 }
                 else if (IsExponential)
                 {
-                    var targetDensity = GetDensity(renderDistanceCamera.farClipPlane, RenderSettings.fogMode);
+                    var targetDensity = GetDensity(distance, RenderSettings.fogMode);
 
-                    RenderSettings.fogDensity = targetDensity > cachedDencity ? targetDensity : cachedDencity;
+                    RenderSettings.fogDensity = Mathf.Max(targetDensity, cachedDencity);
                 }
             }
             else if (Application.isPlaying)
@@ -108,9 +105,9 @@ namespace Scripts.Settings
         [Button]
         public void Cache()
         {
-            cachedDencity = RenderSettings.fogDensity;
             cachedStartDistance = RenderSettings.fogStartDistance;
             cachedEndDistance = RenderSettings.fogEndDistance;
+            cachedDencity = RenderSettings.fogDensity;
         }
 
 

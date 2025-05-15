@@ -40,7 +40,8 @@ namespace Scripts.Settings
                 }
                 else if (autoSetDefaultSettings && defaultSettingsSO != null)
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(SavePath));
+                    if (saver is SaverIO || (saver is MultipleSaver multiple && multiple.Saver is SaverIO))
+                        Directory.CreateDirectory(Path.GetDirectoryName(SavePath));
 
                     SettingsManager.SetSettings(defaultSettingsSO);
                     SaveSettings().Forget();

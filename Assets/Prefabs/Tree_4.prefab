@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8493285530827952758}
   - component: {fileID: 1698979400670478253}
   - component: {fileID: 7908509091905691762}
-  - component: {fileID: 5232087130017201968}
   m_Layer: 0
   m_Name: Tree_4
   m_TagString: Untagged
@@ -89,29 +88,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!205 &5232087130017201968
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2169945341778730843}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: 0.1578722, y: 12.403544, z: -0.52308464}
-  m_Size: 27.709558
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.22867174
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 7908509091905691762}
-  - screenRelativeHeight: 0.017287513
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 3721113733780101931}
-  m_Enabled: 1
 --- !u!1 &5799555097592046511
 GameObject:
   m_ObjectHideFlags: 0

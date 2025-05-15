@@ -10,7 +10,7 @@ namespace Scripts.SaveManagement
     {
         public Saver[] savers;
 
-        private Saver Saver
+        public Saver Saver
         {
             get
             {

@@ -8,9 +8,14 @@ namespace Scripts.Settings
         public static Settings Settings { get; private set; }
 
         /// <summary>
-        /// Calls when settings was changed
+        /// Calles when Settings has been changed
         /// </summary>
         public static event Action OnSettingsChanged;
+
+        /// <summary>
+        /// Calles when some setting has been changed
+        /// </summary>
+        public static event Action<string> OnSettingChanged;
 
 
 
@@ -29,6 +34,7 @@ namespace Scripts.Settings
         {
             Settings?.SetValue(name, value);
             OnSettingsChanged?.Invoke();
+            OnSettingChanged?.Invoke(name);
         }
 
         /// <summary>
@@ -36,6 +42,9 @@ namespace Scripts.Settings
         /// </summary>
         public static object GetSetting(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException($"Field name {name} is invalid");
+
             return Settings?.GetValue(name);
         }
 
@@ -44,6 +53,9 @@ namespace Scripts.Settings
         /// </summary>
         public static T GetSetting<T>(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException($"Field name {name} is invalid");
+
             return Settings.GetValue<T>(name) ?? default;
         }
     }

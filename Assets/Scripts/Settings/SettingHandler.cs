@@ -52,6 +52,27 @@ namespace Scripts.Settings
         {
             SettingsManager.SetSetting(Name, value);
         }
+
+
+        protected override void OnEnable()
+        {
+            SettingsManager.OnSettingChanged += UpdateSetting;
+
+            if (SettingsManager.Settings != null)
+                UpdateValue();
+        }
+
+        protected override void OnDisable()
+        {
+            SettingsManager.OnSettingChanged -= UpdateSetting;
+        }
+
+
+        protected virtual void UpdateSetting(string name)
+        {
+            if (name == Name)
+                UpdateValue();
+        }
     }
 
     /// <summary>

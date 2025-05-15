@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6203806619319889291}
   - component: {fileID: 3042143205498684319}
   - component: {fileID: 2049485141320313693}
+  - component: {fileID: 4317599594093382995}
   m_Layer: 0
   m_Name: HelicopterCinemachine
   m_TagString: Untagged
@@ -162,3 +163,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd2eea4f0523f3449b254b2d907e2d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4317599594093382995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4216129917934454769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955a88b206bb9ae4bb8a6fe1fa71ade9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraMode: 1
+  cam: {fileID: 0}
+  cinemachine: {fileID: 1410224592680881287}

@@ -1,0 +1,157 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3912e0c767c410f4fa1f74d08325436e, type: 3}
+  m_Name: Translation_Turkish
+  m_EditorClassIdentifier: 
+  <Language>k__BackingField: 136
+  Translation:
+    back: Geri
+    loading: "Y\xFCkleniyor"
+    none: "Kapal\u0131"
+    menu_play: Oyna
+    menu_settings: Ayarlar
+    menu_quit: "\xC7\u0131k\u0131\u015F"
+    menu_garage: Garaj
+    menu_region: "B\xF6lge"
+    menu_join: "Kat\u0131l"
+    menu_bots_count: 'Botlar:'
+    menu_previous: "\xD6nceki"
+    menu_next: Sonraki
+    menu_select: "Se\xE7"
+    menu_insert_tape: "kaseti tak\u0131n"
+    menu_level: seviye
+    menu_settings_general: Genel
+    menu_settings_audio: Ses
+    menu_settings_graphics: Grafik
+    menu_settings_shadows: "G\xF6lgeler"
+    menu_settings_other: "Di\u011Fer"
+    menu_settings_volume_sounds: Ses Efektleri
+    menu_settings_volume_music: "M\xFCzik"
+    menu_settings_volume_ambient: Ortam
+    menu_settings_geometry_quality: 'Geometri:'
+    menu_settings_shaders_quality: 'Shaderlar:'
+    menu_settings_resolution_type: "\xC7\xF6z\xFCn\xFCrl\xFCk:"
+    menu_settings_antialiasing: "Kenar Yumu\u015Fatma:"
+    menu_settings_render_distance: "G\xF6r\xFC\u015F Mesafesi:"
+    menu_settings_fog_quality: 'Sis:'
+    menu_settings_fullscreen_mode: 'Tam ekran modu:'
+    menu_settings_style_mode: 'Stil modu:'
+    menu_settings_mirror_quality: 'Ayna kalitesi:'
+    menu_settings_shadows_mode: "G\xF6lgeler:"
+    menu_settings_shadows_quality: "G\xF6lge kalitesi:"
+    menu_settings_shadows_sources: "G\xF6lge kaynaklar\u0131:"
+    menu_settings_language: 'Dil:'
+    menu_settings_enable_vsync: 'Dikey senkronizasyon:'
+    menu_settings_color_blind: "Renk K\xF6rl\xFC\u011F\xFC"
+    menu_settings_color_blind_protanopia: Protanopi
+    menu_settings_color_blind_deuteranopia: Deuteranopi
+    menu_settings_color_blind_tritanopia: Tritanopi
+    menu_settings_windowed: Pencereli
+    menu_settings_maximized: "B\xFCy\xFCt\xFClm\xFC\u015F"
+    menu_settings_fullscreen: Tam ekran
+    menu_settings_exclusive: "\xD6zel"
+    menu_settings_perfomance_level_worst: "En k\xF6t\xFC"
+    menu_settings_perfomance_level_bad: "K\xF6t\xFC"
+    menu_settings_perfomance_level_not_bad: "Fena de\u011Fil"
+    menu_settings_perfomance_level_normal: Normal
+    menu_settings_perfomance_level_good: "\u0130yi"
+    menu_settings_perfomance_level_excellent: "M\xFCkemmel"
+    menu_settings_perfomance_level_excess: "A\u015F\u0131r\u0131"
+    menu_settings_low: "D\xFC\u015F\xFCk"
+    menu_settings_medium: Orta
+    menu_settings_high: "Y\xFCksek"
+    menu_settings_ultra: Ultra
+    menu_settings_maximum: Maksimum
+    menu_settings_full: Tam
+    menu_settings_simple: Basit
+    menu_settings_volumetric: Hacimli
+    menu_settings_standart: Standart
+    menu_settings_advanced: "Geli\u015Fmi\u015F"
+    menu_settings_style_modern: Modern
+    menu_settings_style_retro: Retro
+    menu_settings_shadows_only_sun: "Sadece g\xFCne\u015Ften"
+    menu_settings_shadows_everything: "Her \u015Feyden"
+    menu_join_joinGame: "Kat\u0131l"
+    menu_join_find: Sunucu Bul
+    menu_join_manual: "Manuel Kat\u0131l"
+    menu_join_manual_address: Adres
+    menu_join_manual_port: Port
+    menu_server_players: 'Oyuncular:'
+    menu_server_maxPlayers: 'Maksimum oyuncu:'
+    menu_levels_menu: "Men\xFC"
+    menu_levels_tundra: "Ormanl\u0131k Tundra"
+    menu_levels_tundra_description: "Sibirya'n\u0131n uzak bir k\xF6\u015Fesinde,
+      k\xFC\xE7\xFCk bir bilim kasabas\u0131 yak\u0131n\u0131nda yar\u0131\u015Fmak
+      i\xE7in m\xFCkemmel bir yer bulundu!"
+    menu_levels_ural: "Ural Da\u011Flar\u0131"
+    menu_levels_ural_description: "G\xFCzel Ural da\u011Flar\u0131ndan ge\xE7en uzun
+      ve dolamba\xE7l\u0131 bir rota."
+    menu_levels_blacksea: Karadeniz
+    menu_levels_blacksea_description: "B\xFCy\xFCk Karadeniz\u2019in vah\u015Fi k\u0131y\u0131s\u0131nda,
+      deniz ve da\u011Flar\u0131n muhte\u015Fem manzaras\u0131 e\u015Fli\u011Finde
+      zorlu bir parkur uzan\u0131yor."
+    menu_levels_saratov: Saratov
+    menu_levels_saratov_description: "Sonsuz bir bozk\u0131r\u0131n ortas\u0131nda
+      unutulmu\u015F ve terk edilmi\u015F bir \u015Fehir."
+    menu_levels_hills: Tepeler
+    menu_levels_hills_description: "Zorlu virajlara sahip tepelik arazide ge\xE7en
+      karma\u015F\u0131k bir yol."
+    menu_levels_darkforest: "Karanl\u0131k Orman"
+    menu_levels_darkforest_description: "Gece yar\u0131\u015Flar\u0131 her zaman
+      profesyonel s\xFCr\xFCc\xFCleri cezbetmi\u015Ftir, \xF6zellikle bu geni\u015F
+      ormanlarda!"
+    menu_levels_fields: Tarlalar
+    menu_levels_fields_description: "Bu\u011Fday tarlalar\u0131n\u0131n aras\u0131nda
+      ge\xE7en zorlu bir parkur."
+    menu_cars_21099: Dokuzluk
+    menu_cars_21099_description: "VAZ-21099 'Sputnik' (halk aras\u0131nda 'Dokuzluk')
+      \u2014 Sovyet ve Rus yap\u0131m\u0131 k\xFC\xE7\xFCk s\u0131n\u0131f bir binek
+      otomobil. 1990'dan 2004'e kadar \xFCretildi.\n\nHafif ve \xE7evik bir ara\xE7,
+      adeta yolun \xFCzerinde s\xFCz\xFCl\xFCr."
+    menu_cars_2101: "Kuru\u015Fluk"
+    menu_cars_2101_description: "VAZ-2101 'Zhiguli' (halk aras\u0131nda 'Birlik'
+      veya 'Kuru\u015Fluk') \u2014 Sovyet yap\u0131m\u0131 k\xFC\xE7\xFCk s\u0131n\u0131f
+      bir arka \xE7eki\u015Fli ara\xE7.\n\nYola tutunmas\u0131 zay\u0131f, bu y\xFCzden
+      \xE7ok h\u0131zl\u0131 de\u011Fil, ama olduk\xE7a \xE7evik."
+    menu_cars_uaz: Somun
+    menu_cars_uaz_description: "UAZ-452 (halk aras\u0131nda 'Somun') \u2014 Sovyet
+      yap\u0131m\u0131 d\xF6rt \xE7eker y\xFCk ve yolcu arac\u0131, esas olarak askeri
+      kullan\u0131m i\xE7indi.\n\nA\u011F\u0131r ve hantal, ancak iyi bir h\u0131za
+      ula\u015Fabiliyor."
+    menu_cars_2106: "Alt\u0131l\u0131k"
+    menu_cars_2106_description: "VAZ-2106 'Zhiguli' (halk aras\u0131nda 'Alt\u0131l\u0131k')
+      \u2014 Sovyet ve Rus yap\u0131m\u0131 arka \xE7eki\u015Fli k\xFC\xE7\xFCk s\u0131n\u0131f
+      bir araba.\n\nOrta derecede yol tutu\u015Fu sunar, h\u0131z ve \xE7eviklik
+      aras\u0131nda dengeli. Dezavantaj\u0131, nispeten a\u011F\u0131r olmas\u0131d\u0131r."
+    menu_cars_2108: Sekizlik
+    menu_cars_2108_description: "VAZ-2108 'Sputnik' (halk aras\u0131nda 'Sekizlik')
+      \u2014 Sovyet ve Rus yap\u0131m\u0131 k\xFC\xE7\xFCk s\u0131n\u0131f bir \xFC\xE7
+      kap\u0131l\u0131 hatchback.\n\nH\u0131zl\u0131 ve hafif bir ara\xE7, \xF6nceki
+      modellerin h\u0131z ve \xE7evikli\u011Fini birle\u015Ftiriyor. Ancak yol tutu\u015Fu
+      zay\u0131f."
+    menu_cars_volga: Volga
+    menu_cars_volga_description: "GAZ-24 'Volga' \u2014 Sovyet yap\u0131m\u0131 bir
+      \xFCst s\u0131n\u0131f otomobil, 1968\u20131986 y\u0131llar\u0131nda \xFCretildi.\n\nA\u011F\u0131r
+      oldu\u011Fu i\xE7in yola iyi tutunur ama h\u0131zlanmas\u0131 yava\u015F."
+    menu_cars_prototype: Prototip
+    menu_cars_prototype_description: "VAZ-2103 'Zhiguli' station wagon \u2014 deneysel
+      bir model. 1974 y\u0131l\u0131nda sadece \xFC\xE7 tane \xFCretildi.\n\nYava\u015F
+      h\u0131zlan\u0131r ama \xE7ok y\xFCksek maksimum h\u0131za ula\u015Fabilir."
+    discord_developing: "Oyunun geli\u015Ftirilmesi"
+    discord_host: Kendi sunucusunda oynuyor
+    discord_client: Bir sunucuda oynuyor
+    game_leave: "\xC7\u0131k"
+    game_start_match: "Ma\xE7\u0131 Ba\u015Flat"
+    game_enter_nickname: Takma ad girin...
+    game_new_record: Yeni Rekor!
+    game_score_title: "Sonu\xE7lar"
+    game_time: "S\xFCre:"

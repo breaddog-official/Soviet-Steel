@@ -425,7 +425,7 @@ namespace Scripts.Extensions
         /// </summary>
         public static bool SupportDataPath(this RuntimePlatform value)
         {
-            return value is not (RuntimePlatform.IPhonePlayer or RuntimePlatform.Android or RuntimePlatform.WebGLPlayer or RuntimePlatform.WSAPlayerARM or RuntimePlatform.WSAPlayerX64 or RuntimePlatform.WSAPlayerX86);
+            return value is not RuntimePlatform.IPhonePlayer or RuntimePlatform.Android or RuntimePlatform.WebGLPlayer or RuntimePlatform.WSAPlayerARM or RuntimePlatform.WSAPlayerX64 or RuntimePlatform.WSAPlayerX86;
         }
 
         /// <summary>
@@ -433,7 +433,7 @@ namespace Scripts.Extensions
         /// </summary>
         public static bool SupportPersistentDataPath(this RuntimePlatform value)
         {
-            return value is not (RuntimePlatform.tvOS or RuntimePlatform.WebGLPlayer or RuntimePlatform.WindowsEditor or RuntimePlatform.OSXEditor or RuntimePlatform.LinuxEditor);
+            return value is not RuntimePlatform.tvOS or RuntimePlatform.WebGLPlayer or RuntimePlatform.WindowsEditor or RuntimePlatform.OSXEditor or RuntimePlatform.LinuxEditor;
         }
 
         #endregion
@@ -867,7 +867,9 @@ namespace Scripts.Extensions
         MotionVectors = 1 << 13,
         ForwardRendering = 1 << 14,
         DefferedRendering = 1 << 15,
-        x64 = 1 << 16
+        x64 = 1 << 16,
+        RawShadowDepthSampling = 1 << 17,
+        Textures3DRender = 1 << 18
     }
 
     public static class ApplicationInfo
@@ -885,27 +887,29 @@ namespace Scripts.Extensions
             int shaderLevel = SystemInfo.graphicsShaderLevel;
             int textureSize = SystemInfo.maxTextureSize;
 
-            if (shaderLevel >= 30) specifies = specifies | PlatformSpecifies.ShaderLevel_3;
-            if (shaderLevel >= 40) specifies = specifies | PlatformSpecifies.ShaderLevel_4;
-            if (shaderLevel >= 45) specifies = specifies | PlatformSpecifies.ShaderLevel_4_5;
-            if (shaderLevel >= 50) specifies = specifies | PlatformSpecifies.ShaderLevel_5;
+            if (shaderLevel >= 30) specifies |= PlatformSpecifies.ShaderLevel_3;
+            if (shaderLevel >= 40) specifies |= PlatformSpecifies.ShaderLevel_4;
+            if (shaderLevel >= 45) specifies |= PlatformSpecifies.ShaderLevel_4_5;
+            if (shaderLevel >= 50) specifies |= PlatformSpecifies.ShaderLevel_5;
 
-            if (textureSize >= 2048) specifies = specifies | PlatformSpecifies.Texutres2K;
-            if (textureSize >= 4096) specifies = specifies | PlatformSpecifies.Texutres4K;
-            if (textureSize >= 8192) specifies = specifies | PlatformSpecifies.Texutres8K;
-            if (textureSize >= 16384) specifies = specifies | PlatformSpecifies.Texutres16K;
+            if (textureSize >= 2048) specifies |= PlatformSpecifies.Texutres2K;
+            if (textureSize >= 4096) specifies |= PlatformSpecifies.Texutres4K;
+            if (textureSize >= 8192) specifies |= PlatformSpecifies.Texutres8K;
+            if (textureSize >= 16384) specifies |= PlatformSpecifies.Texutres16K;
 
-            if (SystemInfo.supports2DArrayTextures) specifies = specifies | PlatformSpecifies.Textures2DArray;
-            if (SystemInfo.supports3DTextures) specifies = specifies | PlatformSpecifies.Textures3DVolume;
-            if (SystemInfo.supportsComputeShaders) specifies = specifies | PlatformSpecifies.ComputeShaders;
-            if (SystemInfo.supportsAnisotropicFilter) specifies = specifies | PlatformSpecifies.AnsotropicTextures;
-            if (SystemInfo.supportsShadows) specifies = specifies | PlatformSpecifies.Shadows;
-            if (SystemInfo.supportsMotionVectors) specifies = specifies | PlatformSpecifies.MotionVectors;
+            if (SystemInfo.supports2DArrayTextures) specifies |= PlatformSpecifies.Textures2DArray;
+            if (SystemInfo.supports3DTextures) specifies |= PlatformSpecifies.Textures3DVolume;
+            if (SystemInfo.supports3DRenderTextures) specifies |= PlatformSpecifies.Textures3DRender;
+            if (SystemInfo.supportsComputeShaders) specifies |= PlatformSpecifies.ComputeShaders;
+            if (SystemInfo.supportsAnisotropicFilter) specifies |= PlatformSpecifies.AnsotropicTextures;
+            if (SystemInfo.supportsShadows) specifies |= PlatformSpecifies.Shadows;
+            if (SystemInfo.supportsMotionVectors) specifies |= PlatformSpecifies.MotionVectors;
+            if (SystemInfo.supportsRawShadowDepthSampling) specifies |= PlatformSpecifies.RawShadowDepthSampling;
 
-            if (renderPath == RenderingPath.Forward) specifies = specifies | PlatformSpecifies.ForwardRendering;
-            if (renderPath == RenderingPath.DeferredShading) specifies = specifies | PlatformSpecifies.DefferedRendering;
+            if (renderPath == RenderingPath.Forward) specifies |= PlatformSpecifies.ForwardRendering;
+            if (renderPath == RenderingPath.DeferredShading) specifies |= PlatformSpecifies.DefferedRendering;
 
-            if (IntPtr.Size == 8) specifies = specifies | PlatformSpecifies.x64;
+            if (IntPtr.Size >= 8) specifies |= PlatformSpecifies.x64;
 
 
             return specifies;

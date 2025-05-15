@@ -15,4 +15,10 @@ MonoBehaviour:
   translations:
   - {fileID: 11400000, guid: bf2826dad4f541640a35149d50497770, type: 2}
   - {fileID: 11400000, guid: 09d3c43d68bc71348a2d86117d60608b, type: 2}
+  - {fileID: 11400000, guid: bb4cea5c47f236a4abadab0c10727f22, type: 2}
+  - {fileID: 11400000, guid: 42d08fd525af43048968ac899462ddda, type: 2}
+  - {fileID: 11400000, guid: 824368825dd6ff64d972465bbec19cc1, type: 2}
+  - {fileID: 11400000, guid: 2b7bfebd3b1e8c84fa5700a7728cebb8, type: 2}
+  - {fileID: 11400000, guid: 39c89e7122670e6439a0404beb28946b, type: 2}
+  - {fileID: 11400000, guid: 12fff2e1ce78f3844a89db1fae26ebd1, type: 2}
   <AutoTranslater>k__BackingField: {fileID: 11400000, guid: aa4b3d87035816d478a437ee7883d14c, type: 2}

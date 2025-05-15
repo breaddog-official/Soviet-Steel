@@ -94,9 +94,8 @@ namespace Scripts.SaveManagement
         {
             var platform = Application.platform;
 
-            var dataPath = platform.SupportDataPath() ? Application.dataPath : null;
-            var persistentPath = platform.SupportPersistentDataPath() ? Application.persistentDataPath : null;
-
+            var dataPath = platform.SupportDataPath() ? Application.dataPath : string.Empty;
+            var persistentPath = platform.SupportPersistentDataPath() ? Application.persistentDataPath : string.Empty;
 
             return preferLocation switch
             {

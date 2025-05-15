@@ -3,10 +3,10 @@ using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Loading : MonoBehaviour
+public class AsyncLoading : MonoBehaviour
 {
     [Scene]
-    [SerializeField] private string menuScene;
+    [SerializeField] private string scene;
 
     private AsyncOperation operation;
 
@@ -15,13 +15,15 @@ public class Loading : MonoBehaviour
     {
         Application.backgroundLoadingPriority = ThreadPriority.Low;
 
-        operation = SceneManager.LoadSceneAsync(menuScene, LoadSceneMode.Additive);
+        operation = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
         operation.allowSceneActivation = false;
     }
 
     public async void EndLoad()
     {
         operation.allowSceneActivation = true;
+
+        Application.backgroundLoadingPriority = ThreadPriority.High;
 
         await operation;
         await SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);

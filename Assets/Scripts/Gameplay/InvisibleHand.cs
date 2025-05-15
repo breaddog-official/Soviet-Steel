@@ -27,7 +27,8 @@ public class InvisibleHand : MonoBehaviour
                 var range = network.AI ? aiSpeedRange : playersSpeedRange;
                 var curve = network.AI ? aiSpeedCurve : playersSpeedCurve;
 
-                float speedMultiplier = Mathf.Lerp(range.x, range.y, curve.Evaluate(i / (float)(places.Count - 1)));
+                float amount = places.Count > 1 ? places.Count - 1f : 1f;
+                float speedMultiplier = Mathf.Lerp(range.x, range.y, curve.Evaluate(i / amount));
                 network.SetSpeedMultiplier(speedMultiplier);
             }
         }

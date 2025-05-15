@@ -1,6 +1,9 @@
 using Scripts.Extensions;
 using UnityEngine;
 using UnityEngine.Audio;
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 namespace Scripts.Audio
 {
@@ -17,7 +20,7 @@ namespace Scripts.Audio
         [SerializeField] private AudioResource buttonUpClip;
 
         public static AudioManager Instance { get; private set; }
-
+        private readonly static HashSet<Music> musics = new();
 
 
         private void Awake()
@@ -86,5 +89,34 @@ namespace Scripts.Audio
 
             return false;
         }
+
+
+        public static void AddMusic(Music music)
+        {
+            musics.Add(music);
+        }
+
+        public static void RemoveMusic(Music music)
+        {
+            musics.Remove(music);
+        }
+
+        public static async UniTask ShowMusics(CancellationToken token = default)
+        {
+            foreach (var music in musics)
+            {
+                await music.ShowMusic(token);
+            }
+        }
+
+        public static async UniTask HideMusics(CancellationToken token = default)
+        {
+            foreach (var music in musics)
+            {
+                await music.HideMusic(token);
+            }
+        }
+
+        public static IReadOnlyCollection<Music> GetMusics() => musics;
     }
 }

@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3912e0c767c410f4fa1f74d08325436e, type: 3}
+  m_Name: Translation_German
+  m_EditorClassIdentifier: 
+  <Language>k__BackingField: 41
+  Translation:
+    back: "Zur\xFCck"
+    loading: Laden
+    none: Aus
+    menu_play: Spielen
+    menu_settings: Einstellungen
+    menu_quit: Beenden
+    menu_garage: Garage
+    menu_region: Region
+    menu_join: Beitreten
+    menu_bots_count: 'Bots:'
+    menu_previous: "Zur\xFCck"
+    menu_next: Weiter
+    menu_select: "Ausw\xE4hlen"
+    menu_insert_tape: Kassette einlegen
+    menu_level: Level
+    menu_settings_general: Allgemein
+    menu_settings_audio: Audio
+    menu_settings_graphics: Grafik
+    menu_settings_shadows: Schatten
+    menu_settings_other: Sonstiges
+    menu_settings_volume_sounds: "Ger\xE4usche"
+    menu_settings_volume_music: Musik
+    menu_settings_volume_ambient: Umgebung
+    menu_settings_geometry_quality: 'Geometrie:'
+    menu_settings_shaders_quality: 'Shader:'
+    menu_settings_resolution_type: "Aufl\xF6sung:"
+    menu_settings_antialiasing: "Kantengl\xE4ttung:"
+    menu_settings_render_distance: 'Zeichnungsdistanz:'
+    menu_settings_fog_quality: 'Nebel:'
+    menu_settings_fullscreen_mode: 'Vollbildmodus:'
+    menu_settings_style_mode: 'Stilmodus:'
+    menu_settings_mirror_quality: 'Spiegelmodus:'
+    menu_settings_shadows_mode: 'Schatten:'
+    menu_settings_shadows_quality: "Schattierungsqualit\xE4t:"
+    menu_settings_shadows_sources: 'Schattenquellen:'
+    menu_settings_language: 'Sprache:'
+    menu_settings_enable_vsync: 'Vertikale Synchronisation:'
+    menu_settings_color_blind: Farbenblindheit
+    menu_settings_color_blind_protanopia: Protanopie
+    menu_settings_color_blind_deuteranopia: Deuteranopie
+    menu_settings_color_blind_tritanopia: Tritanopie
+    menu_settings_windowed: Fenster
+    menu_settings_maximized: Maximiert
+    menu_settings_fullscreen: Vollbild
+    menu_settings_exclusive: Exklusiv
+    menu_settings_perfomance_level_worst: Schlechteste
+    menu_settings_perfomance_level_bad: Schlecht
+    menu_settings_perfomance_level_not_bad: Nicht schlecht
+    menu_settings_perfomance_level_normal: Normal
+    menu_settings_perfomance_level_good: Gut
+    menu_settings_perfomance_level_excellent: Ausgezeichnet
+    menu_settings_perfomance_level_excess: Exzessiv
+    menu_settings_low: Niedrig
+    menu_settings_medium: Mittel
+    menu_settings_high: Hoch
+    menu_settings_ultra: Ultra
+    menu_settings_maximum: Maximum
+    menu_settings_full: Voll
+    menu_settings_simple: Einfach
+    menu_settings_volumetric: Volumetrisch
+    menu_settings_standart: Standard
+    menu_settings_advanced: Fortgeschritten
+    menu_settings_style_modern: Modern
+    menu_settings_style_retro: Retro
+    menu_settings_shadows_only_sun: Nur von der Sonne
+    menu_settings_shadows_everything: Von allem
+    menu_join_joinGame: Beitreten
+    menu_join_find: Server finden
+    menu_join_manual: Manuelle Verbindung
+    menu_join_manual_address: Adresse
+    menu_join_manual_port: Port
+    menu_server_players: 'Spieler:'
+    menu_server_maxPlayers: 'Maximale Spieler:'
+    menu_levels_menu: "Men\xFC"
+    menu_levels_tundra: Waldtundra
+    menu_levels_tundra_description: "Die abgelegenen Regionen Sibiriens, nahe einer
+      kleinen wissenschaftlichen Stadt, sind ein perfekter Ort f\xFCr Rennen!"
+    menu_levels_ural: Uralgebirge
+    menu_levels_ural_description: "Die malerischen Uralgebirge, durch die eine lange
+      und kurvige Strecke f\xFChrt."
+    menu_levels_blacksea: Schwarzes Meer
+    menu_levels_blacksea_description: "An einem wilden K\xFCstenabschnitt des Schwarzen
+      Meeres liegt eine anspruchsvolle Strecke mit herrlichem Blick auf das Meer
+      und das Kaukasusgebirge."
+    menu_levels_saratov: Saratow
+    menu_levels_saratov_description: "Eine vergessene und verlassene Stadt inmitten
+      der endlosen W\xFCste"
+    menu_levels_hills: "H\xFCgel"
+    menu_levels_hills_description: "H\xFCgelige Landschaften mit einer anspruchsvollen
+      Stra\xDFe voller Serpentinen"
+    menu_levels_darkforest: Dunkler Wald
+    menu_levels_darkforest_description: "Nachtrennen haben immer professionelle Fahrer
+      angezogen, besonders wenn es sich um die weiten W\xE4lder des gro\xDFen Landes
+      handelt!"
+    menu_levels_fields: Felder
+    menu_levels_fields_description: "Weizenfelder, durch die eine anspruchsvolle
+      Strecke f\xFChrt"
+    menu_cars_21099: Neun
+    menu_cars_21099_description: "WAZ-21099 \u201ESputnik\u201C (im Volksmund \u201ENeun\u201C)
+      \u2013 sowjetisches und russisches Fahrzeug der unteren Mittelklasse, Vorl\xE4ufer
+      der Lada Samara. Serienproduktion vom 22. Dezember 1990 bis 30. Juni 2004.
+      \r\n\r\nLeichtes und wendiges Fahrzeug, das f\xF6rmlich \xFCber die Stra\xDFe
+      gleitet."
+    menu_cars_2101: Kopeke
+    menu_cars_2101_description: "WAZ-2101 \u201EZhiguli\u201C (im Volksmund \u201EEins\u201C
+      oder \u201EKopeke\u201C) \u2013 sowjetisches Heckantriebsfahrzeug der unteren
+      Mittelklasse. \r\n\r\nHat wenig Grip, daher nicht sehr schnell, aber sehr wendig."
+    menu_cars_uaz: Buchanka
+    menu_cars_uaz_description: "UAZ-452 (UAZ SGR \u201EAlte Lkw-Reihe\u201C. Im Volksmund
+      \u201EBuchanka\u201C) \u2013 sowjetisches Allradfahrzeug mit erh\xF6hter Gel\xE4ndetauglichkeit,
+      haupts\xE4chlich f\xFCr milit\xE4rische Zwecke. \r\n\r\nSchwer und wenig wendig,
+      aber kann ziemlich schnell fahren."
+    menu_cars_2106: Sechs
+    menu_cars_2106_description: "WAZ-2106 \u201EZhiguli\u201C (im Volksmund \u201ESechs\u201C)
+      \u2013 sowjetisches und russisches Heckantriebsfahrzeug der unteren Mittelklasse,
+      eine Weiterentwicklung des WAZ-2103. \r\n\r\nHat mittleren Grip, daher die
+      goldene Mitte zwischen Geschwindigkeit und Wendigkeit. Der einzige Nachteil
+      ist das relativ hohe Gewicht."
+    menu_cars_2108: Acht
+    menu_cars_2108_description: "WAZ-2108 \u201ESputnik\u201C (im Volksmund \u201EAcht\u201C)
+      \u2013 sowjetisches und russisches Fahrzeug der unteren Mittelklasse mit einem
+      dreit\xFCrigen Hatchback-Karosserietyp. Serienproduktion von 1984 bis 2003.
+      \r\n\r\nIst ein schnelles und leichtes Fahrzeug, das Geschwindigkeit und Wendigkeit
+      der Vorg\xE4nger kombiniert. Leider l\xE4sst der Grip zu w\xFCnschen \xFCbrig."
+    menu_cars_volga: Volga
+    menu_cars_volga_description: "GAZ-24 \u201EVolga\u201C \u2013 sowjetisches Fahrzeug
+      der oberen Mittelklasse, das zwischen 1968 und 1986 in Serie produziert wurde.
+      \r\n\r\nDank seines hohen Gewichts hat es hervorragenden Grip, aber eine langsame
+      Beschleunigung."
+    menu_cars_prototype: Prototyp
+    menu_cars_prototype_description: "WAZ-2103 \u201EZhiguli\u201C mit Kombi-Karosserie
+      \u2013 experimentelle Version des WAZ-2103 mit Kombi-Karosserie. 1974 wurden
+      3 dieser Fahrzeuge gebaut, aber sie kamen nie in Serie. Ein sehr seltener Wagen.\r\n\r\nEs
+      beschleunigt sehr langsam, hat aber eine sehr hohe H\xF6chstgeschwindigkeit."
+    discord_developing: Entwickelt ein Spiel
+    discord_host: Spielt auf seinem Server
+    discord_client: Spielt auf dem Server
+    game_leave: Verlassen
+    game_start_match: Spiel starten
+    game_enter_nickname: Nickname eingeben...
+    game_new_record: Neuer Rekord!
+    game_score_title: Endergebnisse
+    game_time: 'Zeit:'

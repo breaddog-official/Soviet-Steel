@@ -12,13 +12,13 @@ public class CarEnvironmentSetter : MonoBehaviour
 
     private void OnEnable()
     {
-        EnvironmentManager.OnEnvironmnetChange += UpdateEnvironment;
+        EnvironmentManager.OnEnvironmentChange += UpdateEnvironment;
         UpdateEnvironment();
     }
 
     private void OnDisable()
     {
-        EnvironmentManager.OnEnvironmnetChange -= UpdateEnvironment;
+        EnvironmentManager.OnEnvironmentChange -= UpdateEnvironment;
     }
 
 
@@ -31,7 +31,7 @@ public class CarEnvironmentSetter : MonoBehaviour
         if (probe != null)
         {
             probe.backgroundColor = EnvironmentManager.Instance.skyColor;
-            probe.clearFlags = EnvironmentManager.Instance.skyBox ? ReflectionProbeClearFlags.Skybox : ReflectionProbeClearFlags.SolidColor;
+            probe.clearFlags = EnvironmentManager.Instance.skybox ? ReflectionProbeClearFlags.Skybox : ReflectionProbeClearFlags.SolidColor;
 
             probe.RenderProbe();
         }
@@ -39,7 +39,7 @@ public class CarEnvironmentSetter : MonoBehaviour
         if (mirror != null)
         {
             mirror.backgroundColor = EnvironmentManager.Instance.skyColor;
-            mirror.clearFlags = EnvironmentManager.Instance.skyBox ? CameraClearFlags.Skybox : CameraClearFlags.SolidColor;
+            mirror.clearFlags = EnvironmentManager.Instance.skybox ? CameraClearFlags.Skybox : CameraClearFlags.SolidColor;
         }
             
 

@@ -7,6 +7,15 @@ public class MobileInput : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        mobileInputs.SetActive(Touchscreen.current != null);
+        mobileInputs.SetActive(IsMobileInput());
+    }
+
+    public bool IsMobileInput()
+    {
+#if YandexGamesPlatform_yg
+        return YG.YG2.envir.isMobile || YG.YG2.envir.isTablet;
+#else
+        return Touchscreen.current != null;
+#endif
     }
 }

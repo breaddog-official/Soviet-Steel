@@ -14,7 +14,7 @@ namespace Scripts.UI
 
             // Select all languages as list of strings
             List<string> languages = new(from t in TranslationConfig.Instance.GetTranslations()
-                                        select t.Language.ToString());
+                                        select t.Language.ToNativeName());
 
             dropdown.ClearOptions();
             dropdown.AddOptions(languages);

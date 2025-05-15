@@ -1,7 +1,9 @@
 using System;
+using Cysharp.Threading.Tasks;
 using Mirror;
 using Scripts.Gameplay;
 using Scripts.Network;
+using Scripts.SceneManagement;
 using UnityEngine;
 
 namespace Scripts.UI
@@ -22,27 +24,28 @@ namespace Scripts.UI
             Solo
         }
 
-        protected NetworkManager NetworkManager => NetworkManager.singleton;
-        protected ServerDiscovery Discovery => ServerDiscovery.Instance;
+        protected static NetworkManager NetworkManager => NetworkManager.singleton;
+        protected static ServerDiscovery Discovery => ServerDiscovery.Instance;
 
         protected NetworkPlayMode playMode;
 
-        protected Uri uri;
+        protected static Uri uri;
 
 
         private void Start()
         {
             playMode = defaultPlayMode;
+            uri = null;
 
             if (autoStartDiscovery)
                 Discovery.StartDiscovery();
         }
 
         public void ClientMode() => playMode = NetworkPlayMode.Client;
-        public void ClientMode(Uri uri)
+        public void ClientMode(Uri clientUri)
         {
             ClientMode();
-            this.uri = uri;
+            uri = clientUri;
         }
         public void HostMode() => playMode = NetworkPlayMode.Host;
         public void ServerMode() => playMode = NetworkPlayMode.Server;
@@ -52,6 +55,13 @@ namespace Scripts.UI
         public void Play()
         {
             UpdateTransport();
+
+            PerformPlay(playMode).Forget();
+        }
+
+        private static async UniTask PerformPlay(NetworkPlayMode playMode)
+        {
+            await Loader.LoadSceneAsync(NetworkManager.onlineScene);
 
             switch (playMode)
             {
@@ -72,7 +82,7 @@ namespace Scripts.UI
                     break;
 
                 case NetworkPlayMode.Solo:
-                    SetMaxConnections(1);
+                    NetworkManager.maxConnections = 1;
 
                     NetworkManager.StartHost();
                     Discovery.StopDiscovery();

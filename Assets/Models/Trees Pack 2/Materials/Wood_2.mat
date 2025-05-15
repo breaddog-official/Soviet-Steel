@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Wood_2
-  m_Shader: {fileID: 4800000, guid: aa39e15a9f5d0ed47aa0951572b2dc9e, type: 3}
+  m_Shader: {fileID: 4800000, guid: dc4f008452b1fcb46b647419165f2731, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -72,7 +72,7 @@ Material:
     m_Floats:
     - _AO: 0
     - _AlphaCutoff: 0.5
-    - _BaseLight: 0.35
+    - _BaseLight: 1
     - _BlendOp: 0
     - _BumpScale: 1
     - _CameraFadingEnabled: 0

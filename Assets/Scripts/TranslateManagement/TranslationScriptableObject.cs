@@ -131,8 +131,8 @@ namespace Scripts.TranslateManagement
             try
             {
                 // Create file if it not exists
-                if (!File.Exists(path))
-                    File.Create(path);
+                //if (!File.Exists(path))
+                //    File.Create(path);
 
                 // Write json data into the file
                 File.WriteAllText(path, JsonConvert.SerializeObject(Translation, options));

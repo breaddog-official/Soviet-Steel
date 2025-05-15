@@ -236,7 +236,7 @@ namespace Scripts.UI
             var scaleTask = UniTask.CompletedTask;
 
 
-            if (StateToAnimation(state).HasFlag(AnimateType.Color))
+            if (StateToAnimation(state).HasFlag(AnimateType.Color) && HasAnimationType(AnimateType.Color))
             {
                 colorTask = targetGraphics.DOColor(state switch
                 {
@@ -250,7 +250,7 @@ namespace Scripts.UI
                 }, duration).WithCancellation(token);
             }
 
-            if (StateToAnimation(state).HasFlag(AnimateType.Move))
+            if (StateToAnimation(state).HasFlag(AnimateType.Move) && HasAnimationType(AnimateType.Move))
             {
                 positionTask = rect.DOLocalMove(state switch
                 {
@@ -264,7 +264,7 @@ namespace Scripts.UI
                 }, duration).WithCancellation(token);
             }
 
-            if (StateToAnimation(state).HasFlag(AnimateType.Scale))
+            if (StateToAnimation(state).HasFlag(AnimateType.Scale) && HasAnimationType(AnimateType.Scale))
             {
                 scaleTask = rect.DOScale(state switch
                 {
@@ -292,6 +292,11 @@ namespace Scripts.UI
                 AnimationState.Pressed => pressedAnimation,
                 _ => AnimateType.None
             };
+        }
+
+        protected bool HasAnimationType(AnimateType type)
+        {
+            return disabledAnimation.HasFlag(type) || highlightedAnimation.HasFlag(type) || selectedAnimation.HasFlag(type) || pressedAnimation.HasFlag(type);
         }
 
         public void Click()
