@@ -8,18 +8,18 @@ namespace Scripts.TranslateManagement
     [AddComponentMenu("Translaters/TextMeshPro Translater")]
     public class TextTranslater : SingleTranslater
     {
-        private TMP_Text text;
+        public TMP_Text Text { get; private set; }
 
         protected override void Awake()
         {
-            text = GetComponent<TMP_Text>();
+            Text = GetComponent<TMP_Text>();
 
             base.Awake();
         }
         public override void ChangeElement()
         {
-            if (text != null)
-                text.SetText(TranslationString);
+            if (Text != null)
+                Text.SetText(TranslationString);
         }
     }
 }

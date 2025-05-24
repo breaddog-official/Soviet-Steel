@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArcadeVP;
+using Mirror;
 using Scripts.Extensions;
 using Scripts.Gameplay;
 using Unity.Cinemachine;
@@ -33,6 +34,8 @@ public class CinemachineHelicopter : MonoBehaviour
 
     private void UpdateTargets()
     {
+        group.Targets.RemoveAll(t => t == null || t.Object == null);
+
         if (group.Targets.Count < GameManager.Instance.RoadManager.GetPlayers().Count)
         {
             var transforms = group.Targets.Select(t => t.Object);
@@ -52,10 +55,6 @@ public class CinemachineHelicopter : MonoBehaviour
                 }
             }
         }
-        else if (group.Targets.Count > GameManager.Instance.RoadManager.GetPlayers().Count)
-        {
-            group.Targets.RemoveAll(t => t == null || t.Object == null);
-        }
 
         foreach (var target in group.Targets)
         {
@@ -64,6 +63,8 @@ public class CinemachineHelicopter : MonoBehaviour
 
             target.Weight = first + second;// Mathf.Lerp(0, 1, GameManager.Instance.RoadManager.GetPlace(networks[target.Object]) / ((float)networks.Count - 1));
         }
+
+        //cinemachineCamera.enabled = group.Targets.Count > 0 && GameManager.Instance.RoadManager.GetPlayers().Count > 0 && NetworkClient.active;
     }
 
     public static void SetState(bool state)

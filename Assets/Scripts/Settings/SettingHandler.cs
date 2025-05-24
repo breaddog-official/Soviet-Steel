@@ -57,6 +57,7 @@ namespace Scripts.Settings
         protected override void OnEnable()
         {
             SettingsManager.OnSettingChanged += UpdateSetting;
+            SettingsManager.OnSettingsChanged += UpdateValue;
 
             if (SettingsManager.Settings != null)
                 UpdateValue();
@@ -65,12 +66,13 @@ namespace Scripts.Settings
         protected override void OnDisable()
         {
             SettingsManager.OnSettingChanged -= UpdateSetting;
+            SettingsManager.OnSettingsChanged -= UpdateValue;
         }
 
 
         protected virtual void UpdateSetting(string name)
         {
-            if (name == Name)
+            if (string.Equals(name, Name))
                 UpdateValue();
         }
     }
@@ -88,7 +90,7 @@ namespace Scripts.Settings
         {
             base.Awake();
 
-            if (dontDestroyOnLoad && spawnedInstance)
+            if (dontDestroyOnLoad && IsSpawnedInstance())
             {
                 Destroy(gameObject);
             }
@@ -98,6 +100,7 @@ namespace Scripts.Settings
             }
         }
 
+        protected virtual bool IsSpawnedInstance() => spawnedInstance;
 
         #region Editor
 #if UNITY_EDITOR

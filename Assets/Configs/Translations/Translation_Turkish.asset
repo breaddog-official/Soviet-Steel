@@ -23,12 +23,19 @@ MonoBehaviour:
     menu_garage: Garaj
     menu_region: "B\xF6lge"
     menu_join: "Kat\u0131l"
-    menu_bots_count: 'Botlar:'
     menu_previous: "\xD6nceki"
     menu_next: Sonraki
     menu_select: "Se\xE7"
     menu_insert_tape: "kaseti tak\u0131n"
     menu_level: seviye
+    menu_thanks_for_playing: "Oynad\u0131\u011F\u0131n\u0131z i\xE7in te\u015Fekk\xFCrler!"
+    menu_long_loading: "\u0130lk a\xE7\u0131l\u0131\u015F bekledi\u011Finizden daha
+      uzun s\xFCrebilir!"
+    menu_bots_count: 'Botlar:'
+    menu_rounds_count: 'Turlar:'
+    menu_server_settings_name: 'Adres:'
+    menu_server_settings_port: 'Liman:'
+    menu_server_settings_maxPlayers: "Max Oyuncular\u0131:"
     menu_settings_general: Genel
     menu_settings_audio: Ses
     menu_settings_graphics: Grafik
@@ -38,6 +45,7 @@ MonoBehaviour:
     menu_settings_volume_music: "M\xFCzik"
     menu_settings_volume_ambient: Ortam
     menu_settings_geometry_quality: 'Geometri:'
+    menu_settings_grass_density: "\xC7im Yo\u011Funlu\u011Fu:"
     menu_settings_shaders_quality: 'Shaderlar:'
     menu_settings_resolution_type: "\xC7\xF6z\xFCn\xFCrl\xFCk:"
     menu_settings_antialiasing: "Kenar Yumu\u015Fatma:"
@@ -155,3 +163,11 @@ MonoBehaviour:
     game_new_record: Yeni Rekor!
     game_score_title: "Sonu\xE7lar"
     game_time: "S\xFCre:"
+    game_points_text1: Drift!
+    game_points_text2: "\u0130yi!"
+    game_points_text3: Harika!
+    game_points_text4: Delilik!
+    game_points_text5: "\u0130nan\u0131lmaz!"
+    game_points_text6: "Muhte\u015Fem!"
+    game_points_text7: "\u0130mkans\u0131z!"
+    game_points_text8: Drift Master

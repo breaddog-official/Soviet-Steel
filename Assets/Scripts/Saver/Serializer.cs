@@ -11,6 +11,8 @@ namespace Scripts.SaveManagement
 
         public virtual T Deserialize<T>(string value) => (T)Deserialize(value);
 
+        public virtual bool IsAvailable() => true;
+
 #pragma warning disable CS1998 
 
         public async virtual UniTask<string> SerializeAsync(object value, CancellationToken token = default) => Serialize(value);

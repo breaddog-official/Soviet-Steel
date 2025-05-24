@@ -7,15 +7,29 @@ namespace Scripts.Settings
     {
         [Space]
         [SerializeField] protected Camera fastModeCamera;
-        [Space]
-        [SerializeField] protected RenderingPath defaultPath = RenderingPath.DeferredShading;
-        [SerializeField] protected RenderingPath fastModePath = RenderingPath.Forward;
+
+        public const RenderingPath defaultPath = RenderingPath.DeferredShading;
+        public const RenderingPath fastModePath = RenderingPath.Forward;
+
+
+        protected override void OnEnable()
+        {
+            ApplicationInfo.OnRenderPathChanged += UpdateValue;
+            base.OnEnable();
+        }
+
+        protected override void OnDisable()
+        {
+            ApplicationInfo.OnRenderPathChanged -= UpdateValue;
+            base.OnDisable();
+        }
 
 
         public override void UpdateValue()
         {
-            fastModeCamera.renderingPath = Setting ? fastModePath : defaultPath;
-            ApplicationInfo.renderPath = fastModeCamera.renderingPath;
+            fastModeCamera.renderingPath = ApplicationInfo.RenderPath;
+            //fastModeCamera.renderingPath = Setting ? fastModePath : defaultPath;
+            //ApplicationInfo.SetRenderPath(fastModeCamera.renderingPath);
         }
     }
 }

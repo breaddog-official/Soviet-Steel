@@ -23,12 +23,18 @@ MonoBehaviour:
     menu_garage: Garage
     menu_region: Region
     menu_join: Beitreten
-    menu_bots_count: 'Bots:'
     menu_previous: "Zur\xFCck"
     menu_next: Weiter
     menu_select: "Ausw\xE4hlen"
     menu_insert_tape: Kassette einlegen
     menu_level: Level
+    menu_thanks_for_playing: "Danke f\xFCrs Spielen!"
+    menu_long_loading: "Der erste Startvorgang kann l\xE4nger dauern als erwartet!"
+    menu_bots_count: 'Bots:'
+    menu_rounds_count: 'Runden:'
+    menu_server_settings_name: 'Adresse:'
+    menu_server_settings_port: 'Hafen:'
+    menu_server_settings_maxPlayers: 'Maximale Spieler:'
     menu_settings_general: Allgemein
     menu_settings_audio: Audio
     menu_settings_graphics: Grafik
@@ -38,6 +44,7 @@ MonoBehaviour:
     menu_settings_volume_music: Musik
     menu_settings_volume_ambient: Umgebung
     menu_settings_geometry_quality: 'Geometrie:'
+    menu_settings_grass_density: 'Grasdichte:'
     menu_settings_shaders_quality: 'Shader:'
     menu_settings_resolution_type: "Aufl\xF6sung:"
     menu_settings_antialiasing: "Kantengl\xE4ttung:"
@@ -157,3 +164,11 @@ MonoBehaviour:
     game_new_record: Neuer Rekord!
     game_score_title: Endergebnisse
     game_time: 'Zeit:'
+    game_points_text1: Drift!
+    game_points_text2: Gut!
+    game_points_text3: "Gro\xDFartig!"
+    game_points_text4: Wahnsinn!
+    game_points_text5: Toll!
+    game_points_text6: Wunderbar!
+    game_points_text7: "Unm\xF6glich!"
+    game_points_text8: Driftmeister

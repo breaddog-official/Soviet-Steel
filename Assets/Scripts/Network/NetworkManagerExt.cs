@@ -32,7 +32,13 @@ public class NetworkManagerExt : NetworkManager
         base.Awake();
     }
 
+    protected override void OnClientSceneInternal(SceneMessage msg)
+    {
 
+        // This needs to run for host client too. NetworkServer.active is checked there
+        if (NetworkClient.isConnected)
+            ClientChangeScene(msg.sceneName, msg.sceneOperation, msg.customHandling);
+    }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
@@ -200,7 +206,7 @@ public class NetworkManagerExt : NetworkManager
             Debug.LogError("ClientChangeScene empty scene name");
             return;
         }
-
+        print("on client change");
         //Debug.Log($"ClientChangeScene newSceneName: {newSceneName} networkSceneName{networkSceneName}");
 
         // Let client prepare for scene change
@@ -226,8 +232,8 @@ public class NetworkManagerExt : NetworkManager
         // scene handling will happen in overrides of OnClientChangeScene and/or OnClientSceneChanged
         // Do not call FinishLoadScene here. Custom handler will assign loadingSceneAsync and we need
         // to wait for that to finish. UpdateScene already checks for that to be not null and isDone.
-        if (customHandling)
-            return;
+        //if (customHandling)
+        //    return;
 
         switch (sceneOperation)
         {

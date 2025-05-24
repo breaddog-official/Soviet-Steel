@@ -874,7 +874,8 @@ namespace Scripts.Extensions
 
     public static class ApplicationInfo
     {
-        public static RenderingPath renderPath = RenderingPath.Forward;
+        public static RenderingPath RenderPath { get; private set; } = RenderingPath.Forward;
+        public static event Action OnRenderPathChanged;
 
         public static float FixedDeltaTime => Physics.simulationMode == SimulationMode.FixedUpdate ? Time.fixedDeltaTime : Time.deltaTime;
 
@@ -906,8 +907,8 @@ namespace Scripts.Extensions
             if (SystemInfo.supportsMotionVectors) specifies |= PlatformSpecifies.MotionVectors;
             if (SystemInfo.supportsRawShadowDepthSampling) specifies |= PlatformSpecifies.RawShadowDepthSampling;
 
-            if (renderPath == RenderingPath.Forward) specifies |= PlatformSpecifies.ForwardRendering;
-            if (renderPath == RenderingPath.DeferredShading) specifies |= PlatformSpecifies.DefferedRendering;
+            if (RenderPath == RenderingPath.Forward) specifies |= PlatformSpecifies.ForwardRendering;
+            if (RenderPath == RenderingPath.DeferredShading) specifies |= PlatformSpecifies.DefferedRendering;
 
             if (IntPtr.Size >= 8) specifies |= PlatformSpecifies.x64;
 
@@ -918,6 +919,12 @@ namespace Scripts.Extensions
         public static bool IsSelectableInput()
         {
             return InputSystem.devices.Where(d => d is Pointer && d is not Touchscreen).Count() <= 0;
+        }
+
+        public static void SetRenderPath(RenderingPath path)
+        {
+            RenderPath = path;
+            OnRenderPathChanged?.Invoke();
         }
 
     }

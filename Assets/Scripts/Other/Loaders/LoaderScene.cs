@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Scripts.Audio;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Scripts.SceneManagement
 {
@@ -11,11 +12,15 @@ namespace Scripts.SceneManagement
         [Space]
         [SerializeField] private CanvasGroup canvasGroup;
         [Space]
+        [SerializeField] private bool showAd = false;
         [SerializeField] private Ease showEase = Ease.Linear;
         [SerializeField] private float showDuration = 1f;
+        [SerializeField] private UnityEvent onShow;
         [Space]
+        [SerializeField] private bool hideAd = true;
         [SerializeField] private Ease hideEase = Ease.Linear;
         [SerializeField] private float hideDuration = 1f;
+        [SerializeField] private UnityEvent onHide;
 
         private CancellationTokenSource source = new();
 
@@ -47,7 +52,15 @@ namespace Scripts.SceneManagement
 
             audioTask = AudioManager.ShowMusics(token);
 
+            onShow?.Invoke();
+
+#if YandexGamesPlatform_yg
+            if (showAd)
+                YG.YG2.InterstitialAdvShow();
+#endif
+
             await UniTask.WhenAll(alphaTask, audioTask);
+
         }
 
         protected override async UniTask HideCurrentScene(CancellationToken token = default)
@@ -62,6 +75,13 @@ namespace Scripts.SceneManagement
             }
 
             audioTask = AudioManager.HideMusics(token);
+
+            onHide?.Invoke();
+
+#if YandexGamesPlatform_yg
+            if (hideAd)
+                YG.YG2.InterstitialAdvShow();
+#endif
 
             await UniTask.WhenAll(alphaTask, audioTask);
         }

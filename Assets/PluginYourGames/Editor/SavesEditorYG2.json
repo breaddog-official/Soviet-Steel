@@ -1,0 +1,29 @@
+{
+    "stringKeys": [
+        "-1592477018",
+        "-1125363957",
+        "1948795670",
+        "-336397206",
+        "-1287909856"
+    ],
+    "stringValues": [
+        "1542",
+        "ew0KICAibGFuZ3VhZ2UiOiAyOSwNCiAgInNvdW5kc1ZvbHVtZSI6IDEuMCwNCiAgIm11c2ljVm9sdW1lIjogMC44LA0KICAiYW1iaWVudFZvbHVtZSI6IDAuOCwNCiAgImZ1bGxzY3JlZW5Nb2RlIjogMSwNCiAgInJlc29sdXRpb24iOiB7DQogICAgIndpZHRoIjogMCwNCiAgICAiaGVpZ2h0IjogMCwNCiAgICAicmVmcmVzaFJhdGVSYXRpbyI6IHsNCiAgICAgICJudW1lcmF0b3IiOiAyMTQ3NDgzNjQ4LA0KICAgICAgImRlbm9taW5hdG9yIjogMSwNCiAgICAgICJ2YWx1ZSI6IDIxNDc0ODM2NDguMA0KICAgIH0sDQogICAgInJlZnJlc2hSYXRlIjogLTIxNDc0ODM2NDgNCiAgfSwNCiAgInNoYWRvd3MiOiAxLA0KICAic2hhZG93c1F1YWxpdHkiOiAxLA0KICAic2hhZG93c1NvdXJjZXMiOiAwLA0KICAic2hhZGVyc1F1YWxpdHkiOiAyLA0KICAiYW50aUFsaWFzaW5nIjogMCwNCiAgImFudGlBbGlhc2luZ01zYWEiOiAyLA0KICAic2NyZWVuUG9zdEVmZmVjdHMiOiAwLA0KICAiZm9nVHlwZSI6IDEsDQogICJyZW5kZXJEaXN0YW5jZSI6IDIsDQogICJyZXNvbHV0aW9uVHlwZSI6IDMsDQogICJnZW9tZXRyeSI6IDIsDQogICJncmFzc0RlbnNpdHkiOiAxLA0KICAiZmFzdE1vZGUiOiBmYWxzZSwNCiAgIm1pcnJvclF1YWxpdHkiOiAwLA0KICAiZGVidWdDb2RlIjogIiINCn0=",
+        "TGFkYSAyMTA5OS0xNjgxNDk2Nzk1MTUyMzI0MjM4",
+        "VHVuZHJhNg==",
+        "BREADDOG"
+    ],
+    "floatKeys": [],
+    "floatValues": [],
+    "intKeys": [],
+    "intValues": [],
+    "intExample": 5,
+    "strExample": "Hello!",
+    "boolExample": [
+        false,
+        false,
+        false,
+        false
+    ],
+    "idSave": 58
+}

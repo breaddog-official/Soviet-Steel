@@ -389,7 +389,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7637497713014042722}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -459,6 +459,8 @@ MonoBehaviour:
   descriptionText: {fileID: 0}
   showSource: {fileID: 3939373146001967363}
   hideSource: {fileID: 0}
+  desktopLinkLevel: 3
+  reviewLevel: 7
   waitDuration: 4
   showDuration: 1.5
   hideDuration: 1

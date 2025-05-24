@@ -7,6 +7,8 @@ using Scripts.Extensions;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using Scripts.TranslateManagement;
+using Scripts.UI;
 
 public class GameplayUI : MonoBehaviour
 {
@@ -19,30 +21,43 @@ public class GameplayUI : MonoBehaviour
     }
 
     [SerializeField] protected ArcadeVehicleNetwork overrideNetwork;
-    [Space]
+    [Header("Rounds")]
     [SerializeField] protected TMP_Text roundsText;
     [SerializeField] protected RoundsFormat roundsFormat = RoundsFormat.RoundsAndMaxRounds;
-    [Space]
+    [Header("Place")]
     [SerializeField] protected bool winPlace;
     [SerializeField] protected TMP_Text placeText;
     [SerializeField] protected RoundsFormat placeFormat = RoundsFormat.RoundsAndMaxRounds;
-    [Space]
+    [Header("Time")]
     [SerializeField] protected TMP_Text timeText;
     [SerializeField] protected string timeFormat = @"mm\:ss";
-    [Space]
+    [Header("Last Time")]
     [SerializeField] protected bool winTime;
     [SerializeField] protected TMP_Text lastTimeText;
     [SerializeField] protected string lastTimeFormat = @"mm\:ss";
-    [Space]
+    [Header("Speed")]
     [SerializeField] protected TMP_Text speedText;
     [SerializeField] protected Gradient speedGradient;
     [SerializeField] protected float speedMultiplier = 1f;
-    [Space]
+    [Header("Record")]
     [SerializeField] protected float disableRecordAfter = 3f;
     [SerializeField] protected TMP_Text recordText;
     [SerializeField] protected string recordFormat = @"mm\:ss\.fff";
+    [Header("Points")]
+    [SerializeField] protected TextTranslater pointsText;
+    [SerializeField] protected NumberTextUI pointsCounter;
+    [SerializeField] protected PointsText[] pointsTexts;
 
-    protected ArcadeVehicleNetwork network => overrideNetwork != null ? overrideNetwork : ArcadeVehicleNetwork.LocalPlayerNetwork;
+    [Serializable]
+    protected struct PointsText
+    {
+        public string translateString;
+        public uint points;
+        [ColorUsage(true, false)]
+        public Color color;
+    }
+
+    protected ArcadeVehicleNetwork Network => overrideNetwork ?? ArcadeVehicleNetwork.LocalPlayerNetwork;
 
 
     protected void Awake()
@@ -56,7 +71,7 @@ public class GameplayUI : MonoBehaviour
     protected void OnEnable()
     {
         GameManager.Instance.RoadManager.OnPlayerReachedRound += ReachRound;
-        SetRound(GameManager.Instance.RoadManager.GetPlayers()[network.netId].round);
+        SetRound(GameManager.Instance.RoadManager.GetPlayers()[Network.netId].round);
     }
 
     protected void OnDisable() => GameManager.Instance.RoadManager.OnPlayerReachedRound -= ReachRound;
@@ -69,16 +84,17 @@ public class GameplayUI : MonoBehaviour
 
         if (speedText != null)
         {
-            speedText.text = ((int)(network.vehicleController.Speed * speedMultiplier)).ToString();
-            speedText.color = speedGradient.Evaluate(network.vehicleController.Speed / network.vehicleController.maxSpeed);
+            speedText.text = ((int)(Network.vehicleController.Speed * speedMultiplier)).ToString();
+            speedText.color = speedGradient.Evaluate(Network.vehicleController.Speed / Network.vehicleController.maxSpeed);
         }
 
-        ApplyPlace(winPlace ? GameManager.Instance.WinManager.GetPlace(network.netId) + 1 : GameManager.Instance.RoadManager.GetPlace(network.netId) + 1);
+        ApplyPlace(winPlace ? GameManager.Instance.WinManager.GetPlace(Network.netId) + 1 : GameManager.Instance.RoadManager.GetPlace(Network.netId) + 1);
+        ApplyPoints(Network.vehicleController.pointsDelta);
     }
 
     public void ReachRound(ArcadeVehicleNetwork player, int round)
     {
-        if (player == network)
+        if (player == Network)
         {
             CheckRecord();
             SetRound(round);
@@ -89,7 +105,7 @@ public class GameplayUI : MonoBehaviour
     {
         ApplyRounds(round);
 
-        if (lastTimeText != null && GameManager.Instance.RoadManager.GetPlayers().TryGetValue(network.netId, out var score))
+        if (lastTimeText != null && GameManager.Instance.RoadManager.GetPlayers().TryGetValue(Network.netId, out var score))
         {
             if (winTime && round < GameManager.GameMode.rounds)
                 return;
@@ -105,7 +121,7 @@ public class GameplayUI : MonoBehaviour
             return;
 
         string key = $"{GameManager.GameMode.Map.TranslateName}_record";
-        double time = GameManager.Instance.RoadManager.GetPlayers().GetValueOrDefault(network.netId).LastBetweenTime;
+        double time = GameManager.Instance.RoadManager.GetPlayers().GetValueOrDefault(Network.netId).LastBetweenTime;
 
         // 120_000 seconds, ~33 hours
         if (PlayerPrefs.GetFloat(key, 120_000f) > time)
@@ -153,5 +169,44 @@ public class GameplayUI : MonoBehaviour
             RoundsFormat.RoundsAndMaxRounds => $"{place}/{lastPlace}",
             _ => string.Empty
         };
+    }
+
+    public void ApplyPoints(uint pointsDelta)
+    {
+        if (pointsText != null)
+        {
+            bool enabled = pointsTexts[0].points <= pointsDelta;
+            pointsText.gameObject.SetActive(enabled);
+
+            if (enabled)
+            {
+                PointsText? pointsTextStruct = null;
+                for (int i = 0; i < pointsTexts.Length; i++)
+                {
+                    if (pointsTexts[i].points > pointsDelta)
+                    {
+                        pointsTextStruct = pointsTexts[i - 1];
+                        break;
+                    }
+                    else if (i == pointsTexts.Length - 1)
+                    {
+                        pointsTextStruct = pointsTexts[i];
+                        break;
+                    }
+                }
+
+                if (pointsTextStruct.HasValue)
+                {
+                    pointsText.SetName(pointsTextStruct.Value.translateString);
+                    pointsText.Text.color = pointsTextStruct.Value.color;
+
+                    if (pointsCounter != null)
+                    {
+                        pointsCounter.UpdateValue($"+{pointsDelta}");
+                        pointsCounter.Text.color = pointsTextStruct.Value.color;
+                    }
+                }
+            }
+        }
     }
 }

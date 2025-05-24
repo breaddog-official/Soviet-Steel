@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: AllSavers
   m_EditorClassIdentifier: 
   savers:
-  - {fileID: 11400000, guid: 32db912acad2ee04f8fd95cf1e17781b, type: 2}
   - {fileID: 11400000, guid: 3e39a7bef88fb73418a908df346b7931, type: 2}
+  - {fileID: 11400000, guid: 32db912acad2ee04f8fd95cf1e17781b, type: 2}
   - {fileID: 11400000, guid: 866daa56ccfb27e429d59e093cf47b8f, type: 2}

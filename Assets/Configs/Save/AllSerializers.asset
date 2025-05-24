@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc4cb8c5ad0fcd49aa327f6a750b072, type: 3}
+  m_Name: AllSerializers
+  m_EditorClassIdentifier: Assembly-CSharp:Scripts.SaveManagement:MultipleSerializer
+  serializers:
+  - {fileID: 11400000, guid: f38875c22cb5ec94fa0b983e698f65b0, type: 2}
+  - {fileID: 11400000, guid: 926f0f3dc2d70ff4c9e78f60b41b021d, type: 2}

@@ -37,6 +37,14 @@ namespace Scripts.Settings
             High,
         }
 
+        public enum GrassDensity
+        {
+            None,
+            Low,
+            Medium,
+            High,
+        }
+
         public enum AntiAliasing
         {
             None,
@@ -160,6 +168,7 @@ namespace Scripts.Settings
         public RenderDistance renderDistance = RenderDistance.Maximum;
         public ResolutionType resolutionType = ResolutionType.Full;
         public Geometry geometry = Geometry.Medium;
+        public GrassDensity grassDensity = GrassDensity.Low;
         public bool fastMode;
         public MirrorQuality mirrorQuality = MirrorQuality.Standart;
 

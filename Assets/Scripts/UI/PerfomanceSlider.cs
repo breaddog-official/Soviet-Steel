@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Scripts.TranslateManagement;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,37 +9,42 @@ using UnityEngine.UI;
 public class PerfomanceSlider : MonoBehaviour
 {
     [SerializeField] private Slider slider;
-    [SerializeField] private TMP_Text text;
+    [SerializeField] private TextTranslater text;
     [SerializeField] List<PerfomanceLevel> perfomanceLevels;
-    [Space]
-    [SerializeField] private float smoothAmount = 0.0005f;
+    [Space, Min(1)]
+    [SerializeField] private int bufferSize = 10;
 
-    private float lastFps = 30f;
+    private List<float> buffer;
 
 
     private void OnEnable()
     {
-        lastFps = 1f / Time.deltaTime;
+        buffer = new(bufferSize);
     }
 
     private void Update()
     {
-        float newFPS = 1.0f / Time.smoothDeltaTime;
-        lastFps = Mathf.Lerp(lastFps, newFPS, smoothAmount);
+        float newFPS = 1f / Time.deltaTime;
+        buffer.Insert(0, newFPS);
 
-        slider.value = lastFps;
+        if (buffer.Count > bufferSize)
+            buffer.RemoveAt(buffer.Count - 1);
 
-        UpdateValue(slider.value);
+        float averageFps = buffer.Average();
+
+        UpdateValue(averageFps);
     }
 
     public void UpdateValue(float value)
     {
+        slider.value = value;
+
         foreach (var level in perfomanceLevels)
         {
             if (value <= level.value)
             {
                 //print($"{text.TranslationString}: {lastFps}");
-                text.SetText(level.text);
+                text.SetName(level.text);
                 break;
             }
         }

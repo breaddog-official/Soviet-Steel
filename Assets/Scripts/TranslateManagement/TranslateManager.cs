@@ -35,6 +35,7 @@ namespace Scripts.TranslateManagement
         public static ApplicationLanguage GetSystemLanguage()
         {
 #if YandexGamesPlatform_yg
+            Debug.Log($"Language: {YG.YG2.envir.language}; Browser Language: {YG.YG2.envir.browserLang}");
             return YG.YG2.envir.language.HLToApplicationLanguage();
 #else
             return Application.systemLanguage.ToApplicationLanguage();
@@ -57,10 +58,21 @@ namespace Scripts.TranslateManagement
             if (withInvoke) GameLanguageChanged?.Invoke();
         }
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+#if !YandexGamesPlatform_yg
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void SetSystemLanguage() => ChangeLanguage(GetSystemLanguage());
+#endif
 
         public static string GetTranslationString(string name)
-            => TranslateCacher.Get(name);
+        {
+            if (Initialized)
+            {
+                return TranslateCacher.Get(name);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
     }
 }

@@ -20,7 +20,11 @@ namespace Scripts.SaveManagement
 
 
         public override bool Exists(string path) => File.Exists(path);
+#if YandexGamesPlatform_yg
+        public override bool IsAvailable() => false;
+#else
         public override bool IsAvailable() => SaveManager.SupportIO;
+#endif
 
 
 

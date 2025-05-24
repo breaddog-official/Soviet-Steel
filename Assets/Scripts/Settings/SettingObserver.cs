@@ -18,7 +18,7 @@ namespace Scripts.Settings
 
         protected virtual void OnEnable()
         {
-            SettingsManager.OnSettingsChanged += UpdateValue;
+            SettingsManager.OnAnySettingChanged += UpdateValue;
 
             if (SettingsManager.Settings != null)
                 UpdateValue();
@@ -26,7 +26,7 @@ namespace Scripts.Settings
 
         protected virtual void OnDisable()
         {
-            SettingsManager.OnSettingsChanged -= UpdateValue;
+            SettingsManager.OnAnySettingChanged -= UpdateValue;
         }
 
 

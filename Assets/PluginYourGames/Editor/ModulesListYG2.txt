@@ -1,6 +1,9 @@
 Authorization v1.0
 EnvirData v1.002
+GameLabel v1.0
+InterstitialAdv v1.002
 Leaderboards v1.0
 Metrica v1.01
 RedefinePlayerPrefs v1.001
+Review v1.0
 Storage v1.01

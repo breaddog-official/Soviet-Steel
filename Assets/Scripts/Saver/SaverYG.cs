@@ -20,8 +20,8 @@ namespace Scripts.SaveManagement
         private string ProcessPath(string path) => path.GetHashCode().ToString();
 
         public override bool IsAvailable() =>
-#if YandexGamesPlatform_yg
-            Application.platform == RuntimePlatform.WebGLPlayer;
+#if YandexGamesPlatform_yg// && !UNITY_EDITOR
+            true;//Application.platform == RuntimePlatform.WebGLPlayer;
 #else
             false;
 #endif

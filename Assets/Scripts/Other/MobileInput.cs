@@ -13,7 +13,7 @@ public class MobileInput : MonoBehaviour
     public bool IsMobileInput()
     {
 #if YandexGamesPlatform_yg
-        return YG.YG2.envir.isMobile || YG.YG2.envir.isTablet;
+        return YG.YG2.envir.device == YG.YG2.Device.Mobile || YG.YG2.envir.device == YG.YG2.Device.Tablet;
 #else
         return Touchscreen.current != null;
 #endif

@@ -26,6 +26,7 @@ namespace Scripts.UI
         [SerializeField] private Vector3 scale = Vector3.one;
 
         public virtual string FormatString => addDigits ? $"0.{GetZeros()}" : string.Empty;
+        public virtual TMP_Text Text => valueText;
 
         private CancellationTokenSource source;
         private Vector3 cachedScale;
@@ -36,38 +37,68 @@ namespace Scripts.UI
 
         private void Start()
         {
-            cachedScale = valueText.transform.localScale;
+            if (valueText != null || TryGetComponent(out valueText))
+                cachedScale = valueText.transform.localScale;
         }
 
         private void OnDisable()
         {
             source?.Cancel();
             isAnimating = false;
-            valueText.transform.localScale = cachedScale;
+            Text.transform.localScale = cachedScale;
         }
 
         public virtual void UpdateValue(uint value)
         {
-            valueText.text = value.ToString(FormatString);
-            Animate().Forget();
+            string newText = value.ToString(FormatString);
+
+            if (!string.Equals(valueText.text, newText))
+            {
+                Animate().Forget();
+                valueText.text = newText;
+            }
         }
 
         public virtual void UpdateValue(int value)
         {
-            valueText.text = value.ToString(FormatString);
-            Animate().Forget();
+            string newText = value.ToString(FormatString);
+
+            if (!string.Equals(valueText.text, newText))
+            {
+                Animate().Forget();
+                valueText.text = newText;
+            }
         }
 
         public virtual void UpdateValue(float value)
         {
-            valueText.text = value.ToString(FormatString);
-            Animate().Forget();
+            string newText = value.ToString(FormatString);
+
+            if (!string.Equals(valueText.text, newText))
+            {
+                Animate().Forget();
+                valueText.text = newText;
+            }
         }
 
         public virtual void UpdateValue(double value)
         {
-            valueText.text = value.ToString(FormatString);
-            Animate().Forget();
+            string newText = value.ToString(FormatString);
+
+            if (!string.Equals(valueText.text, newText))
+            {
+                Animate().Forget();
+                valueText.text = newText;
+            }
+        }
+
+        public virtual void UpdateValue(string value)
+        {
+            if (!string.Equals(valueText.text, value))
+            {
+                Animate().Forget();
+                valueText.text = value;
+            }
         }
 
 
@@ -84,8 +115,8 @@ namespace Scripts.UI
             if (audioSource != null)
                 audioSource.Play();
 
-            await valueText.transform.DOScale(scale, duration / 2).WithCancellation(source.Token);
-            await valueText.transform.DOScale(cachedScale, duration / 2).WithCancellation(source.Token);
+            await Text.transform.DOScale(scale, duration / 2).WithCancellation(source.Token);
+            await Text.transform.DOScale(cachedScale, duration / 2).WithCancellation(source.Token);
 
             isAnimating = false;
         }

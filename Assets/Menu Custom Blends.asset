@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Menu Custom Blends
   m_EditorClassIdentifier: 
   CustomBlends:
-  - From: CinemachineLoading
+  - From: CinemachineTitle
     To: CinemachineLobby
     Blend:
       Style: 5
@@ -24,11 +24,11 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - From: CinemachineLoading
-    To: Cinemachine
+  - From: '**ANY CAMERA**'
+    To: CinemachineEnding
     Blend:
-      Style: 5
-      Time: 2
+      Style: 0
+      Time: 10
       CustomCurve:
         serializedVersion: 2
         m_Curve: []

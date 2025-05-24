@@ -8,20 +8,26 @@ namespace Scripts.Settings
         public static Settings Settings { get; private set; }
 
         /// <summary>
-        /// Calles when Settings has been changed
+        /// Calles when any Setting has been changed
         /// </summary>
-        public static event Action OnSettingsChanged;
+        public static event Action OnAnySettingChanged;
 
         /// <summary>
         /// Calles when some setting has been changed
         /// </summary>
         public static event Action<string> OnSettingChanged;
 
+        /// <summary>
+        /// Calles when Settings has been changed
+        /// </summary>
+        public static event Action OnSettingsChanged;
+
 
 
         public static void SetSettings(Settings settings)
         {
             Settings = settings;
+            OnAnySettingChanged?.Invoke();
             OnSettingsChanged?.Invoke();
         }
 
@@ -33,7 +39,7 @@ namespace Scripts.Settings
         public static void SetSetting(string name, object value)
         {
             Settings?.SetValue(name, value);
-            OnSettingsChanged?.Invoke();
+            OnAnySettingChanged?.Invoke();
             OnSettingChanged?.Invoke(name);
         }
 

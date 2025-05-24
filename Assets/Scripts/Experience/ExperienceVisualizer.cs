@@ -16,6 +16,9 @@ namespace Scripts.Gameplay.Experience
         [SerializeField] private TMP_Text maxValueText;
         [SerializeField] private UnlockPopup unlockPopup;
         [Space]
+        [SerializeField] private bool alwaysSilently = false;
+        [SerializeField] private bool alwaysImmediatly = false;
+        [Space]
         [SerializeField] private bool isSmooth;
         [ShowIf(nameof(isSmooth)), MinValue(1)]
         [SerializeField] private int speed = 1;
@@ -55,6 +58,10 @@ namespace Scripts.Gameplay.Experience
             slider.wholeNumbers = true;
             var experience = ExperienceManager.Experience;
             var multiplier = slider.value < experience ? 1 : -1;
+
+            if (alwaysSilently) silently = true;
+            if (alwaysImmediatly) forceImmediatly = true;
+
 
             if (isSmooth && !forceImmediatly)
             {
@@ -105,5 +112,15 @@ namespace Scripts.Gameplay.Experience
             if (minValueText != null) minValueText.text = slider.minValue.ToString();
             if (maxValueText != null) maxValueText.text = slider.maxValue.ToString();
         }
+
+#if UNITY_EDITOR
+
+        [Button]
+        public void SetAllLevels()
+        {
+            ExperienceManager.SetExperience(20000u);
+        }
+
+#endif
     }
 }

@@ -14,17 +14,21 @@ namespace Scripts.UI.Tabs
         [ShowIf(EConditionOperator.And, nameof(CanGetTabsGroups), nameof(showInitialOnStart))]
         [SerializeField, Dropdown(nameof(GetTabsRects))] private RectTransform initialTab;
 
-        private CancellationTokenSource cancallationToken;
+        private CancellationTokenSource cancallationToken = new();
         private bool switchingTab;
         private Tab currentTab;
 
 
-        protected virtual async void Start()
+        protected virtual void Awake()
+        {
+            currentTab = FindTab(initialTab);
+        }
+
+        protected virtual void Start()
         {
             if (showInitialOnStart)
             {
-                currentTab = FindTab(initialTab);
-                await SwitchTabAsync(initialTab);
+                SwitchTabAsync(initialTab).Forget();
             }
         }
 
@@ -55,7 +59,10 @@ namespace Scripts.UI.Tabs
             cancallationToken?.ResetToken();
             cancallationToken = new();
 
-            await VisualizeSwitchTabs(from, to, cancallationToken.Token);
+            if (token == default)
+                token = cancallationToken.Token;
+
+            await VisualizeSwitchTabs(from, to, token);
 
             if (withSetCurrentTab)
                 currentTab = to;
@@ -70,7 +77,8 @@ namespace Scripts.UI.Tabs
         public virtual void CancelSwitching()
         {
             switchingTab = false;
-            cancallationToken?.Cancel();
+            cancallationToken?.ResetToken();
+            cancallationToken = new();
         }
 
         public virtual Tab FindTab(RectTransform rect)

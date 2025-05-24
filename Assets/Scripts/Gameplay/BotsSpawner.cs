@@ -54,7 +54,7 @@ public class BotsSpawner : NetworkBehaviour
         int notUsedIndex = Random.Range(0, notUsedCars.Count - 1);
         int carsIndex = notUsedCars[notUsedIndex];
 
-        notUsedCars.RemoveAt(carsIndex);
+        notUsedCars.RemoveAt(notUsedIndex);
 
         return NetworkManagerExt.instance.registeredCars[carsIndex].car.CarHash;
     }

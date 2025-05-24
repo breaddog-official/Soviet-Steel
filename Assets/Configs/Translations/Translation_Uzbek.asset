@@ -23,12 +23,18 @@ MonoBehaviour:
     menu_garage: "Gara\u017E"
     menu_region: Mintaqa
     menu_join: "Qo\u2018shilish"
-    menu_bots_count: 'Botlar:'
     menu_previous: Oldingi
     menu_next: Keyingi
     menu_select: Tanlash
     menu_insert_tape: Kasetani joylashtiring
     menu_level: Daraja
+    menu_thanks_for_playing: O'ynaganingiz uchun tashakkur!
+    menu_long_loading: Birinchi yuklash siz kutganingizdan ko'proq vaqt olishi mumkin!
+    menu_bots_count: 'Botlar:'
+    menu_rounds_count: 'Sayohat:'
+    menu_server_settings_name: 'Manzil:'
+    menu_server_settings_port: 'Port:'
+    menu_server_settings_maxPlayers: 'Maks:'
     menu_settings_general: Umumiy
     menu_settings_audio: Audio
     menu_settings_graphics: Grafika
@@ -38,6 +44,7 @@ MonoBehaviour:
     menu_settings_volume_music: Musiqa
     menu_settings_volume_ambient: Atrof-muhit
     menu_settings_geometry_quality: 'Geometriya:'
+    menu_settings_grass_density: 'O''t zichligi:'
     menu_settings_shaders_quality: 'Shaderlar:'
     menu_settings_resolution_type: 'Kenglik:'
     menu_settings_antialiasing: 'Antialiasing:'
@@ -153,3 +160,11 @@ MonoBehaviour:
     game_new_record: Yangi rekord!
     game_score_title: Yakuniy natijalar
     game_time: 'Vaqt:'
+    game_points_text1: Drift!
+    game_points_text2: Yaxshi!
+    game_points_text3: Ajoyib!
+    game_points_text4: Jinnilik!
+    game_points_text5: Ajablanarli!
+    game_points_text6: Ajoyib!
+    game_points_text7: Imkonsiz!
+    game_points_text8: Drift ustasi

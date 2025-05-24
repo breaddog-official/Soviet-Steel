@@ -23,12 +23,18 @@ MonoBehaviour:
     menu_garage: Garage
     menu_region: Region
     menu_join: Join
-    menu_bots_count: 'Bots:'
     menu_previous: Previous
     menu_next: Next
     menu_select: Select
     menu_insert_tape: insert tape here
     menu_level: level
+    menu_thanks_for_playing: Thanks for playing!
+    menu_long_loading: The first loading may take longer than you expect!
+    menu_bots_count: 'Bots:'
+    menu_rounds_count: 'Rounds:'
+    menu_server_settings_name: 'Address:'
+    menu_server_settings_port: 'Port:'
+    menu_server_settings_maxPlayers: 'Max Players:'
     menu_settings_general: General
     menu_settings_audio: Audio
     menu_settings_graphics: Graphics
@@ -38,6 +44,7 @@ MonoBehaviour:
     menu_settings_volume_music: Music
     menu_settings_volume_ambient: Ambient
     menu_settings_geometry_quality: 'Geometry:'
+    menu_settings_grass_density: 'Grass Density:'
     menu_settings_shaders_quality: 'Shaders:'
     menu_settings_resolution_type: 'Resolution:'
     menu_settings_antialiasing: 'Antialiasing:'
@@ -175,3 +182,11 @@ MonoBehaviour:
     game_new_record: New record!
     game_score_title: Match Results
     game_time: 'Time:'
+    game_points_text1: Drift!
+    game_points_text2: Good!
+    game_points_text3: Great!
+    game_points_text4: Madness!
+    game_points_text5: Amazing!
+    game_points_text6: Marvelous!
+    game_points_text7: Impossible!
+    game_points_text8: Drift Master

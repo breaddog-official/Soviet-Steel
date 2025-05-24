@@ -21,12 +21,19 @@ namespace Scripts.TranslateManagement
         public string menu_garage;
         public string menu_region;
         public string menu_join;
-        public string menu_bots_count;
         public string menu_previous;
         public string menu_next;
         public string menu_select;
         public string menu_insert_tape;
         public string menu_level;
+        public string menu_thanks_for_playing;
+        public string menu_long_loading;
+        [Header("Menu: Server Settings")]
+        public string menu_bots_count;
+        public string menu_rounds_count;
+        public string menu_server_settings_name;
+        public string menu_server_settings_port;
+        public string menu_server_settings_maxPlayers;
         [Header("Menu: Settings")]
         public string menu_settings_general;
         public string menu_settings_audio;
@@ -38,7 +45,8 @@ namespace Scripts.TranslateManagement
         public string menu_settings_volume_music;
         public string menu_settings_volume_ambient;
         [Space]
-        public string menu_settings_geometry_quality;
+        public string menu_settings_geometry_quality; 
+        public string menu_settings_grass_density;
         public string menu_settings_shaders_quality;
         public string menu_settings_resolution_type;
         public string menu_settings_antialiasing;
@@ -174,6 +182,16 @@ namespace Scripts.TranslateManagement
         [Header("Game: Score")]
         public string game_score_title;
         public string game_time;
+
+        [Header("Game: Points Texts")]
+        public string game_points_text1;
+        public string game_points_text2;
+        public string game_points_text3;
+        public string game_points_text4;
+        public string game_points_text5;
+        public string game_points_text6;
+        public string game_points_text7;
+        public string game_points_text8;
 
 
 

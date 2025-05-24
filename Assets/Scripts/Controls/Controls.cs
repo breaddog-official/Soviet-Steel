@@ -481,6 +481,15 @@ namespace Scripts.Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Screenshot"",
+                    ""type"": ""Button"",
+                    ""id"": ""9038ab4a-1c19-42c7-bb42-b7e18f25d9fa"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -934,6 +943,17 @@ namespace Scripts.Controls
                     ""action"": ""AnyButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8e0a6f3e-b072-43c5-ab0c-1a589fbb9052"",
+                    ""path"": ""<Keyboard>/f12"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardLeft;KeyboardRight"",
+                    ""action"": ""Screenshot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1002,6 +1022,7 @@ namespace Scripts.Controls
             m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
             m_UI_AnyButton = m_UI.FindAction("AnyButton", throwIfNotFound: true);
+            m_UI_Screenshot = m_UI.FindAction("Screenshot", throwIfNotFound: true);
         }
 
         ~@Controls()
@@ -1201,6 +1222,7 @@ namespace Scripts.Controls
         private readonly InputAction m_UI_TrackedDevicePosition;
         private readonly InputAction m_UI_TrackedDeviceOrientation;
         private readonly InputAction m_UI_AnyButton;
+        private readonly InputAction m_UI_Screenshot;
         /// <summary>
         /// Provides access to input actions defined in input action map "UI".
         /// </summary>
@@ -1256,6 +1278,10 @@ namespace Scripts.Controls
             /// Provides access to the underlying input action "UI/AnyButton".
             /// </summary>
             public InputAction @AnyButton => m_Wrapper.m_UI_AnyButton;
+            /// <summary>
+            /// Provides access to the underlying input action "UI/Screenshot".
+            /// </summary>
+            public InputAction @Screenshot => m_Wrapper.m_UI_Screenshot;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1315,6 +1341,9 @@ namespace Scripts.Controls
                 @AnyButton.started += instance.OnAnyButton;
                 @AnyButton.performed += instance.OnAnyButton;
                 @AnyButton.canceled += instance.OnAnyButton;
+                @Screenshot.started += instance.OnScreenshot;
+                @Screenshot.performed += instance.OnScreenshot;
+                @Screenshot.canceled += instance.OnScreenshot;
             }
 
             /// <summary>
@@ -1359,6 +1388,9 @@ namespace Scripts.Controls
                 @AnyButton.started -= instance.OnAnyButton;
                 @AnyButton.performed -= instance.OnAnyButton;
                 @AnyButton.canceled -= instance.OnAnyButton;
+                @Screenshot.started -= instance.OnScreenshot;
+                @Screenshot.performed -= instance.OnScreenshot;
+                @Screenshot.canceled -= instance.OnScreenshot;
             }
 
             /// <summary>
@@ -1550,6 +1582,13 @@ namespace Scripts.Controls
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnAnyButton(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Screenshot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnScreenshot(InputAction.CallbackContext context);
         }
     }
 }

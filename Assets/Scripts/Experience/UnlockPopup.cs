@@ -22,6 +22,9 @@ namespace Scripts.UI
         [Header("Audio")]
         [SerializeField] private AudioSource showSource;
         [SerializeField] private AudioSource hideSource;
+        [Header("Yandex Games")]
+        [SerializeField] private int desktopLinkLevel;
+        [SerializeField] private int reviewLevel;
         [Header("Animation")]
         [SerializeField] private float waitDuration = 3f;
         [SerializeField] private float showDuration = 1f;
@@ -48,16 +51,16 @@ namespace Scripts.UI
 
             foreach (var map in maps)
             {
-                await Animate(TranslateManager.GetTranslationString(map.map.TranslateName), TranslateManager.GetTranslationString(map.map.TranslateDescription), map.map.Icon, tokenSource.Token);
+                await Animate(TranslateManager.GetTranslationString(map.map.TranslateName), TranslateManager.GetTranslationString(map.map.TranslateDescription), map.map.Icon, level, tokenSource.Token);
             }
 
             foreach (var car in cars)
             {
-                await Animate(TranslateManager.GetTranslationString(car.car.translateName), TranslateManager.GetTranslationString(car.car.translateDescription), car.car.icon, tokenSource.Token);
+                await Animate(TranslateManager.GetTranslationString(car.car.translateName), TranslateManager.GetTranslationString(car.car.translateDescription), car.car.icon, level, tokenSource.Token);
             }
         }
 
-        private async UniTask Animate(string name, string description, Texture2D icon, CancellationToken token = default)
+        private async UniTask Animate(string name, string description, Texture2D icon, int level, CancellationToken token = default)
         {
             if (this.icon != null)
                 this.icon.texture = icon;
@@ -91,6 +94,14 @@ namespace Scripts.UI
 
             panel.gameObject.SetActive(false);
             canvasGroup.blocksRaycasts = false;
+
+#if YandexGamesPlatform_yg
+            if (level == desktopLinkLevel && YG.YG2.gameLabelCanShow)
+                YG.YG2.GameLabelShowDialog();
+
+            if (level == reviewLevel && YG.YG2.reviewCanShow)
+                YG.YG2.ReviewShow();
+#endif
         }
 
         private void Cancel()

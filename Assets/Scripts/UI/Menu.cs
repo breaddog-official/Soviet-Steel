@@ -56,13 +56,11 @@ namespace Scripts.UI
         {
             UpdateTransport();
 
-            PerformPlay(playMode).Forget();
+            PerformPlay(playMode);
         }
 
-        private static async UniTask PerformPlay(NetworkPlayMode playMode)
+        private static void PerformPlay(NetworkPlayMode playMode)
         {
-            await Loader.LoadSceneAsync(NetworkManager.onlineScene);
-
             switch (playMode)
             {
                 case NetworkPlayMode.Server:
@@ -106,36 +104,9 @@ namespace Scripts.UI
             }
         }
 
-
-        public void SetAddress(string address) => NetworkManager.networkAddress = address;
-        public void SetPort(string port)
-        {
-            if (NetworkManager.transport is PortTransport portTransport && ushort.TryParse(port, out ushort parsedPort))
-            {
-                portTransport.Port = parsedPort; 
-            }
-        }
-        public void SetMaxConnections(string maxConnections)
-        {
-            if (int.TryParse(maxConnections, out int parsedMaxConnections) && parsedMaxConnections >= 0)
-            {
-                SetMaxConnections(parsedMaxConnections);
-            }
-        }
-
-        public void SetMaxConnections(int maxConnections)
-        {
-            NetworkManager.maxConnections = maxConnections;
-        }
-
         #endregion
 
 
-
-        public static void SetBotsCount(string bots)
-        {
-            GameManager.GameMode.bots = int.Parse(bots);
-        }
 
         public static void Quit()
         {

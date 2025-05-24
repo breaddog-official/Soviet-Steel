@@ -749,10 +749,18 @@ MonoBehaviour:
   allowAutoStart: 1
   loadingScene: Loading Screen
   canvasGroup: {fileID: 1156123440239647517}
+  showAd: 0
   showEase: 1
   showDuration: 1
+  onShow:
+    m_PersistentCalls:
+      m_Calls: []
+  hideAd: 1
   hideEase: 1
   hideDuration: 1
+  onHide:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1587596811774942169
 GameObject:
   m_ObjectHideFlags: 0
@@ -1306,8 +1314,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -23}
-  m_SizeDelta: {x: -30, y: 38}
+  m_AnchoredPosition: {x: 0, y: -25}
+  m_SizeDelta: {x: -30, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &239734651024324267
 CanvasRenderer:
@@ -1364,12 +1372,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 35
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 35
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -1419,6 +1427,7 @@ GameObject:
   - component: {fileID: 8224701823148607350}
   - component: {fileID: 3126825937129540414}
   - component: {fileID: 4061657026624782960}
+  - component: {fileID: 2516016956991035322}
   m_Layer: 5
   m_Name: Radio
   m_TagString: Untagged
@@ -1473,6 +1482,19 @@ MonoBehaviour:
   songText: {fileID: 1686027767575974892}
   loadingText: loading
   radio: {fileID: 4262648308327124407}
+--- !u!114 &2516016956991035322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2597164430718845623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e6ae5c658cb52649b4e1cda3b1a4ed2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disablePlatforms: 127232
 --- !u!1 &2690089242821748608
 GameObject:
   m_ObjectHideFlags: 0
@@ -4104,6 +4126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicPath: /Audio/Music/Resources/Radio
   defaultSong: Track1
+  defaultWebSong: 
   playOnAwake: 1
   audioSource: {fileID: 9130239571366775099}
 --- !u!82 &9130239571366775099
@@ -4479,6 +4502,7 @@ MonoBehaviour:
   road: {fileID: 0}
   firstMarker: 0
   widthOffset: 0
+  predictMarkers: 8
   distances: []
 --- !u!114 &5238932392360356284
 MonoBehaviour:
@@ -4894,6 +4918,9 @@ MonoBehaviour:
   disableRecordAfter: 3
   recordText: {fileID: 0}
   recordFormat: mm\:ss\.fff
+  pointsText: {fileID: 0}
+  pointsCounter: {fileID: 0}
+  pointsTexts: []
 --- !u!1001 &4947669189144537899
 PrefabInstance:
   m_ObjectHideFlags: 0

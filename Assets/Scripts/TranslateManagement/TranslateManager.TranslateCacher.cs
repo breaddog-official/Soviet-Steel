@@ -36,7 +36,7 @@ namespace Scripts.TranslateManagement
                 // Validate
                 if (string.IsNullOrWhiteSpace(name))
                 {
-                    return null;
+                    return string.Empty;
                 }
 
 

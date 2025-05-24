@@ -51,5 +51,9 @@ namespace Scripts.SaveManagement
         {
             return JsonConvert.DeserializeObject<T>(value, SerializerSettings);
         }
+
+#if YandexGamesPlatform_yg
+        public override bool IsAvailable() => false;
+#endif
     }
 }

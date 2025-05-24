@@ -157,6 +157,9 @@ MonoBehaviour:
   levelText: {fileID: 2025551789508297931}
   minValueText: {fileID: 0}
   maxValueText: {fileID: 2471741802424157727}
+  unlockPopup: {fileID: 0}
+  alwaysSilently: 0
+  alwaysImmediatly: 0
   isSmooth: 1
   speed: 2
   newLevelSource: {fileID: 8493893058942062887}

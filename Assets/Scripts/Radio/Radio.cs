@@ -15,6 +15,7 @@ public class Radio : MonoBehaviour
 {
     [SerializeField] private string musicPath = "/Resources";
     [SerializeField] private string defaultSong;
+    [SerializeField] private string defaultWebSong;
     [Space]
     [SerializeField] private bool playOnAwake;
     [SerializeField] private AudioSource audioSource;
@@ -32,7 +33,11 @@ public class Radio : MonoBehaviour
     private void Awake()
     {
         musicPaths.AddRange(GetMusicPaths());
+#if PLATFORM_WEBGL
+        currentSongIndex = musicPaths.IndexOf(defaultWebSong);
+#else
         currentSongIndex = musicPaths.IndexOf(defaultSong);
+#endif
 
         if (playOnAwake)
             Play().Forget();
@@ -160,7 +165,7 @@ public class Radio : MonoBehaviour
         AssetDatabase.Refresh();
     }
 #endif
-    #endregion
+#endregion
 }
 
 

@@ -112,6 +112,19 @@ namespace ArcadeVP
 
         private CinemachineFollow follow;
 
+        [Header("Points")]
+        public int pointsPerSecond = 70;
+        [MinMaxSlider(0f, 10f)] public Vector2 pointsSecondsRange = new(2, 7); // Как долго нужно дрифтить чтобы достигнуть минимального и максимального начисления
+        [Range(0f, 5f)] public float driftCoyoteSeconds = 0.5f; // Сколько секунд после дрифта будет продолжаться начисление
+        [CurveRange(EColor.Green)] public AnimationCurve pointsCurve;
+
+        public float MinSecondsPoints => pointsSecondsRange.x;
+        public float MaxSecondsPoints => pointsSecondsRange.y;
+
+        private float currentDriftCoyoteSeconds;
+        private float currentDriftSeconds;
+        [HideInInspector] public bool lastIsDrift;
+        [HideInInspector] public uint pointsDelta;
 
 
         [HideInInspector]
@@ -137,6 +150,7 @@ namespace ArcadeVP
         private bool KartLikeBrake => kartLike && brakeInput;
         public float Speed => new Vector3(carVelocity.x, 0f, carVelocity.z).magnitude;
 
+        [HideInInspector]
         public float AccelerationMultiplier = 1f;
 
         private ArcadeVehicleNetwork network;
@@ -198,6 +212,7 @@ namespace ArcadeVP
                 TurnLogic();
                 GravityLogic();
                 AccelerationLogic();
+                PointsLogic();
             }
         }
 
@@ -221,7 +236,7 @@ namespace ArcadeVP
             handbrake = state;
         }
 
-        [Command]
+        [Command(channel = Channels.Unreliable)]
         public void SendVelocity(Vector3 velocity)
         {
             carVelocity = velocity;
@@ -310,6 +325,30 @@ namespace ArcadeVP
             {
                 // gravity
                 rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, rb.linearVelocity + Vector3.down * gravity, ApplicationInfo.FixedDeltaTime * gravity);
+            }
+        }
+
+        public void PointsLogic()
+        {
+            if (IsDrift())
+            {
+                lastIsDrift = true;
+                currentDriftCoyoteSeconds = 0f;
+
+                currentDriftSeconds += ApplicationInfo.FixedDeltaTime;
+                pointsDelta += (uint)(pointsCurve.Evaluate(Mathf.InverseLerp(MinSecondsPoints, MaxSecondsPoints, currentDriftSeconds)) * pointsPerSecond * ApplicationInfo.FixedDeltaTime);
+            }
+            else if (lastIsDrift)
+            {
+                currentDriftCoyoteSeconds += ApplicationInfo.FixedDeltaTime;
+
+                if (currentDriftCoyoteSeconds >= driftCoyoteSeconds)
+                {
+                    lastIsDrift = false;
+                    currentDriftCoyoteSeconds = 0f;
+                    currentDriftSeconds = 0f;
+                    pointsDelta = 0u;
+                }
             }
         }
 

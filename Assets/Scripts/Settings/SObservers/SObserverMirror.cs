@@ -61,7 +61,7 @@ namespace Scripts.Settings
         {
             if (observerType == ObserverType.Global)
             {
-                ClearTexture();
+                //ClearTexture();
             }
         }
 
@@ -86,10 +86,10 @@ namespace Scripts.Settings
                 if (renderTexture == null || renderTexture.width != width || renderTexture.height != height)
                 {
                     ClearTexture();
-
+                    
                     renderTexture = new RenderTexture(width, height, textureBits);
                     renderTexture.Create();
-                    //print($"texture {renderTexture} created");
+                    print($"texture {renderTexture} created");
                     OnRenderTextureChanged?.Invoke();
                 }
             }
@@ -116,9 +116,9 @@ namespace Scripts.Settings
 
         private void UpdateRenderTextures()
         {
-            if (renderTexture == null)
-                return;
-
+            //if (renderTexture == null)
+            //    return;
+            print($"update texture {renderTexture}");
             if (observerType == ObserverType.Local)
             {
                 mirror.targetTexture = renderTexture;

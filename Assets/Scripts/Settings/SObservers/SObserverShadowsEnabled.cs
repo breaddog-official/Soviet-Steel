@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using Scripts.Extensions;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using static Scripts.Settings.Settings;
@@ -50,6 +51,7 @@ namespace Scripts.Settings
         protected virtual void SetAmbientOcclusion(bool state)
         {
             Profile.GetSetting<AmbientOcclusion>().enabled.Override(state);
+            ApplicationInfo.SetRenderPath(state ? SObserverFastMode.defaultPath : SObserverFastMode.fastModePath);
         }
 
         protected virtual void SetShadows(bool state)

@@ -41,7 +41,7 @@ public class RenderDistanceApplyer : MonoBehaviour
 
     private void OnDisable()
     {
-        EnvironmentManager.OnEnvironmentChange += UpdateRenderDistance;
+        EnvironmentManager.OnEnvironmentChange -= UpdateRenderDistance;
     }
 
 

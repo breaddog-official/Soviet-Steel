@@ -16,6 +16,7 @@ public class RoadManager : NetworkBehaviour
     [MinValue(0)]
     [SerializeField] private int firstMarker;
     [SerializeField] private float widthOffset;
+    [SerializeField] private int predictMarkers = 5;
     //[Header("Procedural Spawn Points")]
     //[SerializeField] private int firstSpawnMarker;
     //[SerializeField] private int maxSpawnPoints = 64;
@@ -114,18 +115,22 @@ public class RoadManager : NetworkBehaviour
 
                 int nextPoint = player.Value.marker.IncreaseInBoundsReturn(GetMarkers().Count);
 
-                if (Vector3.Distance(network.transform.position, GetPoint(nextPoint)) < GetRadius())
+                for (int i = nextPoint; i < nextPoint + predictMarkers; i.IncreaseInBounds(GetMarkers().Count))
                 {
-                    player.Value.SetMarker(nextPoint);
-                    OnPlayerReachedMarker?.Invoke(network, player.Value.marker);
-
-                    if (nextPoint == firstMarker)
+                    if (Vector3.Distance(network.transform.position, GetPoint(i)) < GetRadius())
                     {
-                        player.Value.AddRound(GameManager.Instance.MatchTime);
-                        OnPlayerReachedRound?.Invoke(network, player.Value.round);
-                    }
+                        player.Value.SetMarker(i);
+                        OnPlayerReachedMarker?.Invoke(network, player.Value.marker);
 
-                    //print($"Player: {network.name} Marker: {player.Value.marker} Round: {player.Value.round}");
+                        if (i == firstMarker)
+                        {
+                            player.Value.AddRound(GameManager.Instance.MatchTime);
+                            OnPlayerReachedRound?.Invoke(network, player.Value.round);
+                        }
+                        //print($"Player: {network.name} Marker: {player.Value.marker} Round: {player.Value.round}");
+
+                        break;
+                    }
                 }
             }
         }
@@ -203,6 +208,7 @@ public class RoadManager : NetworkBehaviour
     private void OnDrawGizmosSelected()
     {
         UnityEngine.Color defaultColor = new(1, 0, 0, 0.5f); // Red
+        UnityEngine.Color predictColor = new(1, 0.92f, 0.016f, 0.5f); // Yellow
         UnityEngine.Color firstColor = new(0, 1, 0, 0.5f); // Green
 
         if (road == null)
@@ -212,6 +218,8 @@ public class RoadManager : NetworkBehaviour
         {
             if (i == firstMarker)
                 Gizmos.color = firstColor;
+            else if (i > firstMarker && i < firstMarker + predictMarkers)
+                Gizmos.color = predictColor;
             else
                 Gizmos.color = defaultColor;
 

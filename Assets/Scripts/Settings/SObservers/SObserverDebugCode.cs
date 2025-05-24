@@ -12,12 +12,13 @@ namespace Scripts.Settings
         public override void UpdateValue()
         {
             string code = string.Empty;
-#if YandexGamesPlatform_yg
+#if YandexGamesPlatform_yg && !UNITY_EDITOR
             code = YG.YG2.envir.payload;
+            print(code);
 #else
             code = Setting;
 #endif
-            if (code == experienceCode && ExperienceManager.Experience < experience)
+            if (string.Equals(code, experienceCode) && ExperienceManager.Experience < experience)
             {
                 ExperienceManager.SetExperience(experience);
             }
